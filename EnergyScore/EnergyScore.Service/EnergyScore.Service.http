@@ -1,4 +1,4 @@
-@EnergyScore.Service_HostAddress = http://localhost:5262
+@EnergyScore.Service_HostAddress = http://localhost:5138
 
 GET {{EnergyScore.Service_HostAddress}}/weatherforecast/
 Accept: application/json

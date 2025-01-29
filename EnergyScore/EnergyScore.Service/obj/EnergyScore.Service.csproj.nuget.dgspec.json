@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore.Service\\EnergyScore.Service\\EnergyScore.Service.csproj": {}
+    "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\EnergyScore.Service.csproj": {}
   },
   "projects": {
-    "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore.Service\\EnergyScore.Service\\EnergyScore.Service.csproj": {
+    "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\EnergyScore.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore.Service\\EnergyScore.Service\\EnergyScore.Service.csproj",
+        "projectUniqueName": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\EnergyScore.Service.csproj",
         "projectName": "EnergyScore.Service",
-        "projectPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore.Service\\EnergyScore.Service\\EnergyScore.Service.csproj",
+        "projectPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\EnergyScore.Service.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore.Service\\EnergyScore.Service\\obj\\",
+        "outputPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
