@@ -1,0 +1,154 @@
+<section class="address-section">
+  <div class="container">
+    <form [formGroup]="addressForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-box">
+            <label for="address1"> Address1 </label>
+            <input
+              formControlName="address1"
+              type="text"
+              id="address1"
+              placeholder="Address 1"
+            />
+            <div
+              class="errormsg"
+              *ngIf="
+                (addressControl['address1']?.touched ||
+                  addressControl['address1']?.dirty) &&
+                addressControl['address1']?.invalid
+              "
+            >
+              <label
+                for="address1"
+                class="text-danger fw-semibold position-absolute"
+              >
+                Address1 is required
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-box">
+            <label for="address2"> Address2 </label>
+            <input
+              formControlName="address2"
+              type="text"
+              id="address2"
+              placeholder="Address 2"
+            />
+            <div
+              class="errormsg"
+              *ngIf="
+                (addressControl['address2']?.touched ||
+                  addressControl['address2']?.dirty) &&
+                addressControl['address2']?.invalid
+              "
+            >
+              <label
+                for="address2"
+                class="text-danger fw-semibold position-absolute"
+              >
+              Address2 is required
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-box">
+            <label for="city"> City </label>
+            <input
+              formControlName="city"
+              type="text"
+              id="city"
+              placeholder="City"
+            />
+            <div
+              class="errormsg"
+              *ngIf="
+                (addressControl['city']?.touched ||
+                  addressControl['city']?.dirty) &&
+                addressControl['city']?.invalid
+              "
+            >
+              <label
+                for="city"
+                class="text-danger fw-semibold position-absolute"
+              >
+              City is required
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="input-box">
+            <label for="State"> State </label>
+            <input
+              formControlName="state"
+              type="text"
+              id="State"
+              placeholder="State"
+            />
+            <div
+              class="errormsg"
+              *ngIf="
+                (addressControl['state']?.touched ||
+                  addressControl['state']?.dirty) &&
+                addressControl['state']?.invalid
+              "
+            >
+              <label
+                for="State"
+                class="text-danger fw-semibold position-absolute"
+              >
+              State is required
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="input-box">
+            <label for="zipcode"> Zipcode </label>
+            <input
+              formControlName="zipcode"
+              id="zipcode"
+              placeholder="zipcode"
+            />
+            <div
+              class="errormsg"
+              *ngIf="
+                (addressControl['zipcode']?.touched ||
+                  addressControl['zipcode']?.dirty) &&
+                addressControl['zipcode']?.invalid
+              "
+            >
+              <label
+                for="zipcode"
+                class="text-danger fw-semibold position-absolute"
+              >
+              Zipcode is required
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="bg-secondary btn-style" (click)="onSubmit()">Next</button>
+    </form>
+  </div>
+</section>
+<!-- <div class="select-box">
+  <label for="address2"> Address2 </label>
+  <ng-select
+    [items]="cars"
+    bindLabel="name"
+    bindValue="id"
+    [(ngModel)]="selectedCar"
+  >
+  </ng-select>
+  <div class="errormsg">
+    <label for="address2" class="text-danger fw-semibold">
+      error
+    </label>
+  </div>
+</div> -->
+
