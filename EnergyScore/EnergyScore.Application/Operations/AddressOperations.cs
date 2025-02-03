@@ -1,24 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EnergyScore.Persistence.DBConnection;
+﻿using EnergyScore.Persistence.DBConnection;
+using EnergyScore.Domain.Entityies;
+using System.Collections;
+using EnergyScore.Application.Mappers;
+using AutoMapper;
+using EnergyScore.Application.Mappers.DTOS;
 
 namespace EnergyScore.Application.Operations
 {
-    public class AddressOperations
+    public interface IAddressOperations
+    {
+       void AddAddress(AddressDTO address);
+       AddressDTO GetAddress(Guid id);
+    }
+    public class AddressOperations : IAddressOperations
     {
         private readonly DbConnect _dbConnect;
-        public AddressOperations(DbConnect dbConnect)
+        private readonly IMapper _mapper;
+        public AddressOperations(DbConnect dbConnect,IMapper mapConfig)
         {
             _dbConnect = dbConnect; 
+            _mapper = mapConfig;
         }
-
-        public void AddAddress(Domain.Entityies.Address address)
+        public void AddAddress(AddressDTO address)
         {
-            _dbConnect.Address.Add(address);
+            Address add = _mapper.Map<Address>(address);
+            _dbConnect.Address.Add(add);
             _dbConnect.SaveChanges();
+        }
+        public AddressDTO GetAddress(Guid id)
+        {
+            return _mapper.Map<AddressDTO>(_dbConnect.Address.Find(id));
         }
     }
 }

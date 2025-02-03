@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "08K8tmNx/FI=",
+  "dgSpecHash": "+HOy86ggBsw=",
   "success": true,
   "projectFilePath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\EnergyScore.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.1\\microsoft.entityframeworkcore.analyzers.9.0.1.nupkg.sha512",

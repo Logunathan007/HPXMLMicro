@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HPXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="3.1" xmlns="http://hpxmlonline.com/2023/09">
+  <XMLTransactionHeaderInformation>
+    <XMLType />
+    <CreatedDateAndTime>2025-01-31T15:15:44.7323778+05:30</CreatedDateAndTime>
+    <Transaction>create</Transaction>
+  </XMLTransactionHeaderInformation>
+  <Building>
+    <Site>
+      <Address>
+        <AddressType>street</AddressType>
+        <Address1>115/49 Forest Road</Address1>
+        <Address2>string</Address2>
+        <CityMunicipality>CA</CityMunicipality>
+        <StateCode>Chennai</StateCode>
+        <ZipCode>23456</ZipCode>
+      </Address>
+    </Site>
+    <ProjectStatus>
+      <EventType>quality assurance/monitoring</EventType>
+      <Date>2025-01-23T00:00:00</Date>
+    </ProjectStatus>
+    <BuildingDetails>
+      <BuildingSummary>
+        <BuildingConstruction>
+          <ResidentialFacilityType>multi-family - condos</ResidentialFacilityType>
+        </BuildingConstruction>
+      </BuildingSummary>
+    </BuildingDetails>
+  </Building>
+</HPXML>

@@ -139,3 +139,4 @@ D:\Logu\microservices\HPXMLMicro\EnergyScore\EnergyScore.Service\bin\Debug\net8.
 D:\Logu\microservices\HPXMLMicro\EnergyScore\EnergyScore.Service\bin\Debug\net8.0\EnergyScore.Domain.pdb
 D:\Logu\microservices\HPXMLMicro\EnergyScore\EnergyScore.Service\bin\Debug\net8.0\EnergyScore.Application.dll
 D:\Logu\microservices\HPXMLMicro\EnergyScore\EnergyScore.Service\bin\Debug\net8.0\EnergyScore.Application.pdb
+D:\Logu\microservices\HPXMLMicro\EnergyScore\EnergyScore.Service\bin\Debug\net8.0\AutoMapper.dll

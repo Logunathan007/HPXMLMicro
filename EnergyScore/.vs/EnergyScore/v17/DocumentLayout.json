@@ -1,7 +1,36 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\operations\\addressoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\operations\\addressoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\hpxmlclasses\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\hpxmlclasses\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\hpxmlconversion\\hpxmloperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\hpxmlconversion\\hpxmloperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\output.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\output.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19137F20-237C-4801-B972-CA049D5DA90A}|EnergyScore.Persistence\\EnergyScore.Persistence.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.persistence\\dbconnection\\dbconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{19137F20-237C-4801-B972-CA049D5DA90A}|EnergyScore.Persistence\\EnergyScore.Persistence.csproj|solutionrelative:energyscore.persistence\\dbconnection\\dbconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +38,96 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "output.xml",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\output.xml",
+              "RelativeDocumentMoniker": "EnergyScore.Service\\output.xml",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\output.xml",
+              "RelativeToolTip": "EnergyScore.Service\\output.xml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-01-31T09:46:00.828Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddressOperations.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\AddressOperations.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Operations\\AddressOperations.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\AddressOperations.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Operations\\AddressOperations.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAgwBoAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T05:58:12.788Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddressController.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Controllers\\AddressController.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Service\\Controllers\\AddressController.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Controllers\\AddressController.cs",
+              "RelativeToolTip": "EnergyScore.Service\\Controllers\\AddressController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAqwBoAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T09:40:24.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Program.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Service\\Program.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Program.cs",
+              "RelativeToolTip": "EnergyScore.Service\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T09:39:31.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DbConnect.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Persistence\\DBConnection\\DbConnect.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Persistence\\DBConnection\\DbConnect.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Persistence\\DBConnection\\DbConnect.cs",
+              "RelativeToolTip": "EnergyScore.Persistence\\DBConnection\\DbConnect.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T08:51:15.244Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HPXMLOperations.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\HPXMLConversion\\HPXMLOperations.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\HPXMLConversion\\HPXMLOperations.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\HPXMLConversion\\HPXMLOperations.cs",
+              "RelativeToolTip": "EnergyScore.Application\\HPXMLConversion\\HPXMLOperations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T08:52:29.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HPXML.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAiwEAAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T08:56:39.995Z",
+              "EditorCaption": ""
             }
           ]
         }

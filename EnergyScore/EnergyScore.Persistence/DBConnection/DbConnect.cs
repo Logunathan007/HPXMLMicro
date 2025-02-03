@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using EnergyScore.Domain.Entityies;
+using EnergyScore.Persistence.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EnergyScore.Persistence.DBConnection
 {
@@ -8,6 +11,13 @@ namespace EnergyScore.Persistence.DBConnection
         {
             
         }
-        public DbSet<Domain.Entityies.Address> Address { get; set; }
+        public DbSet<Address> Address { get; set; }
     }
 }
+/*
+
+
+-- for migrations
+
+Add - Migration InitialCreate - Project YourDataProject - StartupProject YourWebAPIProject
+Update-Database -Project YourDataProject -StartupProject YourWebAPIProject*/

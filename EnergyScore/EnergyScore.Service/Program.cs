@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using EnergyScore.Persistence.DBConnection;
-using System.Data.Common;
 using EnergyScore.Application.Operations;
+using EnergyScore.Application.Mappers;
+using EnergyScore.Application.HPXMLConversion;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +14,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//DBConnection
 builder.Services.AddDbContext<DbConnect>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<AddressOperations, AddressOperations>();
+//AutoMapperConfig
+builder.Services.AddAutoMapper(typeof(MapConfig));
+
+//Operations
+builder.Services.AddScoped<IAddressOperations, AddressOperations>();
+builder.Services.AddScoped<IHPXMLOperations, HPXMLOperations>();
+
 
 var app = builder.Build();
 
