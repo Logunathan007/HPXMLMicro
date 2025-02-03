@@ -1,3 +1,4 @@
+import { CommonService } from './../../shared/common/common.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -24,7 +25,7 @@ export class AddressComponent {
     return this.addressForm.controls;
   }
 
-  constructor(public fb:FormBuilder){
+  constructor(public fb:FormBuilder,private commonService:CommonService){
     this.variableDeclaration();
   }
 
@@ -32,7 +33,7 @@ export class AddressComponent {
   variableDeclaration(){
     this.addressForm = this.fb.group({
       address1:["",Validators.required],
-      address2:["",Validators.required],
+      address2:[""],
       state:["",Validators.required],
       city:["",Validators.required],
       zipcode:["",[Validators.required,Validators.minLength(4),Validators.maxLength(5)]],
@@ -45,9 +46,8 @@ export class AddressComponent {
       this.addressForm.markAllAsTouched();
       return;
     }
-    debugger
+    this.commonService.sendAddress(this.addressForm.getRawValue()).subscribe((val)=>{
+      console.log(val);
+    });
   }
-
-
-
 }

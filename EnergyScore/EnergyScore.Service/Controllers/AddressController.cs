@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EnergyScore.Application.Operations;
-using EnergyScore.Domain.Entityies;
 using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.HPXMLConversion;
+using EnergyScore.Application.Mappers.Templates;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnergyScore.Service.Controllers
@@ -29,10 +29,14 @@ namespace EnergyScore.Service.Controllers
 
         // POST api/<Address>
         [HttpPost]
-        public ActionResult Post([FromBody] AddressDTO req)
+        public ActionResult<Response> Post([FromBody] AddressDTO req)
         {
             _AddressOperation.AddAddress(req);  
-            return Ok(200);
+            return Ok(new Response()
+            {
+                Failed = false,
+                Message = "Address Added Successfully"
+            });
         }
     }
 }

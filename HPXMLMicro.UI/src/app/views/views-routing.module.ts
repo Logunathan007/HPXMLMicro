@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path:'',
     pathMatch: 'full',
-    redirectTo:'about'
+    redirectTo:'address'
   },
   {
     path:'about',
@@ -27,7 +27,6 @@ const routes: Routes = [
     path:'systems',
     component:SystemsComponent
   }
-
 ];
 
 @NgModule({
