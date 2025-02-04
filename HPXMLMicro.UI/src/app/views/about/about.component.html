@@ -1,1 +1,424 @@
-<p>about works!</p>
+<section class="about-section">
+  <form [formGroup]="aboutForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="select-box">
+          <label for="residentialFacilityType">
+            Residential Facility Type
+          </label>
+          <ng-select
+            [items]="residentialFacilityTypeOptions"
+            bindLabel="name"
+            [clearable]="false"
+            [closeOnSelect]="true"
+            bindValue="value"
+            placeholder="Residential Facility Type"
+            id="residentialFacilityType"
+            formControlName="residentialFacilityType"
+          >
+          </ng-select>
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['residentialFacilityType']?.touched ||
+                aboutFormControl['residentialFacilityType']?.dirty) &&
+              aboutFormControl['residentialFacilityType']?.invalid
+            "
+          >
+            <label
+              for="residentialFacilityType"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Residential Facility Type is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="yearBuilt"> Year of Build </label>
+          <input
+            formControlName="yearBuilt"
+            type="number"
+            id="yearBuilt"
+            placeholder="Year of Build"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['yearBuilt']?.touched ||
+                aboutFormControl['yearBuilt']?.dirty) &&
+              aboutFormControl['yearBuilt']?.invalid
+            "
+          >
+            <label
+              for="yearBuilt"
+              class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['yearBuilt']?.errors?.['required']"
+            >
+              Year of Build is required
+            </label>
+            <label
+              for="yearBuilt"
+              class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['yearBuilt']?.errors?.['min'] || aboutFormControl['yearBuilt']?.errors?.['max']"
+            >
+              Year of Build is invalid
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="numberofBedrooms"> Number of Bedrooms </label>
+          <input
+            formControlName="numberofBedrooms"
+            type="number"
+            id="numberofBedrooms"
+            placeholder="Number of Bedrooms"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['numberofBedrooms']?.touched ||
+                aboutFormControl['numberofBedrooms']?.dirty) &&
+              aboutFormControl['numberofBedrooms']?.invalid
+            "
+          >
+            <label
+              for="numberofBedrooms"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Number of Bedrooms is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="numberofConditionedFloorsAboveGrade">
+            Number of Conditioned Floors Above Grade
+          </label>
+          <input
+            formControlName="numberofConditionedFloorsAboveGrade"
+            type="number"
+            id="numberofConditionedFloorsAboveGrade"
+            placeholder="Number of Conditioned Floors Above Grade"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['numberofConditionedFloorsAboveGrade']
+                ?.touched ||
+                aboutFormControl['numberofConditionedFloorsAboveGrade']
+                  ?.dirty) &&
+              aboutFormControl['numberofConditionedFloorsAboveGrade']?.invalid
+            "
+          >
+            <label
+              for="numberofConditionedFloorsAboveGrade"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Number of Conditioned Floors Above Grade is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="averageCeilingHeight">Average Ceiling Height </label>
+          <input
+            formControlName="averageCeilingHeight"
+            type="number"
+            id="averageCeilingHeight"
+            placeholder="Average Ceiling Height "
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['averageCeilingHeight']?.touched ||
+                aboutFormControl['averageCeilingHeight']?.dirty) &&
+              aboutFormControl['averageCeilingHeight']?.invalid
+            "
+          >
+            <label
+              for="averageCeilingHeight"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Average Ceiling Height is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="conditionedBuildingVolume"
+            >Conditioned Building Volume</label
+          >
+          <input
+            formControlName="conditionedBuildingVolume"
+            type="number"
+            id="conditionedBuildingVolume"
+            placeholder="Conditioned Building Volume"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['conditionedBuildingVolume']?.touched ||
+                aboutFormControl['conditionedBuildingVolume']?.dirty) &&
+              aboutFormControl['conditionedBuildingVolume']?.invalid
+            "
+          >
+            <label
+              for="conditionedBuildingVolume"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Conditioned Building Volume is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="conditionedFloorArea">Conditioned Floor Area</label>
+          <input
+            formControlName="conditionedFloorArea"
+            type="number"
+            id="conditionedFloorArea"
+            placeholder="Conditioned Floor Area"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['conditionedFloorArea']?.touched ||
+                aboutFormControl['conditionedFloorArea']?.dirty) &&
+              aboutFormControl['conditionedFloorArea']?.invalid
+            "
+          >
+            <label
+              for="conditionedFloorArea"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Conditioned Floor Area is required
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-box">
+          <label for="azimuthOfFrontOfHome">Azimuth Of Front Of Home</label>
+          <input
+            formControlName="azimuthOfFrontOfHome"
+            type="number"
+            id="azimuthOfFrontOfHome"
+            placeholder="Azimuth Of Front Of Home"
+          />
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['azimuthOfFrontOfHome']?.touched ||
+                aboutFormControl['azimuthOfFrontOfHome']?.dirty) &&
+              aboutFormControl['azimuthOfFrontOfHome']?.invalid
+            "
+          >
+            <label
+              for="azimuthOfFrontOfHome"
+              class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['azimuthOfFrontOfHome']?.errors?.['required']"
+            >
+              Azimuth Of Front Of Home is required
+            </label>
+            <label
+              for="azimuthOfFrontOfHome"
+              class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['azimuthOfFrontOfHome']?.errors?.['min'] || aboutFormControl['azimuthOfFrontOfHome']?.errors?.['max']"
+            >
+              Azimuth Of Front Of Home is invalid
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="select-box">
+          <label for="orientationOfFrontOfHome">
+            Orientation Of Front Of Home
+          </label>
+          <ng-select
+            [items]="orientationOfFrontOfHomeOptions"
+            bindLabel="name"
+            [clearable]="false"
+            [closeOnSelect]="true"
+            bindValue="value"
+            placeholder="Orientation Of Front Of Home"
+            id="orientationOfFrontOfHome"
+            formControlName="orientationOfFrontOfHome"
+          >
+          </ng-select>
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['orientationOfFrontOfHome']?.touched ||
+                aboutFormControl['orientationOfFrontOfHome']?.dirty) &&
+              aboutFormControl['orientationOfFrontOfHome']?.invalid
+            "
+          >
+            <label
+              for="orientationOfFrontOfHome"
+              class="text-danger fw-semibold position-absolute"
+            >
+              Orientation Of Front Of Home is required
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Air Infiltration Measurements &nbsp;&nbsp;
+      <button class="ms-2 icon-btn" (click)="addAirInfiltrationInput()">
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <div formArrayName="airInfiltrationMeasurements">
+      <div
+        class="mb-4"
+        *ngFor="
+          let infiltration of airInfiltrationMeasurementsObj?.controls;
+          let i = index
+        "
+      >
+        <div class="row" [formGroupName]="i">
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Air Infiltration Test ({{ i + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeAirInfiltrationInput(i)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="col-md-6">
+            <div class="select-box">
+              <label for="housePressure"> House Pressure </label>
+              <ng-select
+                [items]="housePressureOptions"
+                bindLabel="name"
+                [clearable]="false"
+                [closeOnSelect]="true"
+                bindValue="value"
+                placeholder="House Pressure"
+                id="housePressure"
+                formControlName="housePressure"
+              >
+              </ng-select>
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('housePressure')?.touched ||
+                    infiltration.get('housePressure')?.dirty) &&
+                  infiltration.get('housePressure')?.invalid
+                "
+              >
+                <label
+                  for="housePressure"
+                  class="text-danger fw-semibold position-absolute"
+                >
+                  House Pressure is required
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="select-box">
+              <label for="unitofMeasure"> Unit of Measure </label>
+              <ng-select
+                [items]="unitofMeasureOptions"
+                bindLabel="name"
+                [clearable]="false"
+                [closeOnSelect]="true"
+                bindValue="value"
+                placeholder="Unit of Measure"
+                id="unitofMeasure"
+                formControlName="unitofMeasure"
+              >
+              </ng-select>
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('unitofMeasure')?.touched ||
+                    infiltration.get('unitofMeasure')?.dirty) &&
+                  infiltration.get('unitofMeasure')?.invalid
+                "
+              >
+                <label
+                  for="unitofMeasure"
+                  class="text-danger fw-semibold position-absolute"
+                >
+                  Unit of Measure is required
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-box">
+              <label for="airLeakage"> Air Leakage </label>
+              <input
+                formControlName="airLeakage"
+                type="number"
+                id="airLeakage"
+                placeholder="Air Leakage"
+              />
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('airLeakage')?.touched ||
+                    infiltration.get('airLeakage')?.dirty) &&
+                  infiltration.get('airLeakage')?.invalid
+                "
+              >
+                <label
+                  for="airLeakage"
+                  class="text-danger fw-semibold position-absolute"
+                >
+                  Air Leakage is required
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="select-box">
+              <label for="leakinessDescription"> Leakiness Description </label>
+              <ng-select
+                [items]="leakinessDescriptionOptions"
+                bindLabel="name"
+                [clearable]="false"
+                [closeOnSelect]="true"
+                bindValue="value"
+                placeholder="Leakiness Description"
+                id="leakinessDescription"
+                formControlName="leakinessDescription"
+              >
+              </ng-select>
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('leakinessDescription')?.touched ||
+                    infiltration.get('leakinessDescription')?.dirty) &&
+                  infiltration.get('leakinessDescription')?.invalid
+                "
+              >
+                <label
+                  for="leakinessDescription"
+                  class="text-danger fw-semibold position-absolute"
+                >
+                  Leakiness Description is required
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="bg-secondary btn-style" (click)="onSubmit()">Next</button>
+  </form>
+</section>

@@ -3,28 +3,8 @@
   "WorkspaceRootPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\mappers\\templates\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\mappers\\templates\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\hpxmlclasses\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\hpxmlclasses\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\controllers\\addresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.service\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{CC1B2FB3-10F4-4C31-96D6-E8FAE952678E}|EnergyScore.Service\\EnergyScore.Service.csproj|solutionrelative:energyscore.service\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,84 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\appsettings.json",
-              "RelativeDocumentMoniker": "EnergyScore.Service\\appsettings.json",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\appsettings.json",
-              "RelativeToolTip": "EnergyScore.Service\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-03T11:54:14.264Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Response.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Mappers\\Templates\\Response.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Application\\Mappers\\Templates\\Response.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Mappers\\Templates\\Response.cs",
-              "RelativeToolTip": "EnergyScore.Application\\Mappers\\Templates\\Response.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T11:52:11.321Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HPXML.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
-              "RelativeToolTip": "EnergyScore.Domain\\HPXMLClasses\\HPXML.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAiwE8AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T11:49:50.932Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "AddressController.cs",
               "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Controllers\\AddressController.cs",
               "RelativeDocumentMoniker": "EnergyScore.Service\\Controllers\\AddressController.cs",
               "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Controllers\\AddressController.cs",
               "RelativeToolTip": "EnergyScore.Service\\Controllers\\AddressController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwCkAAAABAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAxwB8AAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-03T11:47:53.214Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Program.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Service\\Program.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Program.cs",
-              "RelativeToolTip": "EnergyScore.Service\\Program.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAACMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T11:22:22.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "EnergyScore.Service\\Properties\\launchSettings.json",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Service\\Properties\\launchSettings.json",
-              "RelativeToolTip": "EnergyScore.Service\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-03T11:20:12.922Z",
               "EditorCaption": ""
             }
           ]

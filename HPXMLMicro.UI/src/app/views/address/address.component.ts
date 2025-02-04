@@ -1,4 +1,4 @@
-import { CommonService } from './../../shared/common/common.service';
+import { CommonService } from '../../shared/services/common.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -8,18 +8,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
   styleUrl: './address.component.scss'
 })
 export class AddressComponent {
-  // selectedCar: number = 0;
-
-  // cars = [
-  //     { id: 1, name: 'Volvo' },
-  //     { id: 2, name: 'Saab' },
-  //     { id: 3, name: 'Opel' },
-  //     { id: 4, name: 'Audi' },
-  // ];
 
   //variable initializations
   addressForm!:FormGroup;
-
 
   get addressControl() {
     return this.addressForm.controls;
@@ -36,7 +27,7 @@ export class AddressComponent {
       address2:[""],
       state:["",Validators.required],
       city:["",Validators.required],
-      zipcode:["",[Validators.required,Validators.minLength(4),Validators.maxLength(5)]],
+      zipcode:[null,[Validators.required,Validators.min(999),Validators.max(100000)]],
     })
   }
 

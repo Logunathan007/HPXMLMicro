@@ -49,7 +49,7 @@
                 for="address2"
                 class="text-danger fw-semibold position-absolute"
               >
-              Address2 is required
+                Address2 is required
               </label>
             </div>
           </div>
@@ -75,7 +75,7 @@
                 for="city"
                 class="text-danger fw-semibold position-absolute"
               >
-              City is required
+                City is required
               </label>
             </div>
           </div>
@@ -101,17 +101,18 @@
                 for="State"
                 class="text-danger fw-semibold position-absolute"
               >
-              State is required
+                State is required
               </label>
             </div>
           </div>
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="input-box">
-            <label for="zipcode"> Zipcode </label>
+            <label for="zipcode"> Zipcode </label>{{addressControl['zipcode']?.errors | json}}
             <input
               formControlName="zipcode"
               id="zipcode"
+              type="number"
               placeholder="zipcode"
             />
             <div
@@ -123,10 +124,18 @@
               "
             >
               <label
-                for="zipcode"
+                for="yearBuilt"
                 class="text-danger fw-semibold position-absolute"
+                *ngIf="addressControl['zipcode']?.errors?.['required']"
               >
-              Zipcode is required
+                Zipcode is required
+              </label>
+              <label
+                for="yearBuilt"
+                class="text-danger fw-semibold position-absolute"
+                *ngIf="addressControl['zipcode']?.errors?.['min'] || addressControl['zipcode']?.errors?.['max']"
+              >
+                Zipcode is invalid
               </label>
             </div>
           </div>
@@ -151,4 +160,3 @@
     </label>
   </div>
 </div> -->
-
