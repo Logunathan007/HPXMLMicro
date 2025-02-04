@@ -1,6 +1,7 @@
 import { CommonService } from '../../shared/services/common.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address',
@@ -16,7 +17,7 @@ export class AddressComponent {
     return this.addressForm.controls;
   }
 
-  constructor(public fb:FormBuilder,private commonService:CommonService){
+  constructor(public fb:FormBuilder,private commonService:CommonService,private router: Router){
     this.variableDeclaration();
   }
 
@@ -32,13 +33,14 @@ export class AddressComponent {
   }
 
   onSubmit(){
-    debugger
     if(this.addressForm.invalid) {
       this.addressForm.markAllAsTouched();
       return;
     }
     this.commonService.sendAddress(this.addressForm.getRawValue()).subscribe((val)=>{
       console.log(val);
+      this.addressForm.reset();
+      this.router.navigate(['about'])
     });
   }
 }

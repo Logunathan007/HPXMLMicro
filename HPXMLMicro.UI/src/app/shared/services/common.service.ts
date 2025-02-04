@@ -7,7 +7,14 @@ import { envVariable } from '../../environents/environment.development';
 })
 export class CommonService {
   constructor(private http:HttpClient) { }
+
+  //for Address
   sendAddress(req:any){
     return this.http.post(envVariable.API_URL+'Address',req);
+  }
+
+  //for About
+  sendAbout(req:any){
+    return this.http.post(envVariable.API_URL+'About',req);
   }
 }

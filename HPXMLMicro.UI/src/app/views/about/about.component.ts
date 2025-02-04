@@ -60,7 +60,7 @@ export class AboutComponent {
 
   addAirInfiltrationInput() {
     this.airInfiltrationMeasurementsObj?.push(this.airInfiltrationInput());
-    debugger
+
   }
 
   removeAirInfiltrationInput(index: number) {
@@ -68,15 +68,14 @@ export class AboutComponent {
     this.airInfiltrationMeasurementsObj.removeAt(index);
   }
   onSubmit(){
-    debugger
     if(this.aboutForm.invalid) {
       this.aboutForm.markAllAsTouched();
       return;
     }
-    console.log(this.aboutForm.getRawValue());
+    this.commonService.sendAbout(this.aboutForm.getRawValue()).subscribe((val)=>{
+      console.log(val);
+      // this.aboutForm.reset();
+    });
 
-    // this.commonService.sendAddress(this.aboutForm.getRawValue()).subscribe((val)=>{
-    //   console.log(val);
-    // });
   }
 }
