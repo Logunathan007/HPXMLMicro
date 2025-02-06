@@ -19,9 +19,19 @@ export class CommonService {
     return this.http.post(envVariable.API_URL+'About',req, { params });
   }
 
-  //for Generation
-  getHPXML(id:string){
+  //for HPXMLGeneration
+  getHPXMLString(id:string){
     const params = new HttpParams().set('buildingId',id)
     return this.http.get(envVariable.API_URL+'HPXMLGeneration/string', { params })
   }
+  getHPXMLBase64(id:string){
+    const params = new HttpParams().set('buildingId',id)
+    return this.http.get(envVariable.API_URL+'HPXMLGeneration/base64', { params })
+  }
+
+  //for Validation
+  validateHpxml(res:any){
+    return this.http.post(envVariable.VALIDATION_URL,res)
+  }
+
 }

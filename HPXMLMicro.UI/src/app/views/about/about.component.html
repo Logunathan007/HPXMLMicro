@@ -421,6 +421,10 @@
     </div>
     <button class="bg-secondary btn-style" (click)="onSubmit()">Next</button>
   </form>
-  <button class="d-block btn-style mx-auto bg-success my-5 "(click)="GenerateHPXML()" > Generate HPXML </button>
+  <button class="d-block btn-style mx-auto bg-success my-5 "(click)="generateHPXML()" > Generate HPXML </button>
   <p>{{ hpxmlString }}</p>
+  <button class="d-block btn-style mx-auto bg-success my-5 " *ngIf="hpxmlString" (click)="validateHPXML()" > Validate HPXML </button>
+  <div class="border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4" *ngIf="validationMsg" style="background-color: rgba(0, 0, 0, 0.089);">
+    <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+  </div>
 </section>

@@ -68,7 +68,7 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class ProjectStatus
     {
         public string EventType { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 
     public class BuildingDetails
@@ -108,18 +108,19 @@ namespace EnergyScore.Application.Templates.HPXMLs
 
     public class AirInfiltration
     {
+        [XmlElement("AirInfiltrationMeasurement")]
         public List<AirInfiltrationMeasurement> AirInfiltrationMeasurement { get; set; }
     }
 
     public class AirInfiltrationMeasurement
     {
-        [XmlElement("id")]
-        public SystemIndentifier SystemIndentifier { get; set; }
+        [XmlElement("SystemIdentifier")]
+        public SystemIdentifier SystemIdentifier { get; set; }
+        public float HousePressure { get; set; }
         public string LeakinessDescription { get; set; }
         public BuildingAirLeakage BuildingAirLeakage { get; set; }
     }
-
-    public class SystemIndentifier
+    public class SystemIdentifier
     {
         [XmlAttribute("id")]
         public string Id { get; set; }

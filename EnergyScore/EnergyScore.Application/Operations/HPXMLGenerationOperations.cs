@@ -16,6 +16,12 @@ namespace EnergyScore.Application.Operations
         public string GenerateHPXMLString(HPXML hpxml);
         public string GenerateHPXMLStringBase64Encode(HPXML hpxml);
     }
+
+    public class Utf8StringWriter : StringWriter
+    {
+        public override Encoding Encoding => Encoding.UTF8;
+    }
+
     public class HPXMLGenerationOperations : IHPXMLGenerationOperations
     {
         private readonly DbConnect _dbConnect;
@@ -73,7 +79,7 @@ namespace EnergyScore.Application.Operations
             var serializer = new XmlSerializer(typeof(HPXML));
             string xmlString;
 
-            using (var stringWriter = new StringWriter())
+            using (var stringWriter = new Utf8StringWriter())
             {
                 var settings = new XmlWriterSettings
                 {

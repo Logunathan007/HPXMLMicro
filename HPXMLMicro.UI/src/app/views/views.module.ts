@@ -8,6 +8,7 @@ import { ZonesComponent } from './zones/zones.component';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 
 
@@ -24,7 +25,8 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxJsonViewerModule
   ],
 })
 export class ViewsModule { }

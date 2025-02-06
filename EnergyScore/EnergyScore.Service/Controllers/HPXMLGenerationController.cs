@@ -26,7 +26,7 @@ namespace EnergyScore.Service.Controllers
                 return new HPXMLStringResponse { Failed = true, Message = res.Message };
             }
             string hpxmlString = _hPXMLGenerationOperations.GenerateHPXMLString(res.hPXML);
-            return new HPXMLStringResponse { Failed = false, HPXMLString = hpxmlString };
+            return new HPXMLStringResponse { Failed = false, HPXMLString = hpxmlString, Message = "HPXML String Successfully Generated" };
         }
 
         [HttpGet("base64")]
@@ -38,7 +38,7 @@ namespace EnergyScore.Service.Controllers
                 return new HPXMLBase64Response { Failed = true, Message = res.Message };
             }
             string hpxmlString = _hPXMLGenerationOperations.GenerateHPXMLStringBase64Encode(res.hPXML);
-            return new HPXMLBase64Response { Failed = false, HPXMLBase64String = hpxmlString };
+            return new HPXMLBase64Response { Failed = false, HPXMLBase64String = hpxmlString, Message = "Base64 String Successfully Generated" };
         }
     }
 }

@@ -19,7 +19,8 @@ export class AboutComponent implements OnInit {
   housePressureOptions = housePressureOptions
   unitofMeasureOptions = unitofMeasureOptions
   leakinessDescriptionOptions = leakinessDescriptionOptions
-  hpxmlString!:string;
+  hpxmlString!: string;
+  validationMsg!:any;
 
   get aboutFormControl() {
     return this.aboutForm.controls;
@@ -90,11 +91,25 @@ export class AboutComponent implements OnInit {
     });
   }
 
-  GenerateHPXML(){
-    this.commonService.getHPXML(this.buildingId).subscribe(
-      (val:any)=>{
-        if(!val?.failed){
+  generateHPXML() {
+    this.commonService.getHPXMLString(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
           this.hpxmlString = val?.hpxmlString
+        }
+      }
+    )
+  }
+
+  validateHPXML() {
+    this.commonService.getHPXMLBase64(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.commonService.validateHpxml(val).subscribe(
+            (res:any)=>{
+              this.validationMsg = res
+            }
+          )
         }
       }
     )

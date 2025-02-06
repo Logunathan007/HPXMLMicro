@@ -25,10 +25,11 @@ namespace EnergyScore.Application.Operations
             {
                 airInFilMeasure.Add(new AirInfiltrationMeasurement
                 {
-                    SystemIndentifier = new SystemIndentifier
+                    SystemIdentifier = new SystemIdentifier
                     {
                         Id = _idConvertor.GuidToHPXMLIDConvertor(item.Id),
                     },
+                    HousePressure = item.HousePressure,
                     LeakinessDescription = item.LeakinessDescription,
                     BuildingAirLeakage = new BuildingAirLeakage()
                     {
@@ -74,7 +75,7 @@ namespace EnergyScore.Application.Operations
                     ProjectStatus = new ProjectStatus
                     {
                         EventType = "quality assurance/monitoring",
-                        Date = DateTime.Today.Date
+                        Date = DateTime.Today.Date.ToString("yyyy-MM-dd")
                     },
                     BuildingDetails = new BuildingDetails
                     {

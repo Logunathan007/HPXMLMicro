@@ -3,6 +3,7 @@ using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies;
 using EnergyScore.Persistence.DBConnection;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnergyScore.Application.Operations
 {
@@ -33,7 +34,7 @@ namespace EnergyScore.Application.Operations
 
         public AboutDTO GetAboutById(Guid AboutId)
         {
-            About about = _dbConnect.Abouts.FirstOrDefault(obj => obj.Id == AboutId);
+            About about = _dbConnect.Abouts.Include(obj => obj.AirInfiltrationMeasurements).FirstOrDefault(obj => obj.Id == AboutId);
             if (about == null)
             {
                 return null;
