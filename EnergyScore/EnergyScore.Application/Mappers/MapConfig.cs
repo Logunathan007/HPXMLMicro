@@ -8,7 +8,10 @@ namespace EnergyScore.Application.Mappers
     {
         public MapConfig()
         {
+            CreateMap<AirInfiltrationMeasurement, AirInfiltrationMeasurementDTO>().ReverseMap();
+            CreateMap<About, AboutDTO>().ReverseMap();
             CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<Building, BuildingDTO>().ReverseMap();
         }
     }
 }

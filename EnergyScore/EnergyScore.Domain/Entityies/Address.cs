@@ -6,7 +6,7 @@ namespace EnergyScore.Domain.Entityies
     public class Address
     {
         [Key]
-        public Guid AddressId { get; set; }
+        public Guid Id { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }

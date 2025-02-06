@@ -19,7 +19,7 @@ export const orientationOfFrontOfHomeOptions = [
 ]
 
 export const housePressureOptions = [
-  {name:'50',value:'50'},
+  {name:50,value:50.0},
 ]
 
 export const unitofMeasureOptions = [

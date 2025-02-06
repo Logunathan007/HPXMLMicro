@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { envVariable } from '../../environents/environment.development';
 
@@ -14,7 +14,14 @@ export class CommonService {
   }
 
   //for About
-  sendAbout(req:any){
-    return this.http.post(envVariable.API_URL+'About',req);
+  sendAbout(req:any,id:string){
+    const params = new HttpParams().set('buildingId',id)
+    return this.http.post(envVariable.API_URL+'About',req, { params });
+  }
+
+  //for Generation
+  getHPXML(id:string){
+    const params = new HttpParams().set('buildingId',id)
+    return this.http.get(envVariable.API_URL+'HPXMLGeneration/string', { params })
   }
 }

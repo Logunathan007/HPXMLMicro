@@ -1,22 +1,25 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { housePressureOptions, leakinessDescriptionOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
 
   //variable initializations
+  buildingId!: string;
   aboutForm!: FormGroup;
   residentialFacilityTypeOptions = residentialFacilityTypeOptions;
   orientationOfFrontOfHomeOptions = orientationOfFrontOfHomeOptions;
   housePressureOptions = housePressureOptions
   unitofMeasureOptions = unitofMeasureOptions
   leakinessDescriptionOptions = leakinessDescriptionOptions
+  hpxmlString!:string;
 
   get aboutFormControl() {
     return this.aboutForm.controls;
@@ -26,8 +29,18 @@ export class AboutComponent {
     return this.aboutForm.get('airInfiltrationMeasurements') as FormArray;
   }
 
-  constructor(public fb: FormBuilder, private commonService: CommonService) {
+  constructor(
+    public fb: FormBuilder,
+    private commonService: CommonService,
+    private route: ActivatedRoute
+  ) {
     this.variableDeclaration();
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params => {
+      this.buildingId = params.get('id') ?? "";
+    })
   }
 
   //variable declarations
@@ -60,22 +73,30 @@ export class AboutComponent {
 
   addAirInfiltrationInput() {
     this.airInfiltrationMeasurementsObj?.push(this.airInfiltrationInput());
-
   }
 
   removeAirInfiltrationInput(index: number) {
     if (this.airInfiltrationMeasurementsObj.controls.length == 1) return;
     this.airInfiltrationMeasurementsObj.removeAt(index);
   }
-  onSubmit(){
-    if(this.aboutForm.invalid) {
+
+  onSubmit() {
+    if (this.aboutForm.invalid) {
       this.aboutForm.markAllAsTouched();
       return;
     }
-    this.commonService.sendAbout(this.aboutForm.getRawValue()).subscribe((val)=>{
+    this.commonService.sendAbout(this.aboutForm.getRawValue(), this.buildingId).subscribe((val) => {
       console.log(val);
-      // this.aboutForm.reset();
     });
+  }
 
+  GenerateHPXML(){
+    this.commonService.getHPXML(this.buildingId).subscribe(
+      (val:any)=>{
+        if(!val?.failed){
+          this.hpxmlString = val?.hpxmlString
+        }
+      }
+    )
   }
 }

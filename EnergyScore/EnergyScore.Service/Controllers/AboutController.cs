@@ -1,5 +1,6 @@
-﻿using EnergyScore.Domain.Entityies;
-using EnergyScore.Domain.HPXMLClasses;
+﻿using EnergyScore.Application.Mappers.DTOS;
+using EnergyScore.Application.Operations;
+using EnergyScore.Application.Templates.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,26 +11,17 @@ namespace EnergyScore.Service.Controllers
     [ApiController]
     public class AboutController : ControllerBase
     {
-        // GET: api/<AboutController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAboutOperations _aboutOperations;
+        public AboutController(IAboutOperations aboutOperations)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<AboutController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            _aboutOperations = aboutOperations;
         }
 
         // POST api/<AboutController>
         [HttpPost]
-        public About Post([FromBody] About add)
+        public ActionResult<Response> Post([FromBody] AboutDTO add, [FromQuery] Guid BuildingId)
         {
-            return add;
+            return Ok(_aboutOperations.AddAbout(add,BuildingId));
         }
-
     }
 }

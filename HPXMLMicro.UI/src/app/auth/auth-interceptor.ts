@@ -12,7 +12,6 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(
         (res: any) => {
-          console.log("res is", res);
           if (res?.body) {
             const message = res?.body?.message || 'No message';
             const status = res?.status || 'No status';
@@ -22,8 +21,6 @@ export class AuthInterceptor implements HttpInterceptor {
             } else {
               this.toastr.success(`${status} ${message}`);
             }
-          } else {
-            this.toastr.warning('No body in response');
           }
         },
         (error: any) => {

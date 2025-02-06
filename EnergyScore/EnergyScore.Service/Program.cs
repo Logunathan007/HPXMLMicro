@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using EnergyScore.Persistence.DBConnection;
 using EnergyScore.Application.Operations;
 using EnergyScore.Application.Mappers;
-using EnergyScore.Application.HPXMLConversion;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +21,11 @@ builder.Services.AddDbContext<DbConnect>(options => options.UseNpgsql(builder.Co
 builder.Services.AddAutoMapper(typeof(MapConfig));
 
 //Operations
+builder.Services.AddScoped<IBuildingOperations, BuildingOperations>();
 builder.Services.AddScoped<IAddressOperations, AddressOperations>();
+builder.Services.AddScoped<IAboutOperations, AboutOperations>();
 builder.Services.AddScoped<IHPXMLOperations, HPXMLOperations>();
+builder.Services.AddScoped<IHPXMLGenerationOperations, HPXMLGenerationOperations>();
 
 //CORS Policy
 builder.Services.AddCors(option =>

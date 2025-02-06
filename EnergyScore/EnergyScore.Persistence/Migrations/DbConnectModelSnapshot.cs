@@ -24,47 +24,47 @@ namespace EnergyScore.Persistence.Migrations
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.About", b =>
                 {
-                    b.Property<Guid>("AboutId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("averageCeilingHeight")
+                    b.Property<float>("AverageCeilingHeight")
+                        .HasColumnType("real");
+
+                    b.Property<int>("AzimuthOfFrontOfHome")
                         .HasColumnType("integer");
 
-                    b.Property<int>("azimuthOfFrontOfHome")
+                    b.Property<float>("ConditionedBuildingVolume")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ConditionedFloorArea")
+                        .HasColumnType("real");
+
+                    b.Property<int>("NumberofBedrooms")
                         .HasColumnType("integer");
 
-                    b.Property<int>("conditionedBuildingVolume")
-                        .HasColumnType("integer");
+                    b.Property<float>("NumberofConditionedFloorsAboveGrade")
+                        .HasColumnType("real");
 
-                    b.Property<int>("conditionedFloorArea")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("numberofBedrooms")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("numberofConditionedFloorsAboveGrade")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("orientationOfFrontOfHome")
+                    b.Property<string>("OrientationOfFrontOfHome")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("residentialFacilityType")
+                    b.Property<string>("ResidentialFacilityType")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("yearBuilt")
+                    b.Property<int>("YearBuilt")
                         .HasColumnType("integer");
 
-                    b.HasKey("AboutId");
+                    b.HasKey("Id");
 
-                    b.ToTable("About");
+                    b.ToTable("Abouts");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.Address", b =>
                 {
-                    b.Property<Guid>("AddressId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -87,25 +87,25 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<int>("Zipcode")
                         .HasColumnType("integer");
 
-                    b.HasKey("AddressId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresss");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.AirInfiltrationMeasurement", b =>
                 {
-                    b.Property<Guid>("AirInfiltrationMeasurementId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("AboutId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("AirLeakage")
-                        .HasColumnType("integer");
+                    b.Property<float>("AirLeakage")
+                        .HasColumnType("real");
 
-                    b.Property<int>("HousePressure")
-                        .HasColumnType("integer");
+                    b.Property<double>("HousePressure")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("LeakinessDescription")
                         .IsRequired()
@@ -115,11 +115,28 @@ namespace EnergyScore.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("AirInfiltrationMeasurementId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AboutId");
 
-                    b.ToTable("AirInfiltrationMeasurement");
+                    b.ToTable("AirInfiltrationMeasurements");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.Building", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AboutId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Buildings");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.AirInfiltrationMeasurement", b =>
