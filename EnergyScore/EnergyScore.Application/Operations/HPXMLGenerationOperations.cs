@@ -80,7 +80,8 @@ namespace EnergyScore.Application.Operations
                     Indent = true,
                     IndentChars = "  ",
                     NewLineOnAttributes = false,
-                    OmitXmlDeclaration = false
+                    OmitXmlDeclaration = false,
+                    Encoding = Encoding.UTF8
                 };
                 using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
                 {

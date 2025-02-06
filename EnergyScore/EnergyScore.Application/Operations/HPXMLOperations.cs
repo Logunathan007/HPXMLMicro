@@ -1,8 +1,6 @@
 ﻿
 using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.Templates.HPXMLs;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace EnergyScore.Application.Operations
 {
@@ -10,9 +8,16 @@ namespace EnergyScore.Application.Operations
     {
         public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO);
         public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO);
+
     }
     public class HPXMLOperations : IHPXMLOperations
     {
+        IIdConversionOpertaions _idConvertor;
+        public HPXMLOperations(IIdConversionOpertaions idConversionOpertaions)
+        {
+            _idConvertor = idConversionOpertaions;
+        }
+
         public List<AirInfiltrationMeasurement>  AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO)
         {
             List<AirInfiltrationMeasurement> airInFilMeasure = new List<AirInfiltrationMeasurement>();
@@ -22,7 +27,7 @@ namespace EnergyScore.Application.Operations
                 {
                     SystemIndentifier = new SystemIndentifier
                     {
-                        Id = item.Id.ToString(),
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(item.Id),
                     },
                     LeakinessDescription = item.LeakinessDescription,
                     BuildingAirLeakage = new BuildingAirLeakage()
@@ -49,10 +54,14 @@ namespace EnergyScore.Application.Operations
                 {
                     BuildingID = new BuildingID
                     {
-                        Id = buildingId.ToString()
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(buildingId)
                     },
                     Site = new Site
                     {
+                        SiteID = new SiteID
+                        {
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(addressDTO.Id)
+                        },
                         Address = new Address
                         {
                             Address1 = addressDTO.Address1,
@@ -92,7 +101,6 @@ namespace EnergyScore.Application.Operations
                             AirInfiltration = new AirInfiltration
                             {
                                 AirInfiltrationMeasurement = this.AirInfiltrationMeasurementConvertor(aboutDTO)
-
                             }
                         }
                     }
