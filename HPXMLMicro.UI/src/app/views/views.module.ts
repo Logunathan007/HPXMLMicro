@@ -4,11 +4,12 @@ import { AboutComponent } from './about/about.component';
 import { ViewsRoutingModule } from './views-routing.module';
 import { AddressComponent } from './address/address.component';
 import { SystemsComponent } from './systems/systems.component';
-import { ZonesComponent } from './zones/zones.component';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  NgSelectModule } from '@ng-select/ng-select';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { HttpClientModule } from '@angular/common/http';
+import { ViewsComponent } from './views.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +18,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     AboutComponent,
     AddressComponent,
     SystemsComponent,
-    ZonesComponent,
+    ViewsComponent
   ],
   imports: [
     CommonModule,

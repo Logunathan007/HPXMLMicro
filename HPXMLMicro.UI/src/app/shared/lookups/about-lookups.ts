@@ -1,4 +1,4 @@
-
+// for about
 export const residentialFacilityTypeOptions = [
   { name: 'single-family detached' , value:'single-family detached'},
   { name: 'single-family attached' , value:'single-family attached'},
@@ -33,4 +33,11 @@ export const leakinessDescriptionOptions = [
   {name:'average',value:'average'},
   {name:'tight',value:'tight'},
   {name:'very tight',value:'very tight'},
+]
+
+
+// for zone-floor
+
+export const foundationTypeOptions = [
+  {name:'Basement',value:'Basement'}
 ]

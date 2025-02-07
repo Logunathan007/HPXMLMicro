@@ -1,0 +1,237 @@
+<div class="container">
+  <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+    Foundations &nbsp;&nbsp;
+    <button class="ms-2 icon-btn" (click)="addFoundation()">
+      <img src="/assets/icons/plus.svg" width="30px" alt="" />
+    </button>
+  </h3>
+  <form [formGroup]="zoneFloorForm">
+    <div formArrayName="foundations" class="border px-1 pt-3 rounded-3 mb-3">
+      <div
+        *ngFor="
+          let foundationItem of foundationObj?.controls;
+          let foundationIndex = index
+        "
+      >
+        <div [formGroupName]="foundationIndex" class="row px-0 mx-0 mb-2">
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Foundation ({{ foundationIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeFoundation(foundationIndex)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="select-box">
+                <label for="foundationType"> Foundation Type </label>
+                <ng-select
+                  [items]="foundationTypeOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Foundation Type"
+                  id="foundationType"
+                  formControlName="foundationType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (foundationItem.get('foundationType')?.touched ||
+                      foundationItem.get('foundationType')?.dirty) &&
+                    foundationItem.get('foundationType')?.invalid
+                  "
+                >
+                  <label
+                    for="foundationType"
+                    class="text-danger fw-semibold position-absolute"
+                  >
+                    Foundation Type is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row px-0 mx-0 mt-3">
+              <div class="col-lg-2 col-md-3 col-6">
+                <div class="check-box h-100">
+                  <div class="d-flex align-items-center h-100">
+                    <input
+                      type="checkbox"
+                      class="me-3"
+                      formControlName="walkout"
+                    />
+                    <label for="">Walkout</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-3 col-6">
+                <div class="check-box h-100">
+                  <div class="d-flex align-items-center h-100">
+                    <input
+                      type="checkbox"
+                      class="me-3"
+                      formControlName="finished"
+                    />
+                    <label for="">Finished</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-3 col-6">
+                <div class="check-box h-100">
+                  <div class="d-flex align-items-center h-100">
+                    <input
+                      type="checkbox"
+                      class="me-3"
+                      formControlName="conditioned"
+                    />
+                    <label for="">Conditioned</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h5
+            class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+          >
+            Foundation Walls &nbsp;&nbsp;
+            <button
+              class="ms-2 icon-btn"
+              (click)="addFoundationWall(foundationIndex)"
+            >
+              <img src="/assets/icons/plus.svg" width="30px" alt="" />
+            </button>
+          </h5>
+          <div formArrayName="foundationWalls" class="border px-1 py-2 rounded-3 mb-3">
+            <div
+              *ngFor="
+                let foundationWallItem of foundationWallObj(foundationIndex)
+                  .controls;
+                let foundationWallIndex = index
+              "
+            >
+              <div [formGroupName]="foundationWallIndex">
+                <div class="row px-0 mx-0 mt-3">
+                  <div class="col-12 d-flex">
+                    <h5 class="mb-0">
+                      Foundation Wall ({{ foundationWallIndex + 1 }})
+                    </h5>
+                    <button
+                      class="ms-2 icon-btn"
+                      (click)="
+                        removeFoundationWall(
+                          foundationIndex,
+                          foundationWallIndex
+                        )
+                      "
+                    >
+                      <img src="/assets/icons/delete.svg" alt="" />
+                    </button>
+                  </div>
+                  <div class="check-box h-100 mt-3">
+                    <div class="d-flex align-items-center h-100">
+                      <input
+                        type="checkbox"
+                        class="me-3"
+                        id=""
+                        formControlName="attachedToFoundationWall"
+                      />
+                      <label for="">Attached To Foundation Wall</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label for="area"> Area </label>
+                      <input
+                        formControlName="area"
+                        type="number"
+                        id="area"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (foundationWallItem.get('area')?.touched ||
+                            foundationWallItem.get('area')?.dirty) &&
+                          foundationWallItem.get('area')?.invalid
+                        "
+                      >
+                        <label
+                          for="area"
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Area is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label for="nominalRValue"> Nominal R-Value </label>
+                      <input
+                        formControlName="nominalRValue"
+                        type="number"
+                        id="Nominal R-Value"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (foundationWallItem.get('nominalRValue')?.touched ||
+                            foundationWallItem.get('nominalRValue')?.dirty) &&
+                          foundationWallItem.get('nominalRValue')?.invalid
+                        "
+                      >
+                        <label
+                          for="nominalRValue"
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Nominal R-Value is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label for="assemblyEffectiveRValue">
+                        Assembly Effective R-Value
+                      </label>
+                      <input
+                        formControlName="assemblyEffectiveRValue"
+                        type="number"
+                        id="assemblyEffectiveRValue"
+                        placeholder="Assembly Effective R-Value"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (foundationWallItem.get('assemblyEffectiveRValue')
+                            ?.touched ||
+                            foundationWallItem.get('assemblyEffectiveRValue')
+                              ?.dirty) &&
+                          foundationWallItem.get('assemblyEffectiveRValue')
+                            ?.invalid
+                        "
+                      >
+                        <label
+                          for="assemblyEffectiveRValue"
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Assembly Effective R-Value is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="bg-secondary btn-style" (click)="onSubmit()">Next</button>
+  </form>
+</div>

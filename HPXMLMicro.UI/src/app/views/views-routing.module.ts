@@ -2,31 +2,39 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { AddressComponent } from './address/address.component';
-import { ZonesComponent } from './zones/zones.component';
 import { SystemsComponent } from './systems/systems.component';
+import { ViewsComponent } from './views.component';
 
 const routes: Routes = [
+
   {
     path:'',
-    pathMatch: 'full',
-    redirectTo:'address'
+    component:ViewsComponent,
+    children:[
+      {
+        path:'',
+        pathMatch:'full',
+        redirectTo:'address'
+      },
+      {
+        path:'about',
+        component:AboutComponent
+      },
+      {
+        path:'address',
+        component:AddressComponent
+      },
+      {
+        path:'zones',
+        loadChildren: ()=> import('./zones/zones.module').then(obj=>obj.ZonesModule)
+      },
+      {
+        path:'systems',
+        component:SystemsComponent
+      }
+    ]
   },
-  {
-    path:'about',
-    component:AboutComponent
-  },
-  {
-    path:'address',
-    component:AddressComponent
-  },
-  {
-    path:'zones',
-    component:ZonesComponent
-  },
-  {
-    path:'systems',
-    component:SystemsComponent
-  }
+
 ];
 
 @NgModule({
