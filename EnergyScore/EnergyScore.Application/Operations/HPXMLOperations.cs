@@ -8,7 +8,6 @@ namespace EnergyScore.Application.Operations
     {
         public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO);
         public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO);
-
     }
     public class HPXMLOperations : IHPXMLOperations
     {

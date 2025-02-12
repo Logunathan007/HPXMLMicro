@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnergyScore.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38b05311ec5ff007efa723f4ee891fd64586fea8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+122a5352e5c221d224492da2c80511ba8ac41afb")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnergyScore.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnergyScore.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

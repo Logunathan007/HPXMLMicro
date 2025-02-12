@@ -6,7 +6,7 @@ namespace EnergyScore.Persistence.DBConnection
     {
         public DbConnect(DbContextOptions<DbConnect> options) : base(options)
         {
-            Database.EnsureCreated();
+            /*Database.EnsureCreated();*/
         }
         public DbSet<Address> Addresss { get; set; }
         public DbSet<AirInfiltrationMeasurement> AirInfiltrationMeasurements { get; set; }

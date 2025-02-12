@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EnergyScore.Persistence.Migrations
 {
     [DbContext(typeof(DbConnect))]
-    [Migration("20250206054835_makeConnection")]
+    [Migration("20250210054940_makeConnection")]
     partial class makeConnection
     {
         /// <inheritdoc />
