@@ -35,4 +35,8 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public string HPXMLBase64String { get; set; }
     }
+    public class ResponseForZoneFloor : Response
+    {
+        public Guid ZoneFloorId { get; set; }
+    }
 }

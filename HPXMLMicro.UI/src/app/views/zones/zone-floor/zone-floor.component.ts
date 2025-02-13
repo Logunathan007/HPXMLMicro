@@ -1,17 +1,21 @@
+import { CommonService } from './../../../shared/services/common.service';
 import { BooleanOptions, FoundationTypeOptions } from './../../../shared/lookups/about-lookups';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-zone-floor',
   templateUrl: './zone-floor.component.html',
   styleUrl: './zone-floor.component.scss'
 })
-export class ZoneFloorComponent {
+export class ZoneFloorComponent implements OnInit {
 
   //variable initialization
   foundationForm!: FormGroup;
+  enableNext: boolean = false;
+  buildingId: string = ""
 
   foundationTypeOptions = FoundationTypeOptions;
 
@@ -48,8 +52,14 @@ export class ZoneFloorComponent {
     return this.frameFloorsObj(pindex)?.at(index).get('insulations') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
     this.variableDeclaration();
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params => {
+      this.buildingId = params.get('id') ?? ""
+    })
   }
 
   //variable declaration
@@ -63,10 +73,10 @@ export class ZoneFloorComponent {
   //Input Field methods
   foundationInputs() {
     return this.fb.group({
-      foundationName: [null, [Validators.required],[this.nameValidator('foundationName')]],
+      foundationName: [null, [Validators.required], [this.nameValidator('foundationName')]],
       foundationType: [null, Validators.required],
       foundationTypeDynamicOptions: this.fb.array([
-        //dynamic inputs will be added
+        //dynamic inputs will be added for foundation Type
       ]),
       foundationWalls: this.fb.array([]),
       slabs: this.fb.array([]),
@@ -76,7 +86,7 @@ export class ZoneFloorComponent {
 
   foundationWallInputs() {
     return this.fb.group({
-      foundationWallName: [null, [Validators.required],[this.nameValidator('foundationWallName')]],
+      foundationWallName: [null, [Validators.required], [this.nameValidator('foundationWallName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -84,7 +94,7 @@ export class ZoneFloorComponent {
 
   frameFloorInput() {
     return this.fb.group({
-      frameFloorName: [null, [Validators.required],[this.nameValidator('frameFloorName')]],
+      frameFloorName: [null, [Validators.required], [this.nameValidator('frameFloorName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -177,7 +187,7 @@ export class ZoneFloorComponent {
 
   slabInputs() {
     return this.fb.group({
-      slabName: [null, [Validators.required],[this.nameValidator('slabName')]],
+      slabName: [null, [Validators.required], [this.nameValidator('slabName')]],
       exposedPerimeter: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
       perimeterInsulations: this.fb.array([this.perimeterInsulationInputs()])
     })
@@ -186,7 +196,7 @@ export class ZoneFloorComponent {
   perimeterInsulationInputs() {
     return this.fb.group({
       nominalRValue: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
-      assemblyEffectiveRValue: [null,[Validators.max(100), Validators.min(0)]]
+      assemblyEffectiveRValue: [null, [Validators.max(100), Validators.min(0)]]
     })
   }
 
@@ -246,11 +256,37 @@ export class ZoneFloorComponent {
     array.removeAt(index);
   }
 
+  // for click event functions
   onSubmit() {
     if (this.foundationForm.invalid) {
       this.foundationForm.markAllAsTouched();
       return;
     }
+    let found = this.foundationForm.value;
+    for (let ele of found.foundations) {
+      if(!Array.isArray(ele?.foundationTypeDynamicOptions)) continue;
+      let opt = [...ele.foundationTypeDynamicOptions];
+      if (ele && ele.foundationTypeDynamicOptions) {
+        delete ele.foundationTypeDynamicOptions;
+      }
+      ele.foundationTypeDynamicOptions = {};
+      for (let obj of opt) {
+        for (let [key, value] of Object.entries(obj)) {
+          if (key !== 'options') {
+            ele.foundationTypeDynamicOptions[key] = value;
+          }
+        }
+      }
+    }
+    this.commonService.sendZoneFloor(found, this.buildingId).subscribe(
+      (obj: any) => {
+        console.log(obj);
+      }
+    )
     console.log(this.foundationForm)
   }
+  goNext() {
+
+  }
 }
+

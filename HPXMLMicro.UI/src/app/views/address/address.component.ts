@@ -1,8 +1,7 @@
 import { CommonService } from '../../shared/services/common.service';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import xmlFormatter from 'xml-formatter';
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',

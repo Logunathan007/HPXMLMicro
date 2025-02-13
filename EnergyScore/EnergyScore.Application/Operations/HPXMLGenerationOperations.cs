@@ -1,12 +1,14 @@
 ﻿
 using AutoMapper;
-using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.Templates.HPXMLs;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Persistence.DBConnection;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Text;
+using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
+using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
+using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
 
 namespace EnergyScore.Application.Operations
 {
@@ -30,13 +32,15 @@ namespace EnergyScore.Application.Operations
         private readonly IAddressOperations _addressOperations;
         private readonly IAboutOperations _aboutOperations;
         private readonly IHPXMLOperations _hpxmlOperations;
+        private readonly IZoneFloorOperatoins _zoneFloorOperatoins;
         public HPXMLGenerationOperations(
             DbConnect dbConnect,
             IMapper mapper,
             IBuildingOperations buildingOperations, 
             IAddressOperations addressOperations,
             IAboutOperations aboutOperations,
-            IHPXMLOperations hpxmlOperations)
+            IHPXMLOperations hpxmlOperations,
+            IZoneFloorOperatoins zoneFloorOperatoins)
         {
             _dbConnect = dbConnect;
             _mapper = mapper;
@@ -44,6 +48,7 @@ namespace EnergyScore.Application.Operations
             _addressOperations = addressOperations;
             _aboutOperations = aboutOperations;
             _hpxmlOperations = hpxmlOperations;
+            _zoneFloorOperatoins = zoneFloorOperatoins;
         }
 
         public HPXMLGenerationResponse GenerateHpxml(Guid BuildingId)
@@ -63,13 +68,20 @@ namespace EnergyScore.Application.Operations
             }
 
             // Check if about exists
-            AboutDTO aboutDTO = _aboutOperations.GetAboutById(buildingDTO.AboutId);
-            if(aboutDTO == null)
+            if(buildingDTO?.AboutId == null)
             {
                 return new HPXMLGenerationResponse { Failed = true, Message = "About not Found for your Building" };
             }
+            AboutDTO aboutDTO = _aboutOperations.GetAboutById(buildingDTO.AboutId);
 
-            HPXML hpxml = _hpxmlOperations.GetHPXMLObj(BuildingId, addressDTO, aboutDTO);
+            // Check if ZoneFloors exists
+            if (buildingDTO?.ZoneFloorId == null)
+            {
+                return new HPXMLGenerationResponse { Failed = true, Message = "ZoneFloors not Found for your Building" };
+            }
+            ZoneFloorDTO zoneFloorDTO = _zoneFloorOperatoins.GetZoneFloorById(buildingDTO.ZoneFloorId);
+            
+            HPXML hpxml = _hpxmlOperations.GetHPXMLObj(BuildingId, addressDTO, aboutDTO, zoneFloorDTO);
 
             return new HPXMLGenerationResponse { Failed = false, Message = "About not Found for your Building" , hPXML = hpxml }; ;
         }
@@ -100,7 +112,7 @@ namespace EnergyScore.Application.Operations
 
         public string GenerateHPXMLStringBase64Encode(HPXML hpxml)
         {
-            string base64HPXML = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateHPXMLString(hpxml))); ;
+            string base64HPXML = Convert.ToBase64String(Encoding.UTF8.GetBytes(GenerateHPXMLString(hpxml)));
             return base64HPXML;
         }
     }

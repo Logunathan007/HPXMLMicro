@@ -2,7 +2,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { housePressureOptions, leakinessDescriptionOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -20,7 +20,8 @@ export class AboutComponent implements OnInit {
   unitofMeasureOptions = unitofMeasureOptions
   leakinessDescriptionOptions = leakinessDescriptionOptions
   hpxmlString!: string;
-  validationMsg!:any;
+  validationMsg!: any;
+  enableNext: boolean = false;
 
   get aboutFormControl() {
     return this.aboutForm.controls;
@@ -33,7 +34,8 @@ export class AboutComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private commonService: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.variableDeclaration();
   }
@@ -88,7 +90,14 @@ export class AboutComponent implements OnInit {
     }
     this.commonService.sendAbout(this.aboutForm.getRawValue(), this.buildingId).subscribe((val) => {
       console.log(val);
+      this.enableNext = true;
     });
+  }
+
+  goNext() {
+    this.router.navigate(['zones','floor'], {
+      queryParams: { id: this.buildingId }
+    })
   }
 
   generateHPXML() {
@@ -106,7 +115,7 @@ export class AboutComponent implements OnInit {
       (val: any) => {
         if (!val?.failed) {
           this.commonService.validateHpxml(val).subscribe(
-            (res:any)=>{
+            (res: any) => {
               this.validationMsg = res
             }
           )

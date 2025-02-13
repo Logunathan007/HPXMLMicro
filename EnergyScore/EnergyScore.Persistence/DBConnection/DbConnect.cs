@@ -1,5 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using EnergyScore.Domain.Entityies;
+﻿using EnergyScore.Domain.Entityies.AboutModels;
+using EnergyScore.Domain.Entityies.AddressModels;
+using EnergyScore.Domain.Entityies.ZoneFloorModels;
+using EnergyScore.Domain.Entityies.CommonModels;
+using Microsoft.EntityFrameworkCore;
+
+
 namespace EnergyScore.Persistence.DBConnection
 {
     public class DbConnect:DbContext
@@ -12,6 +17,14 @@ namespace EnergyScore.Persistence.DBConnection
         public DbSet<AirInfiltrationMeasurement> AirInfiltrationMeasurements { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Foundation> Foundations  { get; set; }
+        public DbSet<FoundationTypeDynamicOption> FoundationTypeDynamicOptions { get; set; }
+        public DbSet<FoundationWall> FoundationWalls { get; set; }
+        public DbSet<FrameFloor> FrameFloors { get; set; }
+        public DbSet<Slab> Slabs { get; set; }
+        public DbSet<Insulation> Insulations{ get; set; }
+        public DbSet<PerimeterInsulation> PerimeterInsulations{ get; set; }
+        public DbSet<ZoneFloor> ZoneFloors { get; set; }
     }
 }
 /*
@@ -20,5 +33,7 @@ namespace EnergyScore.Persistence.DBConnection
 
 Add-Migration makeConnection -Project EnergyScore.Persistence -StartupProject EnergyScore.Service
 Update-Database -Project YourDataProject -StartupProject YourWebAPIProject
- 
+
+3fa85f64-5717-4562-b3fc-2c963f66afa6
+
  */

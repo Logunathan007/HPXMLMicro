@@ -735,7 +735,9 @@
         </div>
       </ng-container>
     </ng-container>
-    {{this.foundationForm.invalid}}
-    <button class="bg-secondary btn-style" (click)="onSubmit()">Next</button>
+    <div class="d-flex justify-content-end gap-3 my-5">
+      <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+      <button class="bg-secondary btn-style" [disabled]="!enableNext" (click)="goNext()">Next</button>
+    </div>
   </form>
 </div>

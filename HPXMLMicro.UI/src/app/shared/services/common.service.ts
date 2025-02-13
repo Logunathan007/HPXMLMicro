@@ -19,6 +19,12 @@ export class CommonService {
     return this.http.post(envVariable.API_URL+'About',req, { params });
   }
 
+  //for ZoneFloor
+  sendZoneFloor(req:any,id:string){
+    const params = new HttpParams().set('buildingId',id)
+    return this.http.post(envVariable.API_URL+'ZoneFloor',req, { params })
+  }
+
   //for HPXMLGeneration
   getHPXMLString(id:string){
     const params = new HttpParams().set('buildingId',id)

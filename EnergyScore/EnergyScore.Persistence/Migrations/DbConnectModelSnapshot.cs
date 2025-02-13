@@ -22,29 +22,29 @@ namespace EnergyScore.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.About", b =>
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.About", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<float>("AverageCeilingHeight")
-                        .HasColumnType("real");
+                    b.Property<double>("AverageCeilingHeight")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("AzimuthOfFrontOfHome")
                         .HasColumnType("integer");
 
-                    b.Property<float>("ConditionedBuildingVolume")
-                        .HasColumnType("real");
+                    b.Property<double>("ConditionedBuildingVolume")
+                        .HasColumnType("double precision");
 
-                    b.Property<float>("ConditionedFloorArea")
-                        .HasColumnType("real");
+                    b.Property<double>("ConditionedFloorArea")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("NumberofBedrooms")
                         .HasColumnType("integer");
 
-                    b.Property<float>("NumberofConditionedFloorsAboveGrade")
-                        .HasColumnType("real");
+                    b.Property<double>("NumberofConditionedFloorsAboveGrade")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("OrientationOfFrontOfHome")
                         .IsRequired()
@@ -62,7 +62,37 @@ namespace EnergyScore.Persistence.Migrations
                     b.ToTable("Abouts");
                 });
 
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.Address", b =>
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.AirInfiltrationMeasurement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AboutId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("AirLeakage")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("HousePressure")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("LeakinessDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UnitofMeasure")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AboutId");
+
+                    b.ToTable("AirInfiltrationMeasurements");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AddressModels.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,56 +122,217 @@ namespace EnergyScore.Persistence.Migrations
                     b.ToTable("Addresss");
                 });
 
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.AirInfiltrationMeasurement", b =>
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AddressModels.Building", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AboutId")
-                        .HasColumnType("uuid");
-
-                    b.Property<float>("AirLeakage")
-                        .HasColumnType("real");
-
-                    b.Property<double>("HousePressure")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("LeakinessDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnitofMeasure")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AboutId");
-
-                    b.ToTable("AirInfiltrationMeasurements");
-                });
-
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.Building", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AboutId")
+                    b.Property<Guid?>("AboutId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ZoneFloorId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AboutId");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ZoneFloorId");
 
                     b.ToTable("Buildings");
                 });
 
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.AirInfiltrationMeasurement", b =>
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.Insulation", b =>
                 {
-                    b.HasOne("EnergyScore.Domain.Entityies.About", "About")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("AssemblyEffectiveRValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid?>("FoundationWallId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("FrameFloorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("NominalRValue")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundationWallId");
+
+                    b.HasIndex("FrameFloorId");
+
+                    b.ToTable("Insulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.PerimeterInsulation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("AssemblyEffectiveRValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("NominalRValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid?>("SlabId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SlabId");
+
+                    b.ToTable("PerimeterInsulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FoundationName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FoundationType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ZoneFloorId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ZoneFloorId");
+
+                    b.ToTable("Foundations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationTypeDynamicOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool?>("Conditioned")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Finished")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("FoundationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool?>("Vented")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Walkout")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundationId")
+                        .IsUnique();
+
+                    b.ToTable("FoundationTypeDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationWall", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("FoundationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FoundationWallName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundationId");
+
+                    b.ToTable("FoundationWalls");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FrameFloor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("FoundationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FrameFloorName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundationId");
+
+                    b.ToTable("FrameFloors");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("ExposedPerimeter")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid?>("FoundationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SlabName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundationId");
+
+                    b.ToTable("Slabs");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZoneFloors");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.AirInfiltrationMeasurement", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AboutModels.About", "About")
                         .WithMany("AirInfiltrationMeasurements")
                         .HasForeignKey("AboutId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -150,9 +341,137 @@ namespace EnergyScore.Persistence.Migrations
                     b.Navigation("About");
                 });
 
-            modelBuilder.Entity("EnergyScore.Domain.Entityies.About", b =>
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AddressModels.Building", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AboutModels.About", "Abouts")
+                        .WithMany()
+                        .HasForeignKey("AboutId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", "ZoneFloors")
+                        .WithMany()
+                        .HasForeignKey("ZoneFloorId");
+
+                    b.Navigation("Abouts");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("ZoneFloors");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.Insulation", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationWall", "FoundationWalls")
+                        .WithMany("Insulations")
+                        .HasForeignKey("FoundationWallId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.FrameFloor", "FrameFloors")
+                        .WithMany("Insulations")
+                        .HasForeignKey("FrameFloorId");
+
+                    b.Navigation("FoundationWalls");
+
+                    b.Navigation("FrameFloors");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.PerimeterInsulation", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", "Slabs")
+                        .WithMany("PerimeterInsulations")
+                        .HasForeignKey("SlabId");
+
+                    b.Navigation("Slabs");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", null)
+                        .WithMany("Foundations")
+                        .HasForeignKey("ZoneFloorId");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationTypeDynamicOption", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
+                        .WithOne("FoundationTypeDynamicOptions")
+                        .HasForeignKey("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationTypeDynamicOption", "FoundationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Foundations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationWall", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
+                        .WithMany("FoundationWalls")
+                        .HasForeignKey("FoundationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Foundations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FrameFloor", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
+                        .WithMany("FrameFloors")
+                        .HasForeignKey("FoundationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Foundations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
+                        .WithMany("Slabs")
+                        .HasForeignKey("FoundationId");
+
+                    b.Navigation("Foundations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.About", b =>
                 {
                     b.Navigation("AirInfiltrationMeasurements");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
+                {
+                    b.Navigation("FoundationTypeDynamicOptions")
+                        .IsRequired();
+
+                    b.Navigation("FoundationWalls");
+
+                    b.Navigation("FrameFloors");
+
+                    b.Navigation("Slabs");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationWall", b =>
+                {
+                    b.Navigation("Insulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FrameFloor", b =>
+                {
+                    b.Navigation("Insulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", b =>
+                {
+                    b.Navigation("PerimeterInsulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", b =>
+                {
+                    b.Navigation("Foundations");
                 });
 #pragma warning restore 612, 618
         }

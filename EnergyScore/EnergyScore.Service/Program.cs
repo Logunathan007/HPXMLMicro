@@ -3,7 +3,6 @@ using EnergyScore.Persistence.DBConnection;
 using EnergyScore.Application.Operations;
 using EnergyScore.Application.Mappers;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,6 +26,7 @@ builder.Services.AddScoped<IAboutOperations, AboutOperations>();
 builder.Services.AddScoped<IHPXMLOperations, HPXMLOperations>();
 builder.Services.AddScoped<IHPXMLGenerationOperations, HPXMLGenerationOperations>();
 builder.Services.AddScoped<IIdConversionOpertaions, IdConversionOpertaions>();
+builder.Services.AddScoped<IZoneFloorOperatoins, ZoneFloorOperations>();
 
 //CORS Policy
 builder.Services.AddCors(option =>

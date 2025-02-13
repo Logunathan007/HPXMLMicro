@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EnergyScore.Application.Operations;
-using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.Templates.Responses;
+using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EnergyScore.Service.Controllers

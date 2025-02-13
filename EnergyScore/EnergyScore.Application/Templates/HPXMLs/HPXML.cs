@@ -1,4 +1,5 @@
 ﻿
+using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
 using System.Xml.Serialization;
 
 namespace EnergyScore.Application.Templates.HPXMLs
@@ -88,11 +89,11 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         public int YearBuilt { get; set; }
         public string ResidentialFacilityType { get; set; }
-        public float NumberofConditionedFloorsAboveGrade { get; set; }
-        public float AverageCeilingHeight { get; set; }
+        public double NumberofConditionedFloorsAboveGrade { get; set; }
+        public double AverageCeilingHeight { get; set; }
         public int NumberofBedrooms { get; set; }
-        public float ConditionedFloorArea { get; set; }
-        public float ConditionedBuildingVolume { get; set; }
+        public double ConditionedFloorArea { get; set; }
+        public double ConditionedBuildingVolume { get; set; }
     }
 
     public class BSSite
@@ -104,6 +105,10 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class Enclosure
     {
         public AirInfiltration AirInfiltration { get; set; }
+        public Foundations Foundations { get; set; }
+        public FoundationWalls FoundationWalls { get; set; }
+        public FrameFloors FrameFloors { get; set; }
+        public Slabs Slabs { get; set; }
     }
 
     public class AirInfiltration
@@ -116,10 +121,13 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         [XmlElement("SystemIdentifier")]
         public SystemIdentifier SystemIdentifier { get; set; }
-        public float HousePressure { get; set; }
+        public double HousePressure { get; set; }
         public string LeakinessDescription { get; set; }
         public BuildingAirLeakage BuildingAirLeakage { get; set; }
     }
+
+
+
     public class SystemIdentifier
     {
         [XmlAttribute("id")]
@@ -129,6 +137,16 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class BuildingAirLeakage
     {
         public string UnitofMeasure { get; set; }
-        public float AirLeakage { get; set; }
+        public double AirLeakage { get; set; }
+    }
+    public class Insulaion
+    {
+        public SystemIdentifier SystemIdentifier { get; set; }
+        public double AssemblyEffectiveRValue { get; set; }
+        public Layer Layer { get; set; }
+    }
+    public class Layer
+    {
+        public double NominalRValue { get; set; }
     }
 }

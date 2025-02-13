@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EnergyScore.Application.Mappers.DTOS;
+using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Templates.Responses;
-using EnergyScore.Domain.Entityies;
+using EnergyScore.Domain.Entityies.AboutModels;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +10,7 @@ namespace EnergyScore.Application.Operations
     public interface IAboutOperations
     {
         public Response AddAbout(AboutDTO aboutDTO,Guid BuildingId);
-        public AboutDTO GetAboutById(Guid AboutId);
+        public AboutDTO GetAboutById(Guid? AboutId);
     }
     public class AboutOperations : IAboutOperations
     {
@@ -32,8 +32,12 @@ namespace EnergyScore.Application.Operations
             return _buildingOperations.UpdateAboutId(BuildingId, about.Id);
         }
 
-        public AboutDTO GetAboutById(Guid AboutId)
+        public AboutDTO GetAboutById(Guid? AboutId)
         {
+            if (AboutId == null)
+            {
+                return null;
+            }
             About about = _dbConnect.Abouts.Include(obj => obj.AirInfiltrationMeasurements).FirstOrDefault(obj => obj.Id == AboutId);
             if (about == null)
             {

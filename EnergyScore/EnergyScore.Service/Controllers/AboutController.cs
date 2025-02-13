@@ -1,4 +1,4 @@
-﻿using EnergyScore.Application.Mappers.DTOS;
+﻿using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Operations;
 using EnergyScore.Application.Templates.Responses;
 using Microsoft.AspNetCore.Mvc;

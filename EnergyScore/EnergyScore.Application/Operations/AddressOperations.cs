@@ -1,8 +1,8 @@
 ﻿using EnergyScore.Persistence.DBConnection;
-using EnergyScore.Domain.Entityies;
 using AutoMapper;
-using EnergyScore.Application.Mappers.DTOS;
 using EnergyScore.Application.Templates.Responses;
+using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
+using EnergyScore.Domain.Entityies.AddressModels;
 
 namespace EnergyScore.Application.Operations
 {

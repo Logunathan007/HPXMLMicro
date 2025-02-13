@@ -1,9 +1,9 @@
 ﻿
 
 using AutoMapper;
-using EnergyScore.Application.Mappers.DTOS;
+using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
 using EnergyScore.Application.Templates.Responses;
-using EnergyScore.Domain.Entityies;
+using EnergyScore.Domain.Entityies.AddressModels;
 using EnergyScore.Persistence.DBConnection;
 
 namespace EnergyScore.Application.Operations
@@ -13,6 +13,7 @@ namespace EnergyScore.Application.Operations
         public ResponseForBuilding CreateBuilding(BuildingDTO building);
         public Response UpdateAboutId(Guid BuildingId, Guid AboutId);
         public BuildingDTO GetBuildingById(Guid BuildingId);
+        public Response UpdateZoneFloorId(Guid BuildingId, Guid ZoneFloorId);
     }
     public class BuildingOperations : IBuildingOperations
     {
@@ -40,7 +41,17 @@ namespace EnergyScore.Application.Operations
             }
             building.AboutId = AboutId;
             this._dbConnect.SaveChanges();
-            return new Response() { Failed = false, Message = "AboutId Updated Successfully" };
+            return new Response() { Failed = false, Message = "AboutId is Updated Successfully" };
+        }
+        public Response UpdateZoneFloorId(Guid BuildingId, Guid ZoneFloorId)
+        {
+            Building building = this._dbConnect.Buildings.FirstOrDefault(obj => obj.Id == BuildingId);
+            if (building == null) {
+                return new Response() { Failed = true, Message = "Building Not Found" };
+            }
+            building.ZoneFloorId = ZoneFloorId;
+            this._dbConnect.SaveChanges();
+            return new Response() { Failed = false, Message = "ZoneFloorId is Updated Successfully" };
         }
 
         public BuildingDTO GetBuildingById(Guid BuildingId)
