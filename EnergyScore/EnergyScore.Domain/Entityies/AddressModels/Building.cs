@@ -1,6 +1,7 @@
 ﻿
 using EnergyScore.Domain.Entityies.AboutModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnergyScore.Domain.Entityies.AddressModels
@@ -15,5 +16,7 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public Address Address { get; set; }
         public Guid? ZoneFloorId { get; set; } = null;
         public ZoneFloor? ZoneFloors { get; set; } = null;
+        public Guid? ZoneRoofId { get; set; } = null;
+        public ZoneRoof? ZoneRoofs { get; set; } = null;
     }
 }

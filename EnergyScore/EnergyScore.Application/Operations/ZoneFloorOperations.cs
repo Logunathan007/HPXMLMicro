@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
+using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,8 +29,8 @@ namespace EnergyScore.Application.Operations
         {
             ZoneFloor floor = _mapper.Map<ZoneFloor>(floorDTO);
             this._dbConnect.ZoneFloors.Add(floor);
-            this._dbConnect.SaveChanges();
             this._buildingOperations.UpdateZoneFloorId(BuildingId, floor.Id);
+            this._dbConnect.SaveChanges();
             return new ResponseForZoneFloor { Failed = false, Message = "ZoneFloor Added Successfully", ZoneFloorId = floor.Id };
         }
         public ZoneFloorDTO GetZoneFloorById(Guid? zoneFloorId)
@@ -48,6 +50,7 @@ namespace EnergyScore.Application.Operations
                 .Include(obj => obj.Foundations)
                     .ThenInclude(obj => obj.Slabs)
                     .ThenInclude(obj => obj.PerimeterInsulations)
+                .Include(obj => obj.Foundations)
                 .FirstOrDefault(obj => obj.Id == zoneFloorId);
 
             if (floor == null)
@@ -57,5 +60,6 @@ namespace EnergyScore.Application.Operations
             ZoneFloorDTO zoneFloor = _mapper.Map<ZoneFloorDTO>(floor);
             return zoneFloor;
         }
+
     }
 }

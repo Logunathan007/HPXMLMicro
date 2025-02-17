@@ -10,7 +10,5 @@ namespace EnergyScore.Domain.Entityies.CommonModels
         public Guid Id { get; set; }
         public double NominalRValue { get; set; }
         public double AssemblyEffectiveRValue { get; set; }
-        public Guid? SlabId { get; set; }
-        public Slab? Slabs { get; set; }
     }
 }

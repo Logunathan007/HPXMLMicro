@@ -1,6 +1,6 @@
-import { RoofColorOptions, BooleanOptions } from './../../../shared/lookups/about-lookups';
+import { RoofColorOptions, BooleanOptions, AtticTypeOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../../shared/services/common.service';
 import { nameValidator } from '../../../shared/modules/Validators/validators';
@@ -23,6 +23,8 @@ export class ZoneRoofComponent {
   RoofTypeOptions = RoofTypeOptions;
   RoofColorOptions = RoofColorOptions;
   BooleanOptions = BooleanOptions;
+  AtticTypeOptions = AtticTypeOptions;
+  tempAttic = []
 
   get atticsObj(): FormArray {
     return this.atticForm.get('attics') as FormArray;
@@ -49,6 +51,9 @@ export class ZoneRoofComponent {
     return this.frameFloorsObj(pindex)?.at(index).get('insulations') as FormArray;
   }
 
+  atticTypeDynamicOptionsObj(index: number): FormArray {
+    return this.atticsObj?.at(index).get('atticTypeDynamicOptions') as FormArray;
+  }
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
     this.variableDeclaration();
@@ -71,8 +76,9 @@ export class ZoneRoofComponent {
   //Input Field methods
   atticInputs() {
     return this.fb.group({
-      atticName: [null, [Validators.required],[nameValidator('atticName')]],
+      atticName: [null, [Validators.required], [nameValidator('atticName')]],
       atticType: [null, [Validators.required]],
+      atticTypeDynamicOptions: this.fb.array([]),
       roofs: this.fb.array([]),
       walls: this.fb.array([]),
       frameFloors: this.fb.array([]),
@@ -114,10 +120,58 @@ export class ZoneRoofComponent {
     })
   }
 
+  atticTypeInputs(): FormGroup[] {
+    let optForVented = {
+      label: 'Attic Status for Vented',
+      placeHolder: 'Vented or not',
+      options: BooleanOptions,
+      name: 'vented',
+      errorMsg: 'Finished status is required',
+    }
+    let optForConditioned = {
+      label: 'Attic Status for Conditioned',
+      placeHolder: 'Conditioned or not',
+      options: BooleanOptions,
+      name: "conditioned",
+      errorMsg: 'Conditioned status is required',
+    }
+    let optForCapeCod = {
+      label: 'Attic Status for CapeCod',
+      placeHolder: 'CapeCod or not',
+      options: BooleanOptions,
+      name: "capeCod",
+      errorMsg: 'Cape Cod status is required',
+    }
+    return [
+      this.fb.group({
+        vented: [null, Validators.required],
+        options: this.fb.control(optForVented)
+      }),
+      this.fb.group({
+        conditioned: [null, Validators.required],
+        options: this.fb.control(optForConditioned)
+      }),
+      this.fb.group({
+        capeCod: [null, Validators.required],
+        options: this.fb.control(optForCapeCod)
+      }),
+    ]
+  }
+
+
   // for adding multiple foundation
   addNewAttics() {
-    let found = this.atticInputs()
-    this.addToFormArray(this.atticsObj, found)
+    let attic = this.atticInputs()
+    attic.get('atticType')?.valueChanges.subscribe(
+      (val) => {
+        let arr = attic.get('atticTypeDynamicOptions') as FormArray;
+        arr.clear();
+        if (val == 'Attic') {
+          this.atticTypeInputs().forEach(group => arr.push(group));
+        }
+      }
+    )
+    this.addToFormArray(this.atticsObj, attic)
   }
 
   // for add and remove a dynamic form
@@ -134,8 +188,32 @@ export class ZoneRoofComponent {
       this.atticForm.markAllAsTouched();
       return;
     }
+    let attic = this.atticForm.value;
+    for (let ele of attic.attics) {
+      if(!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
+      let opt = [...ele.atticTypeDynamicOptions];
+      if (ele && ele.atticTypeDynamicOptions) {
+        delete ele.atticTypeDynamicOptions;
+      }
+      ele.atticTypeDynamicOptions = {};
+      for (let obj of opt) {
+        for (let [key, value] of Object.entries(obj)) {
+          if (key !== 'options') {
+            ele.atticTypeDynamicOptions[key] = value;
+          }
+        }
+      }
+    }
+    this.commonService.sendZoneRoof(this.atticForm.value,this.buildingId).subscribe({
+      next:(res)=>{
+        console.log(res);
+      },
+      error:(err)=>{
+        console.log("Error occured");
+      }
+    })
   }
-  goNext(){
+  goNext() {
 
   }
 }

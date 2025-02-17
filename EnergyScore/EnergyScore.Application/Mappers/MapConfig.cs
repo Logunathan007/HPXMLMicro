@@ -7,6 +7,8 @@ using EnergyScore.Domain.Entityies.AboutModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
 using EnergyScore.Domain.Entityies.CommonModels;
 using EnergyScore.Domain.Entityies.AddressModels;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
+using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 
 namespace EnergyScore.Application.Mappers
 {
@@ -26,6 +28,11 @@ namespace EnergyScore.Application.Mappers
             CreateMap<PerimeterInsulation, PerimeterInsulationDTO>().ReverseMap();
             CreateMap<Slab, SlabDTO>().ReverseMap();
             CreateMap<ZoneFloor, ZoneFloorDTO>().ReverseMap();
+            CreateMap<ZoneRoof, ZoneRoofDTO>().ReverseMap();
+            CreateMap<Attic, AtticDTO>().ReverseMap();
+            CreateMap<Roof, RoofDTO>().ReverseMap();
+            CreateMap<Wall, WallDTO>().ReverseMap();
+            CreateMap<AtticTypeDynamicOption,AtticTypeDynamicOptionDTO>().ReverseMap();
         }
     }
 }

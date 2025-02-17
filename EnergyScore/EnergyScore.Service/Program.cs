@@ -27,6 +27,7 @@ builder.Services.AddScoped<IHPXMLOperations, HPXMLOperations>();
 builder.Services.AddScoped<IHPXMLGenerationOperations, HPXMLGenerationOperations>();
 builder.Services.AddScoped<IIdConversionOpertaions, IdConversionOpertaions>();
 builder.Services.AddScoped<IZoneFloorOperatoins, ZoneFloorOperations>();
+builder.Services.AddScoped<IZoneRoofOperations, ZoneRoofOperations>();
 
 //CORS Policy
 builder.Services.AddCors(option =>

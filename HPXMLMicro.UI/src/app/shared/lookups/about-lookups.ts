@@ -1,3 +1,4 @@
+import { AppModule } from './../../app.module';
 // common
 export const BooleanOptions = [
   { name: "True", value: true },
@@ -98,6 +99,13 @@ export const FoundationTypeOptions = [
 
 
 // for zone-roof
+export const AtticTypeOptions = [
+  { name: "Attic", value:"Attic"},
+  { name: "CathedralCeiling", value:"CathedralCeiling"},
+  { name: "FlatRoof", value:"FlatRoof"},
+  { name: "BelowApartment", value:"BelowApartment"},
+]
+
 export const RoofTypeOptions = [
   { name: "concrete", value: "concrete" },
   { name: "plastic/rubber/synthetic sheeting", value: "plastic/rubber/synthetic sheeting" },

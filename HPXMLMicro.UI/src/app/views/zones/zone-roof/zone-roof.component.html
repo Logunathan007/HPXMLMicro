@@ -60,7 +60,7 @@
               <div class="select-box">
                 <label> Attic Type </label>
                 <ng-select
-                  [items]="RoofTypeOptions"
+                  [items]="AtticTypeOptions"
                   bindLabel="name"
                   [clearable]="false"
                   [closeOnSelect]="true"
@@ -84,63 +84,61 @@
                 </div>
               </div>
             </div>
-            <!-- <ng-container formArrayName="foundationTypeDynamicOptions">
+            <ng-container formArrayName="atticTypeDynamicOptions">
               <ng-container
                 *ngFor="
-                  let fndDynamic of foundationTypeDynamicOptionsObj(
-                    atticIndex
-                  )?.controls;
-                  let foundationTypeDynamicOptionsIndex = index
+                  let atticDynamic of atticTypeDynamicOptionsObj(atticIndex)
+                    ?.controls;
+                  let atticTypeDynamicOptionsIndex = index
                 "
               >
                 <ng-container
-                  [formGroupName]="foundationTypeDynamicOptionsIndex"
+                  [formGroupName]="atticTypeDynamicOptionsIndex"
                 >
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label >
-                        {{ fndDynamic.get("options")?.value?.label }}
+                      <label>
+                        {{ atticDynamic.get("options")?.value?.label }}
                       </label>
                       <ng-select
-                        [items]="fndDynamic.get('options')?.value?.options"
+                        [items]="atticDynamic.get('options')?.value?.options"
                         bindLabel="name"
                         [clearable]="false"
                         [closeOnSelect]="true"
                         bindValue="value"
                         [placeholder]="
-                          fndDynamic.get('options')?.value?.placeHolder
+                          atticDynamic.get('options')?.value?.placeHolder
                         "
                         id="radiantBarrier"
                         [formControlName]="
-                          fndDynamic.get('options')?.value?.name
+                          atticDynamic.get('options')?.value?.name
                         "
                       >
                       </ng-select>
                       <div
                         class="errormsg"
                         *ngIf="
-                          (fndDynamic.get(
-                            fndDynamic.get('options')?.value?.name
+                          (atticDynamic.get(
+                            atticDynamic.get('options')?.value?.name
                           )?.touched ||
-                            fndDynamic.get(
-                              fndDynamic.get('options')?.value?.name
+                            atticDynamic.get(
+                              atticDynamic.get('options')?.value?.name
                             )?.dirty) &&
-                          fndDynamic.get(fndDynamic.get('options')?.value?.name)
+                          atticDynamic.get(atticDynamic.get('options')?.value?.name)
                             ?.invalid
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                         >
-                          {{ fndDynamic.get("options")?.value?.errorMsg }}
+                          {{ atticDynamic.get("options")?.value?.errorMsg }}
                         </label>
                       </div>
                     </div>
                   </div>
                 </ng-container>
               </ng-container>
-            </ng-container> -->
+            </ng-container>
 
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"

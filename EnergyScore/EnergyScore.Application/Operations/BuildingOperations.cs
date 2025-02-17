@@ -14,6 +14,7 @@ namespace EnergyScore.Application.Operations
         public Response UpdateAboutId(Guid BuildingId, Guid AboutId);
         public BuildingDTO GetBuildingById(Guid BuildingId);
         public Response UpdateZoneFloorId(Guid BuildingId, Guid ZoneFloorId);
+        public Response UpdateZoneRoofId(Guid BuildingId, Guid ZoneRoofId);
     }
     public class BuildingOperations : IBuildingOperations
     {
@@ -53,7 +54,17 @@ namespace EnergyScore.Application.Operations
             this._dbConnect.SaveChanges();
             return new Response() { Failed = false, Message = "ZoneFloorId is Updated Successfully" };
         }
-
+        public Response UpdateZoneRoofId(Guid BuildingId, Guid ZoneRoofId)
+        {
+            Building building = this._dbConnect.Buildings.FirstOrDefault(obj => obj.Id == BuildingId);
+            if (building == null)
+            {
+                return new Response() { Failed = true, Message = "Building Not Found" };
+            }
+            building.ZoneRoofId = ZoneRoofId;
+            this._dbConnect.SaveChanges();
+            return new Response() { Failed = false, Message = "ZoneRoofId is Updated Successfully" };
+        }
         public BuildingDTO GetBuildingById(Guid BuildingId)
         {
             Building building = this._dbConnect.Buildings.FirstOrDefault(obj => obj.Id == BuildingId);

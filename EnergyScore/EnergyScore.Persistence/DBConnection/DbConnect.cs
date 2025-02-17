@@ -3,6 +3,7 @@ using EnergyScore.Domain.Entityies.AddressModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
 using EnergyScore.Domain.Entityies.CommonModels;
 using Microsoft.EntityFrameworkCore;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
 
 
 namespace EnergyScore.Persistence.DBConnection
@@ -25,8 +26,14 @@ namespace EnergyScore.Persistence.DBConnection
         public DbSet<Insulation> Insulations{ get; set; }
         public DbSet<PerimeterInsulation> PerimeterInsulations{ get; set; }
         public DbSet<ZoneFloor> ZoneFloors { get; set; }
+        public DbSet<Attic> Attics { get; set; }
+        public DbSet<Roof> Roofs { get; set; }
+        public DbSet<Wall> Walls { get; set; }
+        public DbSet<ZoneRoof> ZoneRoofs { get; set; }
+        public DbSet<AtticTypeDynamicOption> AtticTypeDynamicOptions { get; set; }
     }
 }
+
 /*
 
 -- for migrations

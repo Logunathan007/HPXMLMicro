@@ -100,7 +100,6 @@ namespace EnergyScore.Application.Operations
                                 {
                                     ManufacturedHomeSections = aboutDTO.ManufacturedHomeSections
                                 }
-                                
                             }
                         },
                         Enclosure = new Enclosure

@@ -12,5 +12,7 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public ICollection<FoundationWall> FoundationWalls { get; set; }
         public ICollection<Slab> Slabs { get; set; }
         public ICollection<FrameFloor> FrameFloors { get; set; }
+        public ZoneFloor ZoneFloor { get; set; }
+        public Guid ZoneFloorId { get; set; }
     }
 }
