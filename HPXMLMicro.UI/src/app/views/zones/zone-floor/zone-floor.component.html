@@ -29,7 +29,7 @@
           <div class="row px-0 mx-0">
             <div class="col-md-6">
               <div class="input-box">
-                <label for="foundationName"> Foundation name </label>
+                <label > Foundation name </label>
                 <input
                   formControlName="foundationName"
                   type="text"
@@ -45,14 +45,14 @@
                   "
                 >
                   <label
-                    for="foundationName"
+
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="foundationItem.get('foundationName')?.errors?.['required']"
                   >
                     Foundation name is required
                   </label>
                   <label
-                    for="foundationName"
+
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="!foundationItem.get('foundationName')?.errors?.['required'] && foundationItem.get('foundationName')?.errors?.['nameSame']"
                   >
@@ -63,7 +63,7 @@
             </div>
             <div class="col-md-6">
               <div class="select-box">
-                <label for="foundationType"> Foundation Type </label>
+                <label > Foundation Type </label>
                 <ng-select
                   [items]="foundationTypeOptions"
                   bindLabel="name"
@@ -84,7 +84,7 @@
                   "
                 >
                   <label
-                    for="foundationType"
+
                     class="text-danger fw-semibold position-absolute"
                   >
                     Foundation Type is required
@@ -106,7 +106,7 @@
                 >
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label for="radiantBarrier">
+                      <label >
                         {{ fndDynamic.get("options")?.value?.label }}
                       </label>
                       <ng-select
@@ -138,7 +138,7 @@
                         "
                       >
                         <label
-                          for="radiantBarrier"
+
                           class="text-danger fw-semibold position-absolute"
                         >
                           {{ fndDynamic.get("options")?.value?.errorMsg }}
@@ -178,7 +178,7 @@
                 <ng-container [formGroupName]="foundationWallIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="foundationWallName"> Foundation Wall Name </label>
+                      <label > Foundation Wall Name </label>
                       <input
                         formControlName="foundationWallName"
                         type="text"
@@ -194,14 +194,13 @@
                         "
                       >
                         <label
-                          for="foundationWallName"
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="foundationWallItem.get('foundationWallName')?.errors?.['required']"
                         >
                         Foundation Wall Name is required
                         </label>
                         <label
-                          for="foundationWallName"
+
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!foundationWallItem.get('foundationWallName')?.errors?.['required'] && foundationWallItem.get('foundationWallName')?.errors?.['nameSame']"
                         >
@@ -212,7 +211,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="area"> Area </label>
+                      <label > Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -228,7 +227,6 @@
                         "
                       >
                         <label
-                          for="area"
                           class="text-danger fw-semibold position-absolute"
                         >
                           Area is required
@@ -277,7 +275,7 @@
                       <ng-container [formGroupName]="foundationWallInsulationIndex">
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="nominalRValue"> Nominal R-Value </label>
+                            <label > Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -296,7 +294,7 @@
                               "
                             >
                               <label
-                                for="nominalRValue"
+
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Nominal R-Value is required
@@ -306,7 +304,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="assemblyEffectiveRValue"
+                            <label
                               >Assembly Effective R-Value
                             </label>
                             <input
@@ -330,7 +328,7 @@
                               "
                             >
                               <label
-                                for="assemblyEffectiveRValue"
+
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -368,7 +366,7 @@
                 <ng-container [formGroupName]="slabIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="slabName"> Slab Name </label>
+                      <label > Slab Name </label>
                       <input
                         formControlName="slabName"
                         type="text"
@@ -384,14 +382,14 @@
                         "
                       >
                         <label
-                          for="slabName"
+
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="slabItem.get('slabName')?.errors?.['required']"
                         >
                           Slab Name is required
                         </label>
                         <label
-                          for="slabName"
+
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!slabItem.get('slabName')?.errors?.['required'] && slabItem.get('slabName')?.errors?.['nameSame']"
                         >
@@ -402,7 +400,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="exposedPerimeter"> Exposed Perimeter </label>
+                      <label > Exposed Perimeter </label>
                       <input
                         formControlName="exposedPerimeter"
                         type="number"
@@ -418,7 +416,7 @@
                         "
                       >
                         <label
-                          for="exposedPerimeter"
+
                           class="text-danger fw-semibold position-absolute"
                         >
                           Exposed Perimeter is required
@@ -467,7 +465,7 @@
                       <ng-container [formGroupName]="slabPerimeterInsulationIndex">
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="nominalRValue"> Nominal R-Value </label>
+                            <label > Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -486,7 +484,7 @@
                               "
                             >
                               <label
-                                for="nominalRValue"
+
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Nominal R-Value is required
@@ -496,7 +494,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="assemblyEffectiveRValue"
+                            <label
                               >Assembly Effective R-Value
                             </label>
                             <input
@@ -520,7 +518,7 @@
                               "
                             >
                               <label
-                                for="assemblyEffectiveRValue"
+
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -562,7 +560,7 @@
                 <ng-container [formGroupName]="frameFloorIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="frameFloorName"> Frame Floor Name </label>
+                      <label > Frame Floor Name </label>
                       <input
                         formControlName="frameFloorName"
                         type="text"
@@ -578,14 +576,14 @@
                         "
                       >
                         <label
-                          for="frameFloorName"
+
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="frameFloorItem.get('frameFloorName')?.errors?.['required']"
                         >
                           Frame Floor is required
                         </label>
                         <label
-                          for="frameFloorName"
+
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!frameFloorItem.get('frameFloorName')?.errors?.['required'] && frameFloorItem.get('frameFloorName')?.errors?.['nameSame']"
                         >
@@ -596,7 +594,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label for="area"> Area </label>
+                      <label > Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -612,7 +610,7 @@
                         "
                       >
                         <label
-                          for="area"
+
                           class="text-danger fw-semibold position-absolute"
                         >
                           Area is required
@@ -664,7 +662,7 @@
                       <ng-container [formGroupName]="frameFloorInsulationIndex">
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="nominalRValue"> Nominal R-Value </label>
+                            <label > Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -683,7 +681,6 @@
                               "
                             >
                               <label
-                                for="nominalRValue"
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Nominal R-Value is required
@@ -693,7 +690,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label for="assemblyEffectiveRValue"
+                            <label
                               >Assembly Effective R-Value
                             </label>
                             <input
@@ -717,7 +714,7 @@
                               "
                             >
                               <label
-                                for="assemblyEffectiveRValue"
+
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -740,4 +737,10 @@
       <button class="bg-secondary btn-style" [disabled]="!enableNext" (click)="goNext()">Next</button>
     </div>
   </form>
+  <button class="d-block btn-style mx-auto bg-success my-5 "(click)="generateHPXML()" > Generate HPXML </button>
+  <p class="overflow-x-auto">{{ hpxmlString }}</p>
+  <button class="d-block btn-style mx-auto bg-success my-5 " *ngIf="hpxmlString" (click)="validateHPXML()" > Validate HPXML </button>
+  <div class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4" *ngIf="validationMsg" style="background-color: rgba(0, 0, 0, 0.089);">
+    <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+  </div>
 </div>

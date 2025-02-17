@@ -13,6 +13,7 @@ namespace EnergyScore.Domain.Entityies.AboutModels
         public double NumberofConditionedFloorsAboveGrade { get; set; }
         public double AverageCeilingHeight { get; set; }
         public double ConditionedBuildingVolume { get; set; }
+        public string? ManufacturedHomeSections { get; set; }
         public double ConditionedFloorArea { get; set; }
         public int AzimuthOfFrontOfHome { get; set; }
         public string OrientationOfFrontOfHome { get; set; }

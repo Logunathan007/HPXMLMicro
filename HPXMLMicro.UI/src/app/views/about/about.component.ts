@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { housePressureOptions, leakinessDescriptionOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
+import { housePressureOptions, leakinessDescriptionOptions, ManufacturedHomeSectionsOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,10 +18,12 @@ export class AboutComponent implements OnInit {
   orientationOfFrontOfHomeOptions = orientationOfFrontOfHomeOptions;
   housePressureOptions = housePressureOptions
   unitofMeasureOptions = unitofMeasureOptions
-  leakinessDescriptionOptions = leakinessDescriptionOptions
+  leakinessDescriptionOptions = leakinessDescriptionOptions;
+  manufacturedHomeSectionsOptions = ManufacturedHomeSectionsOptions;
   hpxmlString!: string;
   validationMsg!: any;
   enableNext: boolean = false;
+  enableManufacturedHome:boolean = false;
 
   get aboutFormControl() {
     return this.aboutForm.controls;
@@ -38,6 +40,7 @@ export class AboutComponent implements OnInit {
     private router: Router
   ) {
     this.variableDeclaration();
+    this.addSubscribe();
   }
 
   ngOnInit(): void {
@@ -58,10 +61,24 @@ export class AboutComponent implements OnInit {
       conditionedFloorArea: [null, [Validators.required]],
       azimuthOfFrontOfHome: [null, [Validators.required, Validators.min(0), Validators.max(360)]],
       orientationOfFrontOfHome: [null, [Validators.required]],
+      manufacturedHomeSections:[null],
       // AirInfiltrationMeasurement
       airInfiltrationMeasurements: this.fb.array([
         this.airInfiltrationInput()
       ])
+    })
+  }
+
+  addSubscribe(){
+    this.aboutForm.get('residentialFacilityType')?.valueChanges.subscribe((val) => {
+      if(val == 'manufactured home'){
+        this.enableManufacturedHome = true;
+        this.aboutForm.get('manufacturedHomeSections')?.setValidators(Validators.required)
+      }else{
+        this.aboutForm.get('manufacturedHomeSections')?.clearValidators()
+        this.enableManufacturedHome = false;
+      }
+      this.aboutForm.get('manufacturedHomeSections')?.setValue(null);
     })
   }
 

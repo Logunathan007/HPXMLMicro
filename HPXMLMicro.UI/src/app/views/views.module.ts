@@ -9,7 +9,7 @@ import {  NgSelectModule } from '@ng-select/ng-select';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewsComponent } from './views.component';
-import { RouterModule } from '@angular/router';
+import { ShowErrorDirective } from '../shared/modules/directives/show-error.directive';
 
 
 
@@ -18,7 +18,8 @@ import { RouterModule } from '@angular/router';
     AboutComponent,
     AddressComponent,
     SystemsComponent,
-    ViewsComponent
+    ViewsComponent,
+    ShowErrorDirective,
   ],
   imports: [
     CommonModule,
@@ -27,7 +28,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     NgSelectModule,
     HttpClientModule,
-    NgxJsonViewerModule
+    NgxJsonViewerModule,
   ],
 })
 export class ViewsModule { }

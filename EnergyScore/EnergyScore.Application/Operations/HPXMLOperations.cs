@@ -96,6 +96,11 @@ namespace EnergyScore.Application.Operations
                                 NumberofBedrooms = aboutDTO.NumberofBedrooms,
                                 ConditionedFloorArea = aboutDTO.ConditionedFloorArea,
                                 ConditionedBuildingVolume = aboutDTO.ConditionedBuildingVolume,
+                                extension = aboutDTO.ManufacturedHomeSections == null ? null : new extension()
+                                {
+                                    ManufacturedHomeSections = aboutDTO.ManufacturedHomeSections
+                                }
+                                
                             }
                         },
                         Enclosure = new Enclosure
@@ -104,19 +109,19 @@ namespace EnergyScore.Application.Operations
                             {
                                 AirInfiltrationMeasurement = this.AirInfiltrationMeasurementConvertor(aboutDTO)
                             },
-                            Foundations = new Foundations()
+                            Foundations = (this.FoundationConvertor(zoneFloorDTO).Count==0)?null: (zoneFloorDTO?.Foundations?.Count == 0 || zoneFloorDTO?.Foundations == null) ? null : new Foundations()
                             {
                                 Foundation = this.FoundationConvertor(zoneFloorDTO) 
                             },
-                            FoundationWalls = new FoundationWalls()
+                            FoundationWalls = (this.FoundationWallConvertor(zoneFloorDTO).Count == 0)?null:new FoundationWalls()
                             {
                                 FoundationWall = this.FoundationWallConvertor(zoneFloorDTO)
                             },
-                            FrameFloors = new FrameFloors()
+                            FrameFloors = (this.FrameFloorConveror(zoneFloorDTO).Count == 0) ? null : new FrameFloors()
                             {
                                 FrameFloor = this.FrameFloorConveror(zoneFloorDTO)
                             },
-                            Slabs = new Slabs()
+                            Slabs = (this.SlabConvertor(zoneFloorDTO).Count == 0) ? null : new Slabs()
                             {
                                 Slab = this.SlabConvertor(zoneFloorDTO)
                             }
@@ -148,8 +153,9 @@ namespace EnergyScore.Application.Operations
         }
         public List<Foundation> FoundationConvertor(ZoneFloorDTO zoneFloorDTO)
         {
+            if(zoneFloorDTO == null) return null;
             var foundations = new List<Foundation>(); 
-            foreach (var foundation in zoneFloorDTO.Foundations) {
+            foreach (var foundation in zoneFloorDTO?.Foundations) {
                 foundations.Add(new Foundation
                 {
                     SystemIdentifier = new SystemIdentifier
@@ -179,10 +185,11 @@ namespace EnergyScore.Application.Operations
         
         public List<FoundationWall> FoundationWallConvertor(ZoneFloorDTO zoneFloorDTO)
         {
+            if(zoneFloorDTO == null) return null;
             var foundationWalls = new List<FoundationWall>();
-            foreach (var foundation in zoneFloorDTO.Foundations)
+            foreach (var foundation in zoneFloorDTO?.Foundations)
             {
-                foreach (var foundationWall in foundation.FoundationWalls)
+                foreach (var foundationWall in foundation?.FoundationWalls)
                 {
                     foundationWalls.Add(new FoundationWall
                     {
@@ -191,7 +198,7 @@ namespace EnergyScore.Application.Operations
                             Id = _idConvertor.GuidToHPXMLIDConvertor(foundationWall.Id)
                         },
                         Area = foundationWall.Area,
-                        Insulaion = foundationWall.Insulations.Select(obj => new Insulaion
+                        Insulation = foundationWall.Insulations.Select(obj => new Insulation
                         {
                             SystemIdentifier = new SystemIdentifier
                             {
@@ -211,10 +218,11 @@ namespace EnergyScore.Application.Operations
 
         public List<Slab> SlabConvertor(ZoneFloorDTO zoneFloorDTO)
         {
+            if (zoneFloorDTO == null) return null;
             var slabs = new List<Slab>();
-            foreach (var foundation in zoneFloorDTO.Foundations)
+            foreach (var foundation in zoneFloorDTO?.Foundations)
             {
-                foreach (var slab in foundation.Slabs)
+                foreach (var slab in foundation?.Slabs)
                 {
                     slabs.Add(new Slab
                     {
@@ -242,10 +250,11 @@ namespace EnergyScore.Application.Operations
         }
         public List<FrameFloor> FrameFloorConveror(ZoneFloorDTO zoneFloorDTO)
         {
+            if (zoneFloorDTO == null) return null;
             var frames = new List<FrameFloor>();
-            foreach (var foundation in zoneFloorDTO.Foundations)
+            foreach (var foundation in zoneFloorDTO?.Foundations)
             {
-                foreach (var frame in foundation.FrameFloors)
+                foreach (var frame in foundation?.FrameFloors)
                 {
                     frames.Add(new FrameFloor
                     {
@@ -254,7 +263,7 @@ namespace EnergyScore.Application.Operations
                             Id = _idConvertor.GuidToHPXMLIDConvertor(frame.Id)
                         },
                         Area = frame.Area,
-                        Insulaion = frame.Insulations.Select(obj => new Insulaion
+                        Insulation = frame.Insulations.Select(obj => new Insulation
                         {
                             SystemIdentifier = new SystemIdentifier
                             {
@@ -273,3 +282,4 @@ namespace EnergyScore.Application.Operations
         }
     }
 }
+

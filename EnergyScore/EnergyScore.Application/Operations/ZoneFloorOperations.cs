@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
 using EnergyScore.Application.Templates.Responses;
-using EnergyScore.Domain.Entityies.AboutModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 
 
 namespace EnergyScore.Application.Operations
@@ -52,6 +49,7 @@ namespace EnergyScore.Application.Operations
                     .ThenInclude(obj => obj.Slabs)
                     .ThenInclude(obj => obj.PerimeterInsulations)
                 .FirstOrDefault(obj => obj.Id == zoneFloorId);
+
             if (floor == null)
             {
                 return null;

@@ -1,6 +1,6 @@
 import { CommonService } from '../../shared/services/common.service';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-address',
@@ -24,7 +24,7 @@ export class AddressComponent {
   variableDeclaration() {
     this.addressForm = this.fb.group({
       address1: ["", Validators.required],
-      address2: [""],
+      address2: ["",Validators.required],
       state: ["", Validators.required],
       city: ["", Validators.required],
       zipcode: [null, [Validators.required, Validators.min(999), Validators.max(100000)]],

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EnergyScore.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class makeConnection : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,7 @@ namespace EnergyScore.Persistence.Migrations
                     NumberofConditionedFloorsAboveGrade = table.Column<double>(type: "double precision", nullable: false),
                     AverageCeilingHeight = table.Column<double>(type: "double precision", nullable: false),
                     ConditionedBuildingVolume = table.Column<double>(type: "double precision", nullable: false),
+                    ManufacturedHomeSections = table.Column<string>(type: "text", nullable: false),
                     ConditionedFloorArea = table.Column<double>(type: "double precision", nullable: false),
                     AzimuthOfFrontOfHome = table.Column<int>(type: "integer", nullable: false),
                     OrientationOfFrontOfHome = table.Column<string>(type: "text", nullable: false)
@@ -137,7 +138,6 @@ namespace EnergyScore.Persistence.Migrations
                     Finished = table.Column<bool>(type: "boolean", nullable: true),
                     Conditioned = table.Column<bool>(type: "boolean", nullable: true),
                     Vented = table.Column<bool>(type: "boolean", nullable: true),
-                    Walkout = table.Column<bool>(type: "boolean", nullable: true),
                     FoundationId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

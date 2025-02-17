@@ -4,6 +4,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, V
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { nameValidator } from '../../../shared/modules/Validators/validators';
 
 @Component({
   selector: 'app-zone-floor',
@@ -16,7 +17,8 @@ export class ZoneFloorComponent implements OnInit {
   foundationForm!: FormGroup;
   enableNext: boolean = false;
   buildingId: string = ""
-
+  hpxmlString!: string;
+  validationMsg!: any;
   foundationTypeOptions = FoundationTypeOptions;
 
   get foundationsObj(): FormArray {
@@ -73,7 +75,7 @@ export class ZoneFloorComponent implements OnInit {
   //Input Field methods
   foundationInputs() {
     return this.fb.group({
-      foundationName: [null, [Validators.required], [this.nameValidator('foundationName')]],
+      foundationName: [null, [Validators.required], [nameValidator('foundationName')]],
       foundationType: [null, Validators.required],
       foundationTypeDynamicOptions: this.fb.array([
         //dynamic inputs will be added for foundation Type
@@ -86,7 +88,7 @@ export class ZoneFloorComponent implements OnInit {
 
   foundationWallInputs() {
     return this.fb.group({
-      foundationWallName: [null, [Validators.required], [this.nameValidator('foundationWallName')]],
+      foundationWallName: [null, [Validators.required], [nameValidator('foundationWallName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -94,7 +96,7 @@ export class ZoneFloorComponent implements OnInit {
 
   frameFloorInput() {
     return this.fb.group({
-      frameFloorName: [null, [Validators.required], [this.nameValidator('frameFloorName')]],
+      frameFloorName: [null, [Validators.required], [nameValidator('frameFloorName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -102,8 +104,8 @@ export class ZoneFloorComponent implements OnInit {
 
   insulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
-      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(100), Validators.min(0)]]
+      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
+      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]]
     })
   }
 
@@ -187,7 +189,7 @@ export class ZoneFloorComponent implements OnInit {
 
   slabInputs() {
     return this.fb.group({
-      slabName: [null, [Validators.required], [this.nameValidator('slabName')]],
+      slabName: [null, [Validators.required], [nameValidator('slabName')]],
       exposedPerimeter: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
       perimeterInsulations: this.fb.array([this.perimeterInsulationInputs()])
     })
@@ -195,29 +197,9 @@ export class ZoneFloorComponent implements OnInit {
 
   perimeterInsulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
-      assemblyEffectiveRValue: [null, [Validators.max(100), Validators.min(0)]]
+      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
+      assemblyEffectiveRValue: [null, [Validators.max(1), Validators.min(0.1)]]
     })
-  }
-
-  // Async validator
-  nameValidator(name: string) {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          let arr = control.parent?.parent as any;
-          if (arr && arr.controls) {
-            for (let element of arr.controls) {
-              if (control !== element.get(name) && element.get(name)?.value === control.value) {
-                resolve({ nameSame: true });
-                return;
-              }
-            }
-          }
-          resolve(null);
-        }, 500);
-      });
-    };
   }
 
   // for adding multiple foundation
@@ -281,6 +263,7 @@ export class ZoneFloorComponent implements OnInit {
     this.commonService.sendZoneFloor(found, this.buildingId).subscribe(
       (obj: any) => {
         console.log(obj);
+        this.enableNext = true;
       }
     )
     console.log(this.foundationForm)
@@ -288,5 +271,30 @@ export class ZoneFloorComponent implements OnInit {
   goNext() {
 
   }
+
+  generateHPXML() {
+    this.commonService.getHPXMLString(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.hpxmlString = val?.hpxmlString
+        }
+      }
+    )
+  }
+
+  validateHPXML() {
+    this.commonService.getHPXMLBase64(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.commonService.validateHpxml(val).subscribe(
+            (res: any) => {
+              this.validationMsg = res
+            }
+          )
+        }
+      }
+    )
+  }
 }
+
 

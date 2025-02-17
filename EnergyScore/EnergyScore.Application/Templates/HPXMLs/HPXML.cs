@@ -94,6 +94,7 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public int NumberofBedrooms { get; set; }
         public double ConditionedFloorArea { get; set; }
         public double ConditionedBuildingVolume { get; set; }
+        public extension extension { get; set; }
     }
 
     public class BSSite
@@ -104,11 +105,11 @@ namespace EnergyScore.Application.Templates.HPXMLs
 
     public class Enclosure
     {
-        public AirInfiltration AirInfiltration { get; set; }
-        public Foundations Foundations { get; set; }
-        public FoundationWalls FoundationWalls { get; set; }
-        public FrameFloors FrameFloors { get; set; }
-        public Slabs Slabs { get; set; }
+        public AirInfiltration? AirInfiltration { get; set; }
+        public Foundations? Foundations { get; set; }
+        public FoundationWalls? FoundationWalls { get; set; }
+        public FrameFloors? FrameFloors { get; set; } = null;
+        public Slabs? Slabs { get; set; }
     }
 
     public class AirInfiltration
@@ -139,7 +140,7 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public string UnitofMeasure { get; set; }
         public double AirLeakage { get; set; }
     }
-    public class Insulaion
+    public class Insulation
     {
         public SystemIdentifier SystemIdentifier { get; set; }
         public double AssemblyEffectiveRValue { get; set; }
@@ -148,5 +149,9 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class Layer
     {
         public double NominalRValue { get; set; }
+    }
+    public class extension
+    {
+        public string? ManufacturedHomeSections { get; set; } = null;
     }
 }

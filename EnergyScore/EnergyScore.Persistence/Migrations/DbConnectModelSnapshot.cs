@@ -40,6 +40,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<double>("ConditionedFloorArea")
                         .HasColumnType("double precision");
 
+                    b.Property<string>("ManufacturedHomeSections")
+                        .HasColumnType("text");
+
                     b.Property<int>("NumberofBedrooms")
                         .HasColumnType("integer");
 
@@ -237,9 +240,6 @@ namespace EnergyScore.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<bool?>("Vented")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool?>("Walkout")
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");

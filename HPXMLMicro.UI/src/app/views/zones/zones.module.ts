@@ -8,6 +8,7 @@ import { ZoneSkylightComponent } from './zone-skylight/zone-skylight.component';
 import { ZonesComponent } from './zones.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CommonModule,
     ZonesRoutingModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxJsonViewerModule
   ]
 })
 export class ZonesModule { }
