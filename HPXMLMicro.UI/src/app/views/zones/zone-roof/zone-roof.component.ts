@@ -1,8 +1,10 @@
+import { RoofColorOptions, BooleanOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../../shared/services/common.service';
 import { nameValidator } from '../../../shared/modules/Validators/validators';
+import { atticWallTypeOptions, RoofTypeOptions } from '../../../shared/lookups/about-lookups';
 
 @Component({
   selector: 'app-zone-roof',
@@ -17,6 +19,10 @@ export class ZoneRoofComponent {
   buildingId: string = ""
   hpxmlString!: string;
   validationMsg!: any;
+  atticWallTypeOptions = atticWallTypeOptions;
+  RoofTypeOptions = RoofTypeOptions;
+  RoofColorOptions = RoofColorOptions;
+  BooleanOptions = BooleanOptions;
 
   get atticsObj(): FormArray {
     return this.atticForm.get('attics') as FormArray;
@@ -28,12 +34,21 @@ export class ZoneRoofComponent {
   }
 
   wallsObj(index: number): FormArray {
-    return this.atticsObj.at(index).get('slabs') as FormArray;
+    return this.atticsObj.at(index).get('walls') as FormArray;
   }
 
   frameFloorsObj(index: number): FormArray {
     return this.atticsObj.at(index).get('frameFloors') as FormArray;
   }
+
+  roofInsulationsObj(pIndex: number, cIndex: number): FormArray {
+    return this.roofsObj(pIndex).at(cIndex).get('insulations') as FormArray;
+  }
+
+  frameFloorInsulationsObj(pindex: number, index: number): FormArray {
+    return this.frameFloorsObj(pindex)?.at(index).get('insulations') as FormArray;
+  }
+
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
     this.variableDeclaration();
@@ -56,6 +71,31 @@ export class ZoneRoofComponent {
   //Input Field methods
   atticInputs() {
     return this.fb.group({
+      atticName: [null, [Validators.required],[nameValidator('atticName')]],
+      atticType: [null, [Validators.required]],
+      roofs: this.fb.array([]),
+      walls: this.fb.array([]),
+      frameFloors: this.fb.array([]),
+    })
+  }
+
+  roofInputs() {
+    return this.fb.group({
+      roofName: [null, [Validators.required], [nameValidator('roofName')]],
+      area: [null, [Validators.required]],
+      solarAbsorptance: [null, [Validators.required, Validators.min(0.1), Validators.max(1)]],
+      roofColor: [null, [Validators.required]],
+      roofType: [null, [Validators.required]],
+      radiantBarrier: [null, [Validators.required]],
+      insulations: this.fb.array([this.insulationInputs()])
+    })
+  }
+
+  wallInputs() {
+    return this.fb.group({
+      wallName: [null, [Validators.required], [nameValidator('wallName')]],
+      atticWallType: [null, [Validators.required]],
+      area: [null, [Validators.required]],
     })
   }
 
@@ -88,4 +128,14 @@ export class ZoneRoofComponent {
     array.removeAt(index);
   }
 
+  // for click event functions
+  onSubmit() {
+    if (this.atticForm.invalid) {
+      this.atticForm.markAllAsTouched();
+      return;
+    }
+  }
+  goNext(){
+
+  }
 }

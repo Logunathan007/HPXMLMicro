@@ -98,7 +98,7 @@ export const FoundationTypeOptions = [
 
 
 // for zone-roof
-export const RootTypeOptions = [
+export const RoofTypeOptions = [
   { name: "concrete", value: "concrete" },
   { name: "plastic/rubber/synthetic sheeting", value: "plastic/rubber/synthetic sheeting" },
   { name: "metal surfacing", value: "metal surfacing" },
@@ -116,4 +116,8 @@ export const RoofColorOptions = [
   { name: "light", value: "light" },
 ]
 
-
+export const atticWallTypeOptions = [
+  { name: "other", value: 'other' },
+  { name: "knee wall", value: 'knee wall' },
+  { name: "gable", value: 'gable' },
+]

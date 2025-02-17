@@ -268,8 +268,11 @@ export class ZoneFloorComponent implements OnInit {
     )
     console.log(this.foundationForm)
   }
-  goNext() {
 
+  goNext() {
+    this.router.navigate(['zones','roof'], {
+      queryParams: { id: this.buildingId }
+    })
   }
 
   generateHPXML() {
