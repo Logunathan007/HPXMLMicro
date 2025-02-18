@@ -13,5 +13,6 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS
         public string FoundationWallName { get; set; }
         public double Area { get; set; }
         public ICollection<InsulationDTO> Insulations { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

@@ -56,13 +56,11 @@ export class ZoneRoofComponent {
   }
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
-    this.variableDeclaration();
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      this.buildingId = params.get('id') ?? ""
-    })
+    this.getBuildingId();
+    this.variableDeclaration();
   }
 
   //variable declaration
@@ -71,6 +69,12 @@ export class ZoneRoofComponent {
       attics: this.fb.array([])
     })
     this.addNewAttics()
+  }
+
+  getBuildingId(){
+    this.route.queryParamMap.subscribe(params => {
+      this.buildingId = params.get('id') ?? ""
+    })
   }
 
   //Input Field methods
@@ -82,6 +86,7 @@ export class ZoneRoofComponent {
       roofs: this.fb.array([]),
       walls: this.fb.array([]),
       frameFloors: this.fb.array([]),
+      buildingId:[this.buildingId]
     })
   }
 
@@ -93,6 +98,7 @@ export class ZoneRoofComponent {
       roofColor: [null, [Validators.required]],
       roofType: [null, [Validators.required]],
       radiantBarrier: [null, [Validators.required]],
+      buildingId:[this.buildingId] ,
       insulations: this.fb.array([this.insulationInputs()])
     })
   }
@@ -101,6 +107,7 @@ export class ZoneRoofComponent {
     return this.fb.group({
       wallName: [null, [Validators.required], [nameValidator('wallName')]],
       atticWallType: [null, [Validators.required]],
+      buildingId:[this.buildingId] ,
       area: [null, [Validators.required]],
     })
   }
@@ -108,6 +115,7 @@ export class ZoneRoofComponent {
   frameFloorInput() {
     return this.fb.group({
       frameFloorName: [null, [Validators.required], [nameValidator('frameFloorName')]],
+      buildingId:[this.buildingId] ,
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -158,7 +166,6 @@ export class ZoneRoofComponent {
     ]
   }
 
-
   // for adding multiple foundation
   addNewAttics() {
     let attic = this.atticInputs()
@@ -204,7 +211,7 @@ export class ZoneRoofComponent {
         }
       }
     }
-    this.commonService.sendZoneRoof(this.atticForm.value,this.buildingId).subscribe({
+    this.commonService.sendZoneRoof(attic,this.buildingId).subscribe({
       next:(res)=>{
         console.log(res);
       },

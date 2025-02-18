@@ -9,5 +9,6 @@
         public ICollection<FoundationWallDTO> FoundationWalls { get; set; }
         public ICollection<SlabDTO> Slabs { get; set; }
         public ICollection<FrameFloorDTO> FrameFloors { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 
+using EnergyScore.Domain.Entityies.AddressModels;
 using EnergyScore.Domain.Entityies.CommonModels;
 
 namespace EnergyScore.Domain.Entityies.ZoneRoofModels
@@ -16,5 +17,7 @@ namespace EnergyScore.Domain.Entityies.ZoneRoofModels
         public ICollection<Insulation> Insulations { get; set; }
         public Guid AtticId { get; set; }
         public Attic Attics { get; set; }
+        public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
     }
 }

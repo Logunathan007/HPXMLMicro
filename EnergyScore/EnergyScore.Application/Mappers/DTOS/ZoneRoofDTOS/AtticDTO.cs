@@ -12,5 +12,6 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
         public ICollection<RoofDTO> Roofs { get; set; }
         public ICollection<WallDTO> Walls { get; set; }
         public ICollection<FrameFloorDTO> FrameFloors { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

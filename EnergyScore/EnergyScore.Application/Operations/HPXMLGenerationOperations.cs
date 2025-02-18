@@ -9,6 +9,7 @@ using System.Text;
 using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
 using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
+using EnergyScore.Domain.Entityies.AddressModels;
 
 namespace EnergyScore.Application.Operations
 {
@@ -55,33 +56,26 @@ namespace EnergyScore.Application.Operations
         {
             // Check if building exists
             BuildingDTO buildingDTO = _buildingOperations.GetBuildingById(BuildingId);
-            if(buildingDTO == null)
+            if (buildingDTO == null)
             {
                 return new HPXMLGenerationResponse { Failed = true, Message = "Building not Found" };
             }
 
             // Check if address exists
             AddressDTO addressDTO = _addressOperations.GetAddressById(buildingDTO.AddressId);
-            if(addressDTO == null)
+            if (addressDTO == null)
             {
                 return new HPXMLGenerationResponse { Failed = true, Message = "Address not Found for your Building" };
             }
 
             // Check if about exists
-            if(buildingDTO?.AboutId == null)
+            if (buildingDTO?.AboutId == null)
             {
                 return new HPXMLGenerationResponse { Failed = true, Message = "About not Found for your Building" };
             }
             AboutDTO aboutDTO = _aboutOperations.GetAboutById(buildingDTO.AboutId);
 
-            // Check if ZoneFloors exists
-            if (buildingDTO?.ZoneFloorId == null)
-            {
-                return new HPXMLGenerationResponse { Failed = true, Message = "ZoneFloors not Found for your Building" };
-            }
-            ZoneFloorDTO zoneFloorDTO = _zoneFloorOperatoins.GetZoneFloorById(buildingDTO.ZoneFloorId);
-            
-            HPXML hpxml = _hpxmlOperations.GetHPXMLObj(BuildingId, addressDTO, aboutDTO, zoneFloorDTO);
+            HPXML hpxml = _hpxmlOperations.GetHPXMLObj(BuildingId, addressDTO, aboutDTO);
 
             return new HPXMLGenerationResponse { Failed = false, Message = "About not Found for your Building" , hPXML = hpxml }; ;
         }
@@ -90,7 +84,6 @@ namespace EnergyScore.Application.Operations
         {
             var serializer = new XmlSerializer(typeof(HPXML));
             string xmlString;
-
             using (var stringWriter = new Utf8StringWriter())
             {
                 var settings = new XmlWriterSettings

@@ -12,6 +12,9 @@ namespace EnergyScore.Application.Operations
     {
         public ResponseForZoneRoof AddZoneRoof(ZoneRoofDTO zoneRoofDTO, Guid buildingId);
         public ZoneRoofDTO GetZoneRoofById(Guid? zoneRoofId);
+        public IEnumerable<RoofDTO> GetRoofsByBuildingId(Guid? buildingId);
+        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid? buildingId);
+        public IEnumerable<AtticDTO> GetAtticsByBuildingId(Guid? buildingId);
     }
     public class ZoneRoofOperations : IZoneRoofOperations
     {
@@ -53,6 +56,31 @@ namespace EnergyScore.Application.Operations
             if (roof == null) { return null; }
             ZoneRoofDTO zoneRoofDTO = _mapper.Map<ZoneRoofDTO>(roof);
             return zoneRoofDTO;
+        }
+        public IEnumerable<AtticDTO> GetAtticsByBuildingId(Guid? buildingId)
+        {
+            if(buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<Attic> attics = _dbConnect.Attics
+                .Include(obj => obj.AtticTypeDynamicOptions)
+                .Include(obj => obj.Roofs)
+                .Include(obj => obj.Walls)
+                .Include(obj => obj.FrameFloors)
+                .Where(obj => obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<AtticDTO>>(attics);
+        }
+        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid? buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<Wall> walls = _dbConnect.Walls.Where(obj => obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<WallDTO>>(walls);
+        }
+        public IEnumerable<RoofDTO> GetRoofsByBuildingId(Guid? buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<Roof> roofs = _dbConnect.Roofs
+                .Include(obj => obj.Insulations)
+                .Where(obj => obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<RoofDTO>>(roofs);
         }
     }
 }

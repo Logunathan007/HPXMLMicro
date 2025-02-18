@@ -10,13 +10,20 @@ namespace EnergyScore.Domain.Entityies.AddressModels
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid? AboutId { get; set; } = null;
-        public About? Abouts { get; set; } = null;
+        public Guid? AboutId { get; set; } 
+        public About? Abouts { get; set; } 
         public Guid AddressId { get; set; }
         public Address Address { get; set; }
-        public Guid? ZoneFloorId { get; set; } = null;
-        public ZoneFloor? ZoneFloors { get; set; } = null;
-        public Guid? ZoneRoofId { get; set; } = null;
-        public ZoneRoof? ZoneRoofs { get; set; } = null;
+        public Guid? ZoneFloorId { get; set; } 
+        public ZoneFloor? ZoneFloors { get; set; } 
+        public Guid? ZoneRoofId { get; set; } 
+        public ZoneRoof? ZoneRoofs { get; set; } 
+        public ICollection<Slab>? Slab { get; set; }
+        public ICollection<Foundation>? Foundation { get; set; }
+        public ICollection<FoundationWall>? FoundationWall { get; set; }
+        public ICollection<FrameFloor>? FrameFloor { get; set; }
+        public ICollection<Attic>? Attic { get; set; }
+        public ICollection<Roof>? Roof { get; set; }
+        public ICollection<Wall>? Wall { get; set; }
     }
 }

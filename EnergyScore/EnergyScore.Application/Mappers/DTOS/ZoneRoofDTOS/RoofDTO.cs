@@ -14,5 +14,6 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
         public bool RadiantBarrier { get; set; }
         public double SolarAbsorptance { get; set; }
         public ICollection<Insulation> Insulations { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

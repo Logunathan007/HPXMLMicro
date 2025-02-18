@@ -216,6 +216,9 @@ namespace EnergyScore.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("FoundationName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -228,6 +231,8 @@ namespace EnergyScore.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
 
                     b.HasIndex("ZoneFloorId");
 
@@ -269,6 +274,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("double precision");
 
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("FoundationId")
                         .HasColumnType("uuid");
 
@@ -277,6 +285,8 @@ namespace EnergyScore.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
 
                     b.HasIndex("FoundationId");
 
@@ -295,6 +305,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid?>("AtticId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("FoundationId")
                         .HasColumnType("uuid");
 
@@ -306,6 +319,8 @@ namespace EnergyScore.Persistence.Migrations
 
                     b.HasIndex("AtticId");
 
+                    b.HasIndex("BuildingId");
+
                     b.HasIndex("FoundationId");
 
                     b.ToTable("FrameFloors");
@@ -315,6 +330,9 @@ namespace EnergyScore.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuildingId")
                         .HasColumnType("uuid");
 
                     b.Property<double>("ExposedPerimeter")
@@ -328,6 +346,8 @@ namespace EnergyScore.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
 
                     b.HasIndex("FoundationId");
 
@@ -359,10 +379,15 @@ namespace EnergyScore.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ZoneRoofId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
 
                     b.HasIndex("ZoneRoofId");
 
@@ -407,6 +432,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid>("AtticId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("RadiantBarrier")
                         .HasColumnType("boolean");
 
@@ -429,6 +457,8 @@ namespace EnergyScore.Persistence.Migrations
 
                     b.HasIndex("AtticId");
 
+                    b.HasIndex("BuildingId");
+
                     b.ToTable("Roofs");
                 });
 
@@ -438,12 +468,18 @@ namespace EnergyScore.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<double>("Area")
+                        .HasColumnType("double precision");
+
                     b.Property<Guid>("AtticId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("AtticWallType")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("WallName")
                         .IsRequired()
@@ -452,6 +488,8 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AtticId");
+
+                    b.HasIndex("BuildingId");
 
                     b.ToTable("Walls");
                 });
@@ -531,11 +569,19 @@ namespace EnergyScore.Persistence.Migrations
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
                 {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Foundation")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", "ZoneFloor")
                         .WithMany("Foundations")
                         .HasForeignKey("ZoneFloorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Building");
 
                     b.Navigation("ZoneFloor");
                 });
@@ -553,11 +599,19 @@ namespace EnergyScore.Persistence.Migrations
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.FoundationWall", b =>
                 {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("FoundationWall")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
                         .WithMany("FoundationWalls")
                         .HasForeignKey("FoundationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Building");
 
                     b.Navigation("Foundations");
                 });
@@ -568,31 +622,55 @@ namespace EnergyScore.Persistence.Migrations
                         .WithMany("FrameFloors")
                         .HasForeignKey("AtticId");
 
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("FrameFloor")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
                         .WithMany("FrameFloors")
                         .HasForeignKey("FoundationId");
 
                     b.Navigation("Attic");
 
+                    b.Navigation("Building");
+
                     b.Navigation("Foundations");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", b =>
                 {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Slab")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", "Foundations")
                         .WithMany("Slabs")
                         .HasForeignKey("FoundationId");
+
+                    b.Navigation("Building");
 
                     b.Navigation("Foundations");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Attic", b =>
                 {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Attic")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.ZoneRoof", "ZoneRoof")
                         .WithMany("Attics")
                         .HasForeignKey("ZoneRoofId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Building");
 
                     b.Navigation("ZoneRoof");
                 });
@@ -616,7 +694,15 @@ namespace EnergyScore.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Roof")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Attics");
+
+                    b.Navigation("Building");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", b =>
@@ -627,12 +713,37 @@ namespace EnergyScore.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Wall")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Attics");
+
+                    b.Navigation("Building");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.About", b =>
                 {
                     b.Navigation("AirInfiltrationMeasurements");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.AddressModels.Building", b =>
+                {
+                    b.Navigation("Attic");
+
+                    b.Navigation("Foundation");
+
+                    b.Navigation("FoundationWall");
+
+                    b.Navigation("FrameFloor");
+
+                    b.Navigation("Roof");
+
+                    b.Navigation("Slab");
+
+                    b.Navigation("Wall");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>

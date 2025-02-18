@@ -1,5 +1,6 @@
 ﻿
 
+using EnergyScore.Domain.Entityies.AddressModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
 
 namespace EnergyScore.Domain.Entityies.ZoneRoofModels
@@ -15,5 +16,7 @@ namespace EnergyScore.Domain.Entityies.ZoneRoofModels
         public ICollection<FrameFloor> FrameFloors { get; set; }
         public Guid ZoneRoofId { get; set; }
         public ZoneRoof ZoneRoof { get; set; }
+        public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
     }
 }

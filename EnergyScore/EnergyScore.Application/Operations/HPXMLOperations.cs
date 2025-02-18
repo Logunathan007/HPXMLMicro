@@ -1,25 +1,34 @@
 ﻿using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
+using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Application.Templates.HPXMLs;
 using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
+using EnergyScore.Application.Templates.HPXMLs.ZoneRoofs;
+using System.Runtime.InteropServices;
 
 namespace EnergyScore.Application.Operations
 {
     public interface IHPXMLOperations
     {
-        public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO,ZoneFloorDTO zoneFloorDTO);
+        public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO);
         public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO);
     }
     public class HPXMLOperations : IHPXMLOperations
     {
-        IIdConversionOpertaions _idConvertor;
-        public HPXMLOperations(IIdConversionOpertaions idConversionOpertaions)
+        private readonly IIdConversionOpertaions _idConvertor;
+        private readonly IZoneFloorOperatoins _zoneFloorOperatoins;
+        private readonly IZoneRoofOperations _zoneRoofOperations;
+        public HPXMLOperations(IIdConversionOpertaions idConversionOpertaions,
+            IZoneFloorOperatoins zoneFloorOperatoins,
+            IZoneRoofOperations zoneRoofOperations)
         {
             _idConvertor = idConversionOpertaions;
+            _zoneFloorOperatoins = zoneFloorOperatoins;
+            _zoneRoofOperations = zoneRoofOperations;
         }
 
-        public List<AirInfiltrationMeasurement>  AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO)
+        public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO)
         {
             List<AirInfiltrationMeasurement> airInFilMeasure = new List<AirInfiltrationMeasurement>();
             foreach (var item in aboutDTO.AirInfiltrationMeasurements)
@@ -41,8 +50,16 @@ namespace EnergyScore.Application.Operations
             }
             return airInFilMeasure;
         }
-        public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO, ZoneFloorDTO zoneFloorDTO)
+        public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO)
         {
+            IEnumerable<FoundationDTO> foundationList = _zoneFloorOperatoins.GetFoundationsByBuildingId(buildingId);
+            IEnumerable<FoundationWallDTO> foundationWallList = _zoneFloorOperatoins.GetFoundationWallsByBuildingId(buildingId);
+            IEnumerable<FrameFloorDTO> frameFloorList = _zoneFloorOperatoins.GetFrameFloorByBuildingId(buildingId);
+            IEnumerable<SlabDTO> slabList = _zoneFloorOperatoins.GetSlabByBuildingId(buildingId);
+            IEnumerable<RoofDTO> roofList = _zoneRoofOperations.GetRoofsByBuildingId(buildingId);
+            IEnumerable<AtticDTO> atticList = _zoneRoofOperations.GetAtticsByBuildingId(buildingId);
+            IEnumerable<WallDTO> wallList = _zoneRoofOperations.GetWallsByBuildingId(buildingId);
+
             var hpxml = new HPXML
             {
                 XMLTransactionHeaderInformation = new XMLTransactionHeaderInformation
@@ -108,21 +125,33 @@ namespace EnergyScore.Application.Operations
                             {
                                 AirInfiltrationMeasurement = this.AirInfiltrationMeasurementConvertor(aboutDTO)
                             },
-                            Foundations = (this.FoundationConvertor(zoneFloorDTO).Count==0)?null: (zoneFloorDTO?.Foundations?.Count == 0 || zoneFloorDTO?.Foundations == null) ? null : new Foundations()
+                            Attics = (atticList == null || atticList.Count() == 0) ? null : new Attics()
                             {
-                                Foundation = this.FoundationConvertor(zoneFloorDTO) 
+                                Attic = this.AtticConvertor(atticList)
                             },
-                            FoundationWalls = (this.FoundationWallConvertor(zoneFloorDTO).Count == 0)?null:new FoundationWalls()
+                            Foundations = (foundationList == null || foundationList.Count() == 0) ? null : new Foundations()
                             {
-                                FoundationWall = this.FoundationWallConvertor(zoneFloorDTO)
+                                Foundation = FoundationConvertor(foundationList)
                             },
-                            FrameFloors = (this.FrameFloorConveror(zoneFloorDTO).Count == 0) ? null : new FrameFloors()
+                            Roofs = (roofList == null || roofList.Count() == 0) ? null : new Roofs()
                             {
-                                FrameFloor = this.FrameFloorConveror(zoneFloorDTO)
+                                Roof = RoofConvertor(roofList)
                             },
-                            Slabs = (this.SlabConvertor(zoneFloorDTO).Count == 0) ? null : new Slabs()
+                            Walls = (wallList == null || wallList.Count() == 0) ? null : new Walls()
                             {
-                                Slab = this.SlabConvertor(zoneFloorDTO)
+                                Wall = WallConvertor(wallList)
+                            },
+                            FoundationWalls = (foundationWallList == null || foundationWallList.Count() == 0) ? null : new FoundationWalls()
+                            {
+                                FoundationWall = this.FoundationWallConvertor(foundationWallList)
+                            },
+                            FrameFloors = (frameFloorList == null || frameFloorList.Count() == 0) ? null : new FrameFloors()
+                            {
+                                FrameFloor = this.FrameFloorConveror(frameFloorList)
+                            },
+                            Slabs = (slabList == null || slabList.Count() == 0) ? null : new Slabs()
+                            {
+                                Slab = this.SlabConvertor(slabList)
                             }
                         }
                     }
@@ -130,39 +159,117 @@ namespace EnergyScore.Application.Operations
             };
             return hpxml;
         }
-        public FoundationType GetFoundationType (string foundationType,FoundationTypeDynamicOptionDTO options)
+        public List<Wall> WallConvertor(IEnumerable<WallDTO> wallDTO)
         {
-            switch (foundationType)
+            List<Wall> walls = new List<Wall>();
+            foreach (WallDTO wall in wallDTO)
             {
-                case "SlabOnGrade":
-                    return new FoundationType() { SlabOnGrade = new SlabOnGrade() };
-                case "Crawlspace":
-                    return new FoundationType() { Crawlspace = new Crawlspace() { Conditioned=options.Conditioned, Vented=options.Vented } };
-                case "Basement":
-                    return new FoundationType() { Basement = new Basement() { Conditioned=options.Conditioned, Finished=options.Finished } };
-                case "Garage":
-                    return new FoundationType() { Garage = new Garage() { Conditioned = options.Conditioned } };
-                case "AboveApartment":
-                    return new FoundationType() { AboveApartment = new AboveApartment() };
-                case "Ambient":
-                    return new FoundationType() { Ambient = new Ambient() };
+                walls.Add(new Wall()
+                {
+                    SystemIdentifier = new SystemIdentifier()
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(wall.Id)
+                    },
+                    AtticWallType = wall.AtticWallType,
+                    Area = wall.Area,
+                });
+            }
+            return walls;
+        }
+        public List<Roof> RoofConvertor(IEnumerable<RoofDTO> roofDTO)
+        {
+            List<Roof> roofs = new List<Roof>();
+            foreach (var roof in roofDTO)
+            {
+                roofs.Add(new Roof()
+                {
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(roof.Id)
+                    },
+                    Area = roof.Area,
+                    RoofType = roof.RoofType,
+                    RoofColor = roof.RoofColor,
+                    SolarAbsorptance = roof.SolarAbsorptance,
+                    RadiantBarrier = roof.RadiantBarrier,
+                });
+            }
+            return roofs;
+        }
+        public List<Attic> AtticConvertor(IEnumerable<AtticDTO> atticDTO)
+        {
+            List<Attic> attics = new List<Attic>();
+            foreach (var attic in atticDTO)
+            {
+                attics.Add(new Attic()
+                {
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(attic.Id)
+                    },
+                    AtticType = GetAtticTypeDynamicOption(attic.AtticType, attic.AtticTypeDynamicOptions),
+                    AttachedToRoof = attic.Roofs.Select(obj => new AttachedToRoof()
+                    {
+                        IdRef = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                    }).ToList(),
+                    AttachedToWall = attic.Walls.Select(obj => new AttachedToWall()
+                    {
+                        IdRef = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                    }).ToList(),
+                    AttachedToFrameFloor = attic.FrameFloors.Select(obj => new AttachedToFrameFloor()
+                    {
+                        IdRef = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                    }).ToList()
+                });
+            }
+            return attics;
+        }
+        public AtticType GetAtticTypeDynamicOption(string type, AtticTypeDynamicOptionDTO options)
+        {
+            switch (type)
+            {
+                case "Attic":
+                    return new AtticType()
+                    {
+                        Attic = new AtticTypes()
+                        {
+                            CapeCod = options.CapeCod,
+                            Conditioned = options.Conditioned,
+                            Vented = options.Vented,
+                        }
+                    };
+                case "CathedralCeiling":
+                    return new AtticType()
+                    {
+                        CathedralCeiling = ""
+                    };
+                case "FlatRoof":
+                    return new AtticType()
+                    {
+                        FlatRoof = ""
+                    };
+                case "BelowApartment":
+                    return new AtticType()
+                    {
+                        BelowApartment = ""
+                    };
                 default:
-                    return new FoundationType();
+                    return new AtticType();
             }
         }
-        public List<Foundation> FoundationConvertor(ZoneFloorDTO zoneFloorDTO)
+        public List<Foundation> FoundationConvertor(IEnumerable<FoundationDTO> foundationDTO)
         {
-            if(zoneFloorDTO == null) return null;
-            var foundations = new List<Foundation>(); 
-            foreach (var foundation in zoneFloorDTO?.Foundations) {
+            List<Foundation> foundations = new List<Foundation>();
+            foreach (var foundation in foundationDTO)
+            {
                 foundations.Add(new Foundation
                 {
                     SystemIdentifier = new SystemIdentifier
                     {
                         Id = _idConvertor.GuidToHPXMLIDConvertor(foundation.Id)
                     },
-                    FoundationType = this.GetFoundationType(foundation.FoundationType,foundation.FoundationTypeDynamicOptions),
-                    
+                    FoundationType = this.GetFoundationType(foundation.FoundationType, foundation.FoundationTypeDynamicOptions),
+
                     AttachedToFoundationWall = foundation.FoundationWalls.Select(obj => new AttachedToFoundationWall
                     {
                         IdRef = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
@@ -181,104 +288,112 @@ namespace EnergyScore.Application.Operations
             }
             return foundations;
         }
-        
-        public List<FoundationWall> FoundationWallConvertor(ZoneFloorDTO zoneFloorDTO)
+        public FoundationType GetFoundationType(string foundationType, FoundationTypeDynamicOptionDTO options)
         {
-            if(zoneFloorDTO == null) return null;
-            var foundationWalls = new List<FoundationWall>();
-            foreach (var foundation in zoneFloorDTO?.Foundations)
+            switch (foundationType)
             {
-                foreach (var foundationWall in foundation?.FoundationWalls)
+                case "SlabOnGrade":
+                    return new FoundationType() { SlabOnGrade = new SlabOnGrade() };
+                case "Crawlspace":
+                    return new FoundationType() { Crawlspace = new Crawlspace() { Conditioned = options.Conditioned, Vented = options.Vented } };
+                case "Basement":
+                    return new FoundationType() { Basement = new Basement() { Conditioned = options.Conditioned, Finished = options.Finished } };
+                case "Garage":
+                    return new FoundationType() { Garage = new Garage() { Conditioned = options.Conditioned } };
+                case "AboveApartment":
+                    return new FoundationType() { AboveApartment = new AboveApartment() };
+                case "Ambient":
+                    return new FoundationType() { Ambient = new Ambient() };
+                default:
+                    return new FoundationType();
+            }
+        }
+        public List<FoundationWall> FoundationWallConvertor(IEnumerable<FoundationWallDTO> foundationWallDTO)
+        {
+            List<FoundationWall> foundationWalls = new List<FoundationWall>();
+            foreach (var foundationWall in foundationWallDTO)
+            {
+                foundationWalls.Add(new FoundationWall
                 {
-                    foundationWalls.Add(new FoundationWall
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(foundationWall.Id)
+                    },
+                    Area = foundationWall.Area,
+                    Insulation = foundationWall.Insulations.Select(obj => new Insulation
                     {
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(foundationWall.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
                         },
-                        Area = foundationWall.Area,
-                        Insulation = foundationWall.Insulations.Select(obj => new Insulation
+                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
+                        Layer = new Layer
                         {
-                            SystemIdentifier = new SystemIdentifier
-                            {
-                                Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
-                            },
-                            AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                            Layer = new Layer
-                            {
-                                NominalRValue = obj.NominalRValue
-                            }
-                        }).ToList()
-                    });
-                }
+                            NominalRValue = obj.NominalRValue
+                        }
+                    }).ToList()
+                });
             }
             return foundationWalls;
         }
-
-        public List<Slab> SlabConvertor(ZoneFloorDTO zoneFloorDTO)
+        public List<FrameFloor> FrameFloorConveror(IEnumerable<FrameFloorDTO> frameFloorDTOs)
         {
-            if (zoneFloorDTO == null) return null;
-            var slabs = new List<Slab>();
-            foreach (var foundation in zoneFloorDTO?.Foundations)
+            List<FrameFloor> floors = new List<FrameFloor>();
+            foreach (var floor in frameFloorDTOs)
             {
-                foreach (var slab in foundation?.Slabs)
+                floors.Add(new FrameFloor
                 {
-                    slabs.Add(new Slab
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(floor.Id)
+                    },
+                    Area = floor.Area,
+                    Insulation = floor.Insulations.Select(obj => new Insulation
                     {
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(slab.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
                         },
-                        ExposedPerimeter = slab.ExposedPerimeter,
-                        PerimeterInsulation = slab.PerimeterInsulations.Select(obj => new PerimeterInsulation
+                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
+                        Layer = new Layer
                         {
-                            SystemIdentifier = new SystemIdentifier
-                            {
-                                Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
-                            },
-                            AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                            Layer = new Layer
-                            {
-                                NominalRValue = obj.AssemblyEffectiveRValue
-                            }
-                        }).ToList()
-                    });
-                }
+                            NominalRValue = obj.NominalRValue,
+                        }
+                    }).ToList()
+                });
+            }
+            return floors;
+        }
+        public List<Slab> SlabConvertor(IEnumerable<SlabDTO> slabDTO)
+        {
+            if (slabDTO == null) return null;
+            List<Slab> slabs = new List<Slab>();
+            foreach (var slab in slabDTO)
+            {
+                slabs.Add(new Slab
+                {
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(slab.Id)
+                    },
+                    ExposedPerimeter = slab.ExposedPerimeter,
+                    PerimeterInsulation = slab.PerimeterInsulations.Select(obj => new PerimeterInsulation
+                    {
+                        SystemIdentifier = new SystemIdentifier
+                        {
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                        },
+                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
+                        Layer = new Layer
+                        {
+                            NominalRValue = obj.AssemblyEffectiveRValue
+                        }
+                    }).ToList()
+                });
             }
             return slabs;
         }
-        public List<FrameFloor> FrameFloorConveror(ZoneFloorDTO zoneFloorDTO)
-        {
-            if (zoneFloorDTO == null) return null;
-            var frames = new List<FrameFloor>();
-            foreach (var foundation in zoneFloorDTO?.Foundations)
-            {
-                foreach (var frame in foundation?.FrameFloors)
-                {
-                    frames.Add(new FrameFloor
-                    {
-                        SystemIdentifier = new SystemIdentifier
-                        {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(frame.Id)
-                        },
-                        Area = frame.Area,
-                        Insulation = frame.Insulations.Select(obj => new Insulation
-                        {
-                            SystemIdentifier = new SystemIdentifier
-                            {
-                                Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
-                            },
-                            AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                            Layer = new Layer
-                            {
-                                NominalRValue = obj.NominalRValue,
-                            }
-                        }).ToList()
-                    });
-                }
-            }
-            return frames;
-        }
+
     }
 }
 

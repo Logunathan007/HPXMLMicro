@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
-using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
-using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
-using EnergyScore.Domain.Entityies.ZoneRoofModels;
+using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +12,10 @@ namespace EnergyScore.Application.Operations
     {
         public ResponseForZoneFloor AddZoneFloor(ZoneFloorDTO floorDTO, Guid BuildingId);
         public ZoneFloorDTO GetZoneFloorById(Guid? zoneFloorId);
+        public IEnumerable<FoundationDTO> GetFoundationsByBuildingId(Guid BuildingId);
+        public IEnumerable<FoundationWallDTO> GetFoundationWallsByBuildingId(Guid BuildingId);
+        public IEnumerable<FrameFloorDTO> GetFrameFloorByBuildingId(Guid BuildingId);
+        public IEnumerable<SlabDTO> GetSlabByBuildingId(Guid BuildingId);
     }
     public class ZoneFloorOperations : IZoneFloorOperatoins
     {
@@ -60,6 +62,40 @@ namespace EnergyScore.Application.Operations
             ZoneFloorDTO zoneFloor = _mapper.Map<ZoneFloorDTO>(floor);
             return zoneFloor;
         }
+        public IEnumerable<FoundationDTO> GetFoundationsByBuildingId(Guid BuildingId)
+        {
+            if(BuildingId == Guid.Empty || BuildingId == null) { return null; }
+            IEnumerable<Foundation> found = _dbConnect.Foundations
+                .Include(obj=>obj.FoundationTypeDynamicOptions)
+                .Include(obj=>obj.FoundationWalls)
+                .Include(obj=>obj.Slabs)
+                .Include(obj=>obj.FrameFloors)
+                .Where(obj => obj.BuildingId == BuildingId).ToList();
 
+            return _mapper.Map<IEnumerable<FoundationDTO>>(found);
+        }
+        public IEnumerable<FoundationWallDTO> GetFoundationWallsByBuildingId(Guid BuildingId) {
+            if(BuildingId == Guid.Empty || BuildingId == null) { return null; }
+            IEnumerable<FoundationWall> foundWall = _dbConnect.FoundationWalls
+                .Include(obj => obj.Insulations)
+                .Where(obj => obj.BuildingId == BuildingId).ToList();
+            return _mapper.Map<IEnumerable<FoundationWallDTO>>(foundWall);
+        }
+        public IEnumerable<FrameFloorDTO> GetFrameFloorByBuildingId(Guid BuildingId)
+        {
+            if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
+            IEnumerable<FrameFloor> frameFloor = _dbConnect.FrameFloors
+                .Include(obj => obj.Insulations)
+                .Where(obj => obj.BuildingId == BuildingId).ToList();
+            return _mapper.Map<IEnumerable<FrameFloorDTO>>(frameFloor);
+        }
+        public IEnumerable<SlabDTO> GetSlabByBuildingId(Guid BuildingId)
+        {
+            if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
+            IEnumerable<Slab> slabs = _dbConnect.Slabs
+                .Include(obj => obj.PerimeterInsulations)
+                .Where(obj => obj.BuildingId == BuildingId).ToList();
+            return _mapper.Map<IEnumerable<SlabDTO>>(slabs);
+        }
     }
 }
