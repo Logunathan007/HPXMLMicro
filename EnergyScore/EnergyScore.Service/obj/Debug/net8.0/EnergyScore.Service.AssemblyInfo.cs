@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnergyScore.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1185da4388d43513f3566fb47b1da4026e2b3c7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8df6480b6b521d0ad851cd6f31558b62711fe05")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnergyScore.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnergyScore.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
