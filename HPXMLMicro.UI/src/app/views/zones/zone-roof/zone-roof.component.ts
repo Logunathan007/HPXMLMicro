@@ -55,8 +55,7 @@ export class ZoneRoofComponent {
     return this.atticsObj?.at(index).get('atticTypeDynamicOptions') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
-  }
+  constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getBuildingId();
@@ -222,5 +221,27 @@ export class ZoneRoofComponent {
   }
   goNext() {
 
+  }
+  generateHPXML() {
+    this.commonService.getHPXMLString(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.hpxmlString = val?.hpxmlString
+        }
+      }
+    )
+  }
+  validateHPXML() {
+    this.commonService.getHPXMLBase64(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.commonService.validateHpxml(val).subscribe(
+            (res: any) => {
+              this.validationMsg = res
+            }
+          )
+        }
+      }
+    )
   }
 }
