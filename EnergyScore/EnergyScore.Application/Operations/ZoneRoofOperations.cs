@@ -79,8 +79,15 @@ namespace EnergyScore.Application.Operations
             if (buildingId == null || buildingId == Guid.Empty) { return null; }
             IEnumerable<Roof> roofs = _dbConnect.Roofs
                 .Include(obj => obj.Insulations)
+                .Include(obj => obj.Skylights)
                 .Where(obj => obj.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<RoofDTO>>(roofs);
+        }
+        public IEnumerable<SkylightDTO> GetSkylightByRoof(IEnumerable<Roof> roofs)
+        {
+            if (roofs == null || roofs.Count() == 0) return null;
+
+            return null;
         }
     }
 }

@@ -29,7 +29,7 @@
           <div class="row px-0 mx-0">
             <div class="col-md-6">
               <div class="input-box">
-                <label > Foundation name </label>
+                <label> Foundation name </label>
                 <input
                   formControlName="foundationName"
                   type="text"
@@ -45,14 +45,12 @@
                   "
                 >
                   <label
-
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="foundationItem.get('foundationName')?.errors?.['required']"
                   >
                     Foundation name is required
                   </label>
                   <label
-
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="!foundationItem.get('foundationName')?.errors?.['required'] && foundationItem.get('foundationName')?.errors?.['nameSame']"
                   >
@@ -63,7 +61,7 @@
             </div>
             <div class="col-md-6">
               <div class="select-box">
-                <label > Foundation Type </label>
+                <label> Foundation Type </label>
                 <ng-select
                   [items]="foundationTypeOptions"
                   bindLabel="name"
@@ -83,10 +81,7 @@
                     foundationItem.get('foundationType')?.invalid
                   "
                 >
-                  <label
-
-                    class="text-danger fw-semibold position-absolute"
-                  >
+                  <label class="text-danger fw-semibold position-absolute">
                     Foundation Type is required
                   </label>
                 </div>
@@ -106,7 +101,7 @@
                 >
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label >
+                      <label>
                         {{ fndDynamic.get("options")?.value?.label }}
                       </label>
                       <ng-select
@@ -138,7 +133,6 @@
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                         >
                           {{ fndDynamic.get("options")?.value?.errorMsg }}
@@ -149,27 +143,42 @@
                 </ng-container>
               </ng-container>
             </ng-container>
-            <h5 class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
               Foundation Walls &nbsp;&nbsp;
-              <button class="ms-2 icon-btn"
-              (click)="addToFormArray(foundationWallsObj(foundationIndex),foundationWallInputs())">
+              <button
+                class="ms-2 icon-btn"
+                (click)="
+                  addToFormArray(
+                    foundationWallsObj(foundationIndex),
+                    foundationWallInputs()
+                  )
+                "
+              >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
               </button>
             </h5>
             <ng-container formArrayName="foundationWalls">
               <div
                 *ngFor="
-                  let foundationWallItem of foundationWallsObj(foundationIndex)?.controls;
+                  let foundationWallItem of foundationWallsObj(foundationIndex)
+                    ?.controls;
                   let foundationWallIndex = index
                 "
                 class="border rounded-2 row mx-0 px-2 py-3 mb-2"
               >
                 <div class="col-12 d-flex">
-                  <h5 class="mb-0">Foundation Wall({{ foundationWallIndex + 1 }})</h5>
+                  <h5 class="mb-0">
+                    Foundation Wall({{ foundationWallIndex + 1 }})
+                  </h5>
                   <button
                     class="ms-2 icon-btn"
                     (click)="
-                      removeFromFormArray(foundationWallsObj(foundationIndex), foundationWallIndex)
+                      removeFromFormArray(
+                        foundationWallsObj(foundationIndex),
+                        foundationWallIndex
+                      )
                     "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
@@ -178,7 +187,7 @@
                 <ng-container [formGroupName]="foundationWallIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Foundation Wall Name </label>
+                      <label> Foundation Wall Name </label>
                       <input
                         formControlName="foundationWallName"
                         type="text"
@@ -188,8 +197,10 @@
                       <div
                         class="errormsg"
                         *ngIf="
-                          (foundationWallItem.get('foundationWallName')?.touched ||
-                            foundationWallItem.get('foundationWallName')?.dirty) &&
+                          (foundationWallItem.get('foundationWallName')
+                            ?.touched ||
+                            foundationWallItem.get('foundationWallName')
+                              ?.dirty) &&
                           foundationWallItem.get('foundationWallName')?.invalid
                         "
                       >
@@ -197,10 +208,9 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="foundationWallItem.get('foundationWallName')?.errors?.['required']"
                         >
-                        Foundation Wall Name is required
+                          Foundation Wall Name is required
                         </label>
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!foundationWallItem.get('foundationWallName')?.errors?.['required'] && foundationWallItem.get('foundationWallName')?.errors?.['nameSame']"
                         >
@@ -211,7 +221,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Area </label>
+                      <label> Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -241,7 +251,10 @@
                         class="ms-2 icon-btn"
                         (click)="
                           addToFormArray(
-                            foundationWallInsulationsObj(foundationIndex,foundationWallIndex),
+                            foundationWallInsulationsObj(
+                              foundationIndex,
+                              foundationWallIndex
+                            ),
                             insulationInputs()
                           )
                         "
@@ -251,20 +264,28 @@
                     </div>
                     <div
                       *ngFor="
-                        let foundationWallInsulationItem of foundationWallInsulationsObj(foundationIndex,foundationWallIndex)?.controls;
+                        let foundationWallInsulationItem of foundationWallInsulationsObj(
+                          foundationIndex,
+                          foundationWallIndex
+                        )?.controls;
                         let foundationWallInsulationIndex = index
                       "
                       class="border rounded-2 row mx-0 px-0 py-3 mb-2"
                     >
                       <div class="col-12 d-flex">
                         <h5 class="mb-0">
-                          Foundation Wall Insulation({{ foundationWallInsulationIndex + 1 }})
+                          Foundation Wall Insulation({{
+                            foundationWallInsulationIndex + 1
+                          }})
                         </h5>
                         <button
                           class="ms-2 icon-btn"
                           (click)="
                             removeFromFormArray(
-                              foundationWallInsulationsObj(foundationIndex,foundationWallIndex),
+                              foundationWallInsulationsObj(
+                                foundationIndex,
+                                foundationWallIndex
+                              ),
                               foundationWallInsulationIndex
                             )
                           "
@@ -272,10 +293,12 @@
                           <img src="/assets/icons/delete.svg" alt="" />
                         </button>
                       </div>
-                      <ng-container [formGroupName]="foundationWallInsulationIndex">
+                      <ng-container
+                        [formGroupName]="foundationWallInsulationIndex"
+                      >
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label > Nominal R-Value </label>
+                            <label> Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -285,16 +308,18 @@
                             <div
                               class="errormsg"
                               *ngIf="
-                                (foundationWallInsulationItem.get('nominalRValue')
-                                  ?.touched ||
-                                  foundationWallInsulationItem.get('nominalRValue')
-                                    ?.dirty) &&
-                                foundationWallInsulationItem.get('nominalRValue')
-                                  ?.invalid
+                                (foundationWallInsulationItem.get(
+                                  'nominalRValue'
+                                )?.touched ||
+                                  foundationWallInsulationItem.get(
+                                    'nominalRValue'
+                                  )?.dirty) &&
+                                foundationWallInsulationItem.get(
+                                  'nominalRValue'
+                                )?.invalid
                               "
                             >
                               <label
-
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Nominal R-Value is required
@@ -304,9 +329,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label
-                              >Assembly Effective R-Value
-                            </label>
+                            <label>Assembly Effective R-Value </label>
                             <input
                               formControlName="assemblyEffectiveRValue"
                               type="number"
@@ -328,7 +351,6 @@
                               "
                             >
                               <label
-
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -342,23 +364,34 @@
                 </ng-container>
               </div>
             </ng-container>
-            <h5 class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
               Slabs &nbsp;&nbsp;
-              <button class="ms-2 icon-btn"
-                (click)="addToFormArray(slabsObj(foundationIndex),slabInputs())">
+              <button
+                class="ms-2 icon-btn"
+                (click)="
+                  addToFormArray(slabsObj(foundationIndex), slabInputs())
+                "
+              >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
               </button>
             </h5>
             <ng-container formArrayName="slabs">
               <div
-                *ngFor="let slabItem of slabsObj(foundationIndex)?.controls; let slabIndex = index"
+                *ngFor="
+                  let slabItem of slabsObj(foundationIndex)?.controls;
+                  let slabIndex = index
+                "
                 class="border rounded-2 row mx-0 px-2 py-3 mb-2"
               >
                 <div class="col-12 d-flex">
                   <h5 class="mb-0">Slab ({{ slabIndex + 1 }})</h5>
                   <button
                     class="ms-2 icon-btn"
-                    (click)="removeFromFormArray(slabsObj(foundationIndex), slabIndex)"
+                    (click)="
+                      removeFromFormArray(slabsObj(foundationIndex), slabIndex)
+                    "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
                   </button>
@@ -366,7 +399,7 @@
                 <ng-container [formGroupName]="slabIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Slab Name </label>
+                      <label> Slab Name </label>
                       <input
                         formControlName="slabName"
                         type="text"
@@ -382,14 +415,12 @@
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="slabItem.get('slabName')?.errors?.['required']"
                         >
                           Slab Name is required
                         </label>
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!slabItem.get('slabName')?.errors?.['required'] && slabItem.get('slabName')?.errors?.['nameSame']"
                         >
@@ -400,7 +431,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Exposed Perimeter </label>
+                      <label> Exposed Perimeter </label>
                       <input
                         formControlName="exposedPerimeter"
                         type="number"
@@ -416,7 +447,6 @@
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                         >
                           Exposed Perimeter is required
@@ -430,7 +460,10 @@
                       class="ms-2 icon-btn"
                       (click)="
                         addToFormArray(
-                          slabPerimeterInsulationsObj(foundationIndex,slabIndex),
+                          slabPerimeterInsulationsObj(
+                            foundationIndex,
+                            slabIndex
+                          ),
                           perimeterInsulationInputs()
                         )
                       "
@@ -441,20 +474,28 @@
                   <ng-container formArrayName="perimeterInsulations">
                     <div
                       *ngFor="
-                        let slabPerimeterInsulationItem of slabPerimeterInsulationsObj(foundationIndex,slabIndex)?.controls;
+                        let slabPerimeterInsulationItem of slabPerimeterInsulationsObj(
+                          foundationIndex,
+                          slabIndex
+                        )?.controls;
                         let slabPerimeterInsulationIndex = index
                       "
                       class="border rounded-2 row mx-0 px-0 py-3 mb-2"
                     >
                       <div class="col-12 d-flex">
                         <h5 class="mb-0">
-                          Slab Insulation({{ slabPerimeterInsulationIndex + 1 }})
+                          Slab Insulation({{
+                            slabPerimeterInsulationIndex + 1
+                          }})
                         </h5>
                         <button
                           class="ms-2 icon-btn"
                           (click)="
                             removeFromFormArray(
-                              slabPerimeterInsulationsObj(foundationIndex,slabIndex),
+                              slabPerimeterInsulationsObj(
+                                foundationIndex,
+                                slabIndex
+                              ),
                               slabPerimeterInsulationIndex
                             )
                           "
@@ -462,10 +503,12 @@
                           <img src="/assets/icons/delete.svg" alt="" />
                         </button>
                       </div>
-                      <ng-container [formGroupName]="slabPerimeterInsulationIndex">
+                      <ng-container
+                        [formGroupName]="slabPerimeterInsulationIndex"
+                      >
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label > Nominal R-Value </label>
+                            <label> Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -475,16 +518,17 @@
                             <div
                               class="errormsg"
                               *ngIf="
-                                (slabPerimeterInsulationItem.get('nominalRValue')
-                                  ?.touched ||
-                                  slabPerimeterInsulationItem.get('nominalRValue')
-                                    ?.dirty) &&
+                                (slabPerimeterInsulationItem.get(
+                                  'nominalRValue'
+                                )?.touched ||
+                                  slabPerimeterInsulationItem.get(
+                                    'nominalRValue'
+                                  )?.dirty) &&
                                 slabPerimeterInsulationItem.get('nominalRValue')
                                   ?.invalid
                               "
                             >
                               <label
-
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Nominal R-Value is required
@@ -494,9 +538,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label
-                              >Assembly Effective R-Value
-                            </label>
+                            <label>Assembly Effective R-Value </label>
                             <input
                               formControlName="assemblyEffectiveRValue"
                               type="number"
@@ -518,7 +560,6 @@
                               "
                             >
                               <label
-
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -532,17 +573,28 @@
                 </ng-container>
               </div>
             </ng-container>
-            <h5 class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
               Frame Floors &nbsp;&nbsp;
-              <button class="ms-2 icon-btn" (click)="addToFormArray(frameFloorsObj(foundationIndex),frameFloorInput())">
+              <button
+                class="ms-2 icon-btn"
+                (click)="
+                  addToFormArray(
+                    frameFloorsObj(foundationIndex),
+                    frameFloorInput()
+                  )
+                "
+              >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
               </button>
             </h5>
             <ng-container formArrayName="frameFloors">
               <div
                 *ngFor="
-                  let frameFloorItem of frameFloorsObj(foundationIndex)?.controls;
-                  let frameFloorIndex = index;
+                  let frameFloorItem of frameFloorsObj(foundationIndex)
+                    ?.controls;
+                  let frameFloorIndex = index
                 "
                 class="border rounded-2 row mx-0 px-2 py-3 mb-2"
               >
@@ -551,7 +603,10 @@
                   <button
                     class="ms-2 icon-btn"
                     (click)="
-                      removeFromFormArray(frameFloorsObj(foundationIndex), frameFloorIndex)
+                      removeFromFormArray(
+                        frameFloorsObj(foundationIndex),
+                        frameFloorIndex
+                      )
                     "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
@@ -560,7 +615,7 @@
                 <ng-container [formGroupName]="frameFloorIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Frame Floor Name </label>
+                      <label> Frame Floor Name </label>
                       <input
                         formControlName="frameFloorName"
                         type="text"
@@ -576,14 +631,12 @@
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="frameFloorItem.get('frameFloorName')?.errors?.['required']"
                         >
                           Frame Floor is required
                         </label>
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="!frameFloorItem.get('frameFloorName')?.errors?.['required'] && frameFloorItem.get('frameFloorName')?.errors?.['nameSame']"
                         >
@@ -594,7 +647,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label > Area </label>
+                      <label> Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -610,7 +663,6 @@
                         "
                       >
                         <label
-
                           class="text-danger fw-semibold position-absolute"
                         >
                           Area is required
@@ -625,7 +677,10 @@
                         class="ms-2 icon-btn"
                         (click)="
                           addToFormArray(
-                            frameFloorInsulationsObj(foundationIndex,frameFloorIndex),
+                            frameFloorInsulationsObj(
+                              foundationIndex,
+                              frameFloorIndex
+                            ),
                             insulationInputs()
                           )
                         "
@@ -645,13 +700,18 @@
                     >
                       <div class="col-12 d-flex">
                         <h5 class="mb-0">
-                          Frame Floor Insulation({{ frameFloorInsulationIndex + 1 }})
+                          Frame Floor Insulation({{
+                            frameFloorInsulationIndex + 1
+                          }})
                         </h5>
                         <button
                           class="ms-2 icon-btn"
                           (click)="
                             removeFromFormArray(
-                              frameFloorInsulationsObj(foundationIndex,frameFloorIndex),
+                              frameFloorInsulationsObj(
+                                foundationIndex,
+                                frameFloorIndex
+                              ),
                               frameFloorInsulationIndex
                             )
                           "
@@ -662,7 +722,7 @@
                       <ng-container [formGroupName]="frameFloorInsulationIndex">
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label > Nominal R-Value </label>
+                            <label> Nominal R-Value </label>
                             <input
                               formControlName="nominalRValue"
                               type="number"
@@ -690,9 +750,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label
-                              >Assembly Effective R-Value
-                            </label>
+                            <label>Assembly Effective R-Value </label>
                             <input
                               formControlName="assemblyEffectiveRValue"
                               type="number"
@@ -714,7 +772,6 @@
                               "
                             >
                               <label
-
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
@@ -734,13 +791,30 @@
     </ng-container>
     <div class="d-flex justify-content-end gap-3 my-5">
       <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
-      <button class="bg-secondary btn-style" [disabled]="!enableNext" (click)="goNext()">Next</button>
+      <button class="bg-secondary btn-style" [disabled]="!enableNext" (click)="goNext()">
+        Next
+      </button>
     </div>
   </form>
-  <button class="d-block btn-style mx-auto bg-success my-5 "(click)="generateHPXML()" > Generate HPXML </button>
+  <button
+    class="d-block btn-style mx-auto bg-success my-5"
+    (click)="generateHPXML()"
+  >
+    Generate HPXML
+  </button>
   <p class="overflow-x-auto">{{ hpxmlString }}</p>
-  <button class="d-block btn-style mx-auto bg-success my-5 " *ngIf="hpxmlString" (click)="validateHPXML()" > Validate HPXML </button>
-  <div class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4" *ngIf="validationMsg" style="background-color: rgba(0, 0, 0, 0.089);">
+  <button
+    class="d-block btn-style mx-auto bg-success my-5"
+    *ngIf="hpxmlString"
+    (click)="validateHPXML()"
+  >
+    Validate HPXML
+  </button>
+  <div
+    class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+    *ngIf="validationMsg"
+    style="background-color: rgba(0, 0, 0, 0.089)"
+  >
     <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
   </div>
 </div>

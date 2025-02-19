@@ -33,6 +33,7 @@ namespace EnergyScore.Application.Mappers
             CreateMap<Roof, RoofDTO>().ReverseMap();
             CreateMap<Wall, WallDTO>().ReverseMap();
             CreateMap<AtticTypeDynamicOption,AtticTypeDynamicOptionDTO>().ReverseMap();
+            CreateMap<Skylight, SkylightDTO>().ReverseMap();
         }
     }
 }

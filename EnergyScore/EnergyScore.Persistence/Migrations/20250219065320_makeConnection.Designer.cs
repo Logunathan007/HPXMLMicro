@@ -3,6 +3,7 @@ using System;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EnergyScore.Persistence.Migrations
 {
     [DbContext(typeof(DbConnect))]
-    partial class DbConnectModelSnapshot : ModelSnapshot
+    [Migration("20250219065320_makeConnection")]
+    partial class makeConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -471,7 +474,7 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("double precision");
 
-                    b.Property<Guid>("RoofId")
+                    b.Property<Guid?>("RoofId")
                         .HasColumnType("uuid");
 
                     b.Property<double>("SHGC")
@@ -732,13 +735,9 @@ namespace EnergyScore.Persistence.Migrations
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Skylight", b =>
                 {
-                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Roof", "Roof")
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Roof", null)
                         .WithMany("Skylights")
-                        .HasForeignKey("RoofId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Roof");
+                        .HasForeignKey("RoofId");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", b =>

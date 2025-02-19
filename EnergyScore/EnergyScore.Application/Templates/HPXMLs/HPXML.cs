@@ -114,6 +114,7 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public FoundationWalls? FoundationWalls { get; set; }
         public FrameFloors? FrameFloors { get; set; }
         public Slabs? Slabs { get; set; }
+        public Skylights? Skylights { get; set; }
     }
 
     public class AirInfiltration
