@@ -92,9 +92,7 @@
                   let atticTypeDynamicOptionsIndex = index
                 "
               >
-                <ng-container
-                  [formGroupName]="atticTypeDynamicOptionsIndex"
-                >
+                <ng-container [formGroupName]="atticTypeDynamicOptionsIndex">
                   <div class="col-md-6">
                     <div class="select-box">
                       <label>
@@ -124,8 +122,9 @@
                             atticDynamic.get(
                               atticDynamic.get('options')?.value?.name
                             )?.dirty) &&
-                          atticDynamic.get(atticDynamic.get('options')?.value?.name)
-                            ?.invalid
+                          atticDynamic.get(
+                            atticDynamic.get('options')?.value?.name
+                          )?.invalid
                         "
                       >
                         <label
@@ -440,6 +439,125 @@
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 Assembly Effective R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+
+                  <div class="col-12 d-flex my-3">
+                    <h5 class="mb-0">Skylights</h5>
+                    <button
+                      class="ms-2 icon-btn"
+                      (click)="
+                        addToFormArray(
+                          skylightsObj(atticIndex, roofIndex),
+                          skylightInputs()
+                        )
+                      "
+                    >
+                      <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                    </button>
+                  </div>
+                  <ng-container formArrayName="skylights">
+                    <div
+                      *ngFor="
+                        let skylightsItem of skylightsObj(atticIndex, roofIndex)
+                          ?.controls;
+                        let skylightsIndex = index
+                      "
+                      class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+                    >
+                      <div class="col-12 d-flex">
+                        <h5 class="mb-0">
+                          Skylight ({{ skylightsIndex + 1 }})
+                        </h5>
+                        <button
+                          class="ms-2 icon-btn"
+                          (click)="
+                            removeFromFormArray(
+                              skylightsObj(atticIndex, roofIndex),
+                              skylightsIndex
+                            )
+                          "
+                        >
+                          <img src="/assets/icons/delete.svg" alt="" />
+                        </button>
+                      </div>
+                      <ng-container [formGroupName]="skylightsIndex">
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> Area </label>
+                            <input
+                              formControlName="area"
+                              type="number"
+                              id="area"
+                              placeholder="Area"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightsItem.get('area')?.touched ||
+                                  skylightsItem.get('area')?.dirty) &&
+                                skylightsItem.get('area')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Area is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> UFactor </label>
+                            <input
+                              formControlName="uFactor"
+                              type="number"
+                              id="uFactor"
+                              placeholder="UFactor"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightsItem.get('uFactor')?.touched ||
+                                  skylightsItem.get('uFactor')?.dirty) &&
+                                skylightsItem.get('uFactor')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                UFactor is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> SHGC </label>
+                            <input
+                              formControlName="sHGC"
+                              type="number"
+                              id="sHGC"
+                              placeholder="SHGC"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightsItem.get('sHGC')?.touched ||
+                                  skylightsItem.get('sHGC')?.dirty) &&
+                                skylightsItem.get('sHGC')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                SHGC is required
                               </label>
                             </div>
                           </div>
@@ -906,17 +1024,34 @@
       <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
       <button
         class="bg-secondary btn-style"
-        [disabled]="!enableNext"
         (click)="goNext()"
-      >
+        [disabled]="!enableNext"
+        >
         Next
       </button>
     </div>
   </form>
-  <button class="d-block btn-style mx-auto bg-success my-5 "(click)="generateHPXML()" > Generate HPXML </button>
-  <p class="overflow-x-auto">{{ hpxmlString }}</p>
-  <button class="d-block btn-style mx-auto bg-success my-5 " *ngIf="hpxmlString" (click)="validateHPXML()" > Validate HPXML </button>
-  <div class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4" *ngIf="validationMsg" style="background-color: rgba(0, 0, 0, 0.089);">
-    <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
   </div>
 </div>

@@ -1,8 +1,7 @@
 import { CommonService } from './../../../shared/services/common.service';
 import { BooleanOptions, FoundationTypeOptions } from './../../../shared/lookups/about-lookups';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { nameValidator } from '../../../shared/modules/Validators/validators';
 
@@ -16,7 +15,7 @@ export class ZoneFloorComponent implements OnInit {
   //variable initialization
   foundationForm!: FormGroup;
   enableNext: boolean = false;
-  buildingId: string = ""
+  buildingId!: string;
   hpxmlString!: string;
   validationMsg!: any;
   foundationTypeOptions = FoundationTypeOptions;

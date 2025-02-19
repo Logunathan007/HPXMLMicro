@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AboutComponent implements OnInit {
 
   //variable initializations
-  buildingId!: string;
+  buildingId: string = 'sdfasdf';
   aboutForm!: FormGroup;
   residentialFacilityTypeOptions = residentialFacilityTypeOptions;
   orientationOfFrontOfHomeOptions = orientationOfFrontOfHomeOptions;
@@ -45,7 +45,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
-      this.buildingId = params.get('id') ?? "";
+      this.buildingId = params.get('id') ?? "sfdasdf";
     })
   }
 

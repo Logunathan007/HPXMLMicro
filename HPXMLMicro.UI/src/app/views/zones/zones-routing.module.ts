@@ -11,11 +11,11 @@ const routes: Routes = [
     path: '',
     component:ZonesComponent,
     children:[
-      {
-        path: '',
-        pathMatch:'full',
-        redirectTo:"floor"
-      },
+      // {
+      //   path: '',
+      //   pathMatch:'full',
+      //   redirectTo:"floor"
+      // },
       {
         path: 'floor',
         component: ZoneFloorComponent,
@@ -27,10 +27,6 @@ const routes: Routes = [
       {
         path: 'wall',
         component: ZoneWallComponent,
-      },
-      {
-        path: 'skylight',
-        component: ZoneSkylightComponent,
       },
     ]
   }

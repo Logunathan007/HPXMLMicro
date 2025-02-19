@@ -1,6 +1,6 @@
 ﻿
 
-using EnergyScore.Domain.Entityies.CommonModels;
+using EnergyScore.Application.Mappers.DTOS.CommonDTOS;
 
 namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
 {
@@ -13,7 +13,8 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
         public double Area { get; set; }
         public bool RadiantBarrier { get; set; }
         public double SolarAbsorptance { get; set; }
-        public ICollection<Insulation> Insulations { get; set; }
+        public ICollection<InsulationDTO> Insulations { get; set; }
+        public ICollection<SkylightDTO> Skylights { get; set; }
         public Guid BuildingId { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Application.Templates.HPXMLs;
 using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
 using EnergyScore.Application.Templates.HPXMLs.ZoneRoofs;
-using System.Runtime.InteropServices;
 
 namespace EnergyScore.Application.Operations
 {
@@ -152,12 +151,41 @@ namespace EnergyScore.Application.Operations
                             Slabs = (slabList == null || slabList.Count() == 0) ? null : new Slabs()
                             {
                                 Slab = this.SlabConvertor(slabList)
+                            },
+                            Skylights = (!roofList.Any(obj => obj.Skylights.Count > 0)) ? null : new Skylights()
+                            {
+                                Skylight = this.SkyLightConvertor(roofList)
                             }
                         }
                     }
                 }
             };
             return hpxml;
+        }
+        public List<Skylight> SkyLightConvertor(IEnumerable<RoofDTO> roofList)
+        {
+            List<Skylight> skylights = new List<Skylight>();
+            foreach (RoofDTO roof in roofList)
+            {
+                foreach (SkylightDTO skylight in roof.Skylights)
+                {
+                    skylights.Add(new Skylight()
+                    {
+                        SystemIdentifier = new SystemIdentifier()
+                        {
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(skylight.Id)
+                        },
+                        Area = skylight.Area,
+                        UFactor = skylight.UFactor,
+                        SHGC = skylight.SHGC,
+                        AttachedToRoof = new AttachedToRoof()
+                        {
+                            IdRef = _idConvertor.GuidToHPXMLIDConvertor(roof.Id)
+                        }
+                    });
+                }
+            }
+            return skylights;
         }
         public List<Wall> WallConvertor(IEnumerable<WallDTO> wallDTO)
         {
