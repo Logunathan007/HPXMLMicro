@@ -8,5 +8,6 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS
         public string SlabName { get; set; }
         public double ExposedPerimeter { get; set; }
         public ICollection<PerimeterInsulationDTO> PerimeterInsulations { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

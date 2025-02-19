@@ -3,20 +3,56 @@
   "WorkspaceRootPath": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\templates\\hpxmls\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\templates\\hpxmls\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\operations\\zoneroofoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\operations\\zoneroofoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\mappers\\dtos\\aboutdtos\\aboutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\mappers\\dtos\\aboutdtos\\aboutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zonefloormodels\\foundationwall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zonefloormodels\\foundationwall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\templates\\hpxmls\\zoneroofs\\atticclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\templates\\hpxmls\\zoneroofs\\atticclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zonefloormodels\\framefloor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zonefloormodels\\framefloor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zoneroofmodels\\roof.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zoneroofmodels\\roof.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zoneroofmodels\\wall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zoneroofmodels\\wall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zoneroofmodels\\attic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zoneroofmodels\\attic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\zoneroofmodels\\zoneroof.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\zoneroofmodels\\zoneroof.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\operations\\hpxmloperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\operations\\hpxmloperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\aboutmodels\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\aboutmodels\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.domain\\entityies\\addressmodels\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821E8EEB-322D-4479-94F3-FBEF7E6A524D}|EnergyScore.Domain\\EnergyScore.Domain.csproj|solutionrelative:energyscore.domain\\entityies\\addressmodels\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\templates\\hpxmls\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\templates\\hpxmls\\hpxml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\templates\\hpxmls\\zoneroofs\\wallclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\templates\\hpxmls\\zoneroofs\\wallclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|d:\\logu\\microservices\\hpxmlmicro\\energyscore\\energyscore.application\\templates\\hpxmls\\zoneroofs\\roofclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3B93FD8-8EE2-42E5-A8B8-93ABEFAA8A35}|EnergyScore.Application\\EnergyScore.Application.csproj|solutionrelative:energyscore.application\\templates\\hpxmls\\zoneroofs\\roofclass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,52 +70,163 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HPXMLOperations.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\HPXMLOperations.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Application\\Operations\\HPXMLOperations.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\HPXMLOperations.cs",
-              "RelativeToolTip": "EnergyScore.Application\\Operations\\HPXMLOperations.cs",
-              "ViewState": "AQIAAFgAAAAAAAAAAAAQwGIAAAAhAAAA",
+              "DocumentIndex": 3,
+              "Title": "FrameFloor.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FrameFloor.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FrameFloor.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FrameFloor.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FrameFloor.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:01:41.284Z"
+              "WhenOpened": "2025-02-18T13:11:16.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Wall.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Wall.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Wall.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Wall.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Wall.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:11:09.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Roof.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Roof.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Roof.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Roof.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Roof.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABIAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:10:40.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FoundationWall.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FoundationWall.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FoundationWall.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FoundationWall.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneFloorModels\\FoundationWall.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:10:31.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AtticClass.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\AtticClass.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\AtticClass.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\AtticClass.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\AtticClass.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:02:31.259Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ZoneRoofOperations.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\ZoneRoofOperations.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Operations\\ZoneRoofOperations.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\ZoneRoofOperations.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Operations\\ZoneRoofOperations.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAcwEUAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T12:51:46.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Building.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\AddressModels\\Building.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\AddressModels\\Building.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\AddressModels\\Building.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\AddressModels\\Building.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAwwBgAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T12:55:58.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Attic.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Attic.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Attic.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Attic.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\Attic.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T12:54:14.958Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ZoneRoof.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\ZoneRoof.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\ZoneRoof.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\ZoneRoofModels\\ZoneRoof.cs",
+              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\ZoneRoofModels\\ZoneRoof.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T12:54:10.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "HPXML.cs",
               "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\HPXML.cs",
               "RelativeDocumentMoniker": "EnergyScore.Application\\Templates\\HPXMLs\\HPXML.cs",
               "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\HPXML.cs",
               "RelativeToolTip": "EnergyScore.Application\\Templates\\HPXMLs\\HPXML.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAFAAAA",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAcwHAAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T07:00:45.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-18T12:25:13.644Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "About.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\AboutModels\\About.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Domain\\Entityies\\AboutModels\\About.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Domain\\Entityies\\AboutModels\\About.cs",
-              "RelativeToolTip": "EnergyScore.Domain\\Entityies\\AboutModels\\About.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAA5wA8AAAA9AAAA",
+              "DocumentIndex": 12,
+              "Title": "RoofClass.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\RoofClass.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\RoofClass.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\RoofClass.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\RoofClass.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAuwBIAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T06:55:45.154Z"
+              "WhenOpened": "2025-02-18T12:17:04.05Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AboutDTO.cs",
-              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Mappers\\DTOS\\AboutDTOS\\AboutDTO.cs",
-              "RelativeDocumentMoniker": "EnergyScore.Application\\Mappers\\DTOS\\AboutDTOS\\AboutDTO.cs",
-              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Mappers\\DTOS\\AboutDTOS\\AboutDTO.cs",
-              "RelativeToolTip": "EnergyScore.Application\\Mappers\\DTOS\\AboutDTOS\\AboutDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAFAAAA",
+              "DocumentIndex": 8,
+              "Title": "HPXMLOperations.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\HPXMLOperations.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Operations\\HPXMLOperations.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Operations\\HPXMLOperations.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Operations\\HPXMLOperations.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAWwH8AAABmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-14T06:55:28.089Z"
+              "WhenOpened": "2025-02-18T11:23:33.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "WallClass.cs",
+              "DocumentMoniker": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\WallClass.cs",
+              "RelativeDocumentMoniker": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\WallClass.cs",
+              "ToolTip": "D:\\Logu\\microservices\\HPXMLMicro\\EnergyScore\\EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\WallClass.cs",
+              "RelativeToolTip": "EnergyScore.Application\\Templates\\HPXMLs\\ZoneRoofs\\WallClass.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAwAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T12:28:54.467Z"
             }
           ]
         }

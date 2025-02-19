@@ -6,38 +6,45 @@ import { envVariable } from '../../environents/environment.development';
   providedIn: 'root'
 })
 export class CommonService {
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   //for Address
-  sendAddress(req:any){
-    return this.http.post(envVariable.API_URL+'Address',req);
+  sendAddress(req: any) {
+    return this.http.post(envVariable.API_URL + 'Address', req);
   }
 
   //for About
-  sendAbout(req:any,id:string){
-    const params = new HttpParams().set('buildingId',id)
-    return this.http.post(envVariable.API_URL+'About',req, { params });
+  sendAbout(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'About', req, { params });
   }
 
   //for ZoneFloor
-  sendZoneFloor(req:any,id:string){
-    const params = new HttpParams().set('buildingId',id)
-    return this.http.post(envVariable.API_URL+'ZoneFloor',req, { params })
+  sendZoneFloor(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'ZoneFloor', req, { params })
+  }
+
+  //for ZoneRoof
+  sendZoneRoof(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'ZoneRoof', req, { params })
   }
 
   //for HPXMLGeneration
-  getHPXMLString(id:string){
-    const params = new HttpParams().set('buildingId',id)
-    return this.http.get(envVariable.API_URL+'HPXMLGeneration/string', { params })
+  getHPXMLString(id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.get(envVariable.API_URL + 'HPXMLGeneration/string', { params })
   }
-  getHPXMLBase64(id:string){
-    const params = new HttpParams().set('buildingId',id)
-    return this.http.get(envVariable.API_URL+'HPXMLGeneration/base64', { params })
+
+  getHPXMLBase64(id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.get(envVariable.API_URL + 'HPXMLGeneration/base64', { params })
   }
 
   //for Validation
-  validateHpxml(res:any){
-    return this.http.post(envVariable.VALIDATION_URL,res)
+  validateHpxml(res: any) {
+    return this.http.post(envVariable.VALIDATION_URL, res)
   }
 
 }

@@ -1,4 +1,6 @@
-﻿using EnergyScore.Domain.Entityies.CommonModels;
+﻿using EnergyScore.Domain.Entityies.AddressModels;
+using EnergyScore.Domain.Entityies.CommonModels;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnergyScore.Domain.Entityies.ZoneFloorModels
@@ -10,7 +12,12 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public string FrameFloorName { get; set; }
         public double Area { get; set; }
         public ICollection<Insulation> Insulations { get; set; }
-        public Guid FoundationId { get; set; }
-        public Foundation Foundations { get; set; }
+        public Guid? FoundationId { get; set; } = null;
+        public Foundation? Foundations { get; set; } = null;
+        public Guid? AtticId { get; set; } = null;
+        public Attic? Attic { get; set; } = null;
+        public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
+
     }
 }

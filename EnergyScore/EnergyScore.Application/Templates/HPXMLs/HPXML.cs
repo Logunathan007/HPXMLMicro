@@ -1,5 +1,6 @@
 ﻿
 using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
+using EnergyScore.Application.Templates.HPXMLs.ZoneRoofs;
 using System.Xml.Serialization;
 
 namespace EnergyScore.Application.Templates.HPXMLs
@@ -106,9 +107,12 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class Enclosure
     {
         public AirInfiltration? AirInfiltration { get; set; }
+        public Attics? Attics { get; set; }
         public Foundations? Foundations { get; set; }
+        public Roofs? Roofs { get; set; }
+        public Walls? Walls { get; set; }
         public FoundationWalls? FoundationWalls { get; set; }
-        public FrameFloors? FrameFloors { get; set; } = null;
+        public FrameFloors? FrameFloors { get; set; }
         public Slabs? Slabs { get; set; }
     }
 
@@ -117,7 +121,6 @@ namespace EnergyScore.Application.Templates.HPXMLs
         [XmlElement("AirInfiltrationMeasurement")]
         public List<AirInfiltrationMeasurement> AirInfiltrationMeasurement { get; set; }
     }
-
     public class AirInfiltrationMeasurement
     {
         [XmlElement("SystemIdentifier")]
@@ -126,15 +129,11 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public string LeakinessDescription { get; set; }
         public BuildingAirLeakage BuildingAirLeakage { get; set; }
     }
-
-
-
     public class SystemIdentifier
     {
         [XmlAttribute("id")]
         public string Id { get; set; }
     }
-
     public class BuildingAirLeakage
     {
         public string UnitofMeasure { get; set; }
@@ -153,5 +152,30 @@ namespace EnergyScore.Application.Templates.HPXMLs
     public class extension
     {
         public string? ManufacturedHomeSections { get; set; } = null;
+    }
+    public class AttachedToWall
+    {
+        [XmlAttribute("idref")]
+        public string IdRef { get; set; }
+    }
+    public class AttachedToFoundationWall
+    {
+        [XmlAttribute("idref")]
+        public string IdRef { get; set; }
+    }
+    public class AttachedToFrameFloor
+    {
+        [XmlAttribute("idref")]
+        public string IdRef { get; set; }
+    }
+    public class AttachedToSlab
+    {
+        [XmlAttribute("idref")]
+        public string IdRef { get; set; }
+    }
+    public class AttachedToRoof
+    {
+        [XmlAttribute("idref")]
+        public string IdRef { get; set; }
     }
 }

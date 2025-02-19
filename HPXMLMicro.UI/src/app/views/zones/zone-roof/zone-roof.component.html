@@ -1,0 +1,939 @@
+<div class="container">
+  <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+    Attics &nbsp;&nbsp;
+    <button class="ms-2 icon-btn" (click)="addNewAttics()">
+      <img src="/assets/icons/plus.svg" width="30px" alt="" />
+    </button>
+  </h3>
+  <form [formGroup]="atticForm">
+    <ng-container formArrayName="attics">
+      <ng-container
+        *ngFor="let atticItem of atticsObj?.controls; let atticIndex = index"
+      >
+        <div
+          [formGroupName]="atticIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Attic ({{ atticIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeFromFormArray(atticsObj, atticIndex)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Attic name </label>
+                <input
+                  formControlName="atticName"
+                  type="text"
+                  id="atticName"
+                  placeholder="Attic name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (atticItem.get('atticName')?.touched ||
+                      atticItem.get('atticName')?.dirty) &&
+                    atticItem.get('atticName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="atticItem.get('atticName')?.errors?.['required']"
+                  >
+                    Attic name is required
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!atticItem.get('atticName')?.errors?.['required'] && atticItem.get('atticName')?.errors?.['nameSame']"
+                  >
+                    Attic name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Attic Type </label>
+                <ng-select
+                  [items]="AtticTypeOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Attic Type"
+                  id="atticType"
+                  formControlName="atticType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (atticItem.get('atticType')?.touched ||
+                      atticItem.get('atticType')?.dirty) &&
+                    atticItem.get('atticType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Attic is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <ng-container formArrayName="atticTypeDynamicOptions">
+              <ng-container
+                *ngFor="
+                  let atticDynamic of atticTypeDynamicOptionsObj(atticIndex)
+                    ?.controls;
+                  let atticTypeDynamicOptionsIndex = index
+                "
+              >
+                <ng-container
+                  [formGroupName]="atticTypeDynamicOptionsIndex"
+                >
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label>
+                        {{ atticDynamic.get("options")?.value?.label }}
+                      </label>
+                      <ng-select
+                        [items]="atticDynamic.get('options')?.value?.options"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        [placeholder]="
+                          atticDynamic.get('options')?.value?.placeHolder
+                        "
+                        id="radiantBarrier"
+                        [formControlName]="
+                          atticDynamic.get('options')?.value?.name
+                        "
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (atticDynamic.get(
+                            atticDynamic.get('options')?.value?.name
+                          )?.touched ||
+                            atticDynamic.get(
+                              atticDynamic.get('options')?.value?.name
+                            )?.dirty) &&
+                          atticDynamic.get(atticDynamic.get('options')?.value?.name)
+                            ?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          {{ atticDynamic.get("options")?.value?.errorMsg }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
+              Roofs &nbsp;&nbsp;
+              <button
+                class="ms-2 icon-btn"
+                (click)="addToFormArray(roofsObj(atticIndex), roofInputs())"
+              >
+                <img src="/assets/icons/plus.svg" width="30px" alt="" />
+              </button>
+            </h5>
+            <ng-container formArrayName="roofs">
+              <div
+                *ngFor="
+                  let roofItem of roofsObj(atticIndex)?.controls;
+                  let roofIndex = index
+                "
+                class="border rounded-2 row mx-0 px-2 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">Roof ({{ roofIndex + 1 }})</h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(roofsObj(atticIndex), roofIndex)
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="roofIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Roof Name </label>
+                      <input
+                        formControlName="roofName"
+                        type="text"
+                        id="roofName"
+                        placeholder="Roof Name"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('roofName')?.touched ||
+                            roofItem.get('roofName')?.dirty) &&
+                          roofItem.get('roofName')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="roofItem.get('roofName')?.errors?.['required']"
+                        >
+                          Roof Name is required
+                        </label>
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="!roofItem.get('roofName')?.errors?.['required'] && roofItem.get('roofName')?.errors?.['nameSame']"
+                        >
+                          Roof Name must be unique.
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Roof Type </label>
+                      <ng-select
+                        [items]="RoofTypeOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder=" Roof Type "
+                        id="roofType"
+                        formControlName="roofType"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('roofType')?.touched ||
+                            roofItem.get('roofType')?.dirty) &&
+                          roofItem.get('roofType')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Roof Type is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Roof Color </label>
+                      <ng-select
+                        [items]="RoofColorOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder=" Roof Color "
+                        id="roofColor"
+                        formControlName="roofColor"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('roofColor')?.touched ||
+                            roofItem.get('roofColor')?.dirty) &&
+                          roofItem.get('roofColor')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Roof Color is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Radiant Barrier </label>
+                      <ng-select
+                        [items]="BooleanOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Radiant Barrier"
+                        id="radiantBarrier"
+                        formControlName="radiantBarrier"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('radiantBarrier')?.touched ||
+                            roofItem.get('radiantBarrier')?.dirty) &&
+                          roofItem.get('radiantBarrier')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Radiant Barrier is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Area </label>
+                      <input
+                        formControlName="area"
+                        type="number"
+                        id="area"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('area')?.touched ||
+                            roofItem.get('area')?.dirty) &&
+                          roofItem.get('area')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Area is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Solar Absorptance </label>
+                      <input
+                        formControlName="solarAbsorptance"
+                        type="number"
+                        id="solarAbsorptance"
+                        placeholder="Solar Absorptance"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (roofItem.get('solarAbsorptance')?.touched ||
+                            roofItem.get('solarAbsorptance')?.dirty) &&
+                          roofItem.get('solarAbsorptance')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Solar Absorptance is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 d-flex my-3">
+                    <h5 class="mb-0">Roof Insulations</h5>
+                    <button
+                      class="ms-2 icon-btn"
+                      (click)="
+                        addToFormArray(
+                          roofInsulationsObj(atticIndex, roofIndex),
+                          insulationInputs()
+                        )
+                      "
+                    >
+                      <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                    </button>
+                  </div>
+                  <ng-container formArrayName="insulations">
+                    <div
+                      *ngFor="
+                        let roofInsulationItem of roofInsulationsObj(
+                          atticIndex,
+                          roofIndex
+                        )?.controls;
+                        let roofInsulationIndex = index
+                      "
+                      class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+                    >
+                      <div class="col-12 d-flex">
+                        <h5 class="mb-0">
+                          Roof Insulation({{ roofInsulationIndex + 1 }})
+                        </h5>
+                        <button
+                          class="ms-2 icon-btn"
+                          (click)="
+                            removeFromFormArray(
+                              roofInsulationsObj(atticIndex, roofIndex),
+                              roofInsulationIndex
+                            )
+                          "
+                        >
+                          <img src="/assets/icons/delete.svg" alt="" />
+                        </button>
+                      </div>
+                      <ng-container [formGroupName]="roofInsulationIndex">
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> Nominal R-Value </label>
+                            <input
+                              formControlName="nominalRValue"
+                              type="number"
+                              id="nominalRValue"
+                              placeholder="Nominal R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (roofInsulationItem.get('nominalRValue')
+                                  ?.touched ||
+                                  roofInsulationItem.get('nominalRValue')
+                                    ?.dirty) &&
+                                roofInsulationItem.get('nominalRValue')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Nominal R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label>Assembly Effective R-Value </label>
+                            <input
+                              formControlName="assemblyEffectiveRValue"
+                              type="number"
+                              id="assemblyEffectiveRValue"
+                              placeholder="Assembly Effective R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (roofInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.touched ||
+                                  roofInsulationItem.get(
+                                    'assemblyEffectiveRValue'
+                                  )?.dirty) &&
+                                roofInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Assembly Effective R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
+              Walls &nbsp;&nbsp;
+              <button
+                class="ms-2 icon-btn"
+                (click)="addToFormArray(wallsObj(atticIndex), wallInputs())"
+              >
+                <img src="/assets/icons/plus.svg" width="30px" alt="" />
+              </button>
+            </h5>
+            <ng-container formArrayName="walls">
+              <div
+                *ngFor="
+                  let wallItem of wallsObj(atticIndex)?.controls;
+                  let wallIndex = index
+                "
+                class="border rounded-2 row mx-0 px-2 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">Walls({{ wallIndex + 1 }})</h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(wallsObj(wallIndex), wallIndex)
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="wallIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Wall Name </label>
+                      <input
+                        formControlName="wallName"
+                        type="text"
+                        id="wallName"
+                        placeholder="Wall Name"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallItem.get('wallName')?.touched ||
+                            wallItem.get('wallName')?.dirty) &&
+                          wallItem.get('wallName')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="wallItem.get('wallName')?.errors?.['required']"
+                        >
+                          Wall Name is required
+                        </label>
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="!wallItem.get('wallName')?.errors?.['required'] && wallItem.get('wallName')?.errors?.['nameSame']"
+                        >
+                          Wall Name must be unique.
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Wall Type </label>
+                      <ng-select
+                        [items]="atticWallTypeOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Attic Wall Type"
+                        id="atticWallType"
+                        formControlName="atticWallType"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (atticItem.get('atticWallType')?.touched ||
+                            atticItem.get('atticWallType')?.dirty) &&
+                          atticItem.get('atticWallType')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Wall Type is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Area </label>
+                      <input
+                        formControlName="area"
+                        type="number"
+                        id="area"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallItem.get('area')?.touched ||
+                            wallItem.get('area')?.dirty) &&
+                          wallItem.get('area')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Area is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <ng-container formArrayName="insulations">
+                    <div class="col-12 d-flex my-3">
+                      <h5 class="mb-0">Foundation Wall Insulations</h5>
+                      <button
+                        class="ms-2 icon-btn"
+                        (click)="
+                          addToFormArray(
+                            foundationWallInsulationsObj(
+                              atticIndex,
+                              foundationWallIndex
+                            ),
+                            insulationInputs()
+                          )
+                        "
+                      >
+                        <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                      </button>
+                    </div>
+                    <div
+                      *ngFor="
+                        let foundationWallInsulationItem of foundationWallInsulationsObj(
+                          atticIndex,
+                          foundationWallIndex
+                        )?.controls;
+                        let foundationWallInsulationIndex = index
+                      "
+                      class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+                    >
+                      <div class="col-12 d-flex">
+                        <h5 class="mb-0">
+                          Foundation Wall Insulation({{
+                            foundationWallInsulationIndex + 1
+                          }})
+                        </h5>
+                        <button
+                          class="ms-2 icon-btn"
+                          (click)="
+                            removeFromFormArray(
+                              foundationWallInsulationsObj(
+                                atticIndex,
+                                foundationWallIndex
+                              ),
+                              foundationWallInsulationIndex
+                            )
+                          "
+                        >
+                          <img src="/assets/icons/delete.svg" alt="" />
+                        </button>
+                      </div>
+                      <ng-container
+                        [formGroupName]="foundationWallInsulationIndex"
+                      >
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> Nominal R-Value </label>
+                            <input
+                              formControlName="nominalRValue"
+                              type="number"
+                              id="nominalRValue"
+                              placeholder="Nominal R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (foundationWallInsulationItem.get(
+                                  'nominalRValue'
+                                )?.touched ||
+                                  foundationWallInsulationItem.get(
+                                    'nominalRValue'
+                                  )?.dirty) &&
+                                foundationWallInsulationItem.get(
+                                  'nominalRValue'
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Nominal R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label>Assembly Effective R-Value </label>
+                            <input
+                              formControlName="assemblyEffectiveRValue"
+                              type="number"
+                              id="assemblyEffectiveRValue"
+                              placeholder="Assembly Effective R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (foundationWallInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.touched ||
+                                  foundationWallInsulationItem.get(
+                                    'assemblyEffectiveRValue'
+                                  )?.dirty) &&
+                                foundationWallInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Assembly Effective R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container> -->
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <h5
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+            >
+              Frame Floors &nbsp;&nbsp;
+              <button
+                class="ms-2 icon-btn"
+                (click)="
+                  addToFormArray(frameFloorsObj(atticIndex), frameFloorInput())
+                "
+              >
+                <img src="/assets/icons/plus.svg" width="30px" alt="" />
+              </button>
+            </h5>
+            <ng-container formArrayName="frameFloors">
+              <div
+                *ngFor="
+                  let frameFloorItem of frameFloorsObj(atticIndex)?.controls;
+                  let frameFloorIndex = index
+                "
+                class="border rounded-2 row mx-0 px-2 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">Frame Floor({{ frameFloorIndex + 1 }})</h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(
+                        frameFloorsObj(atticIndex),
+                        frameFloorIndex
+                      )
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="frameFloorIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Frame Floor Name </label>
+                      <input
+                        formControlName="frameFloorName"
+                        type="text"
+                        id="frameFloorName"
+                        placeholder="Foundation Wall Name"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (frameFloorItem.get('frameFloorName')?.touched ||
+                            frameFloorItem.get('frameFloorName')?.dirty) &&
+                          frameFloorItem.get('frameFloorName')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="frameFloorItem.get('frameFloorName')?.errors?.['required']"
+                        >
+                          Frame Floor is required
+                        </label>
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="!frameFloorItem.get('frameFloorName')?.errors?.['required'] && frameFloorItem.get('frameFloorName')?.errors?.['nameSame']"
+                        >
+                          Frame Floor name must be unique.
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Area </label>
+                      <input
+                        formControlName="area"
+                        type="number"
+                        id="area"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (frameFloorItem.get('area')?.touched ||
+                            frameFloorItem.get('area')?.dirty) &&
+                          frameFloorItem.get('area')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Area is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container formArrayName="insulations">
+                    <div class="col-12 d-flex my-3">
+                      <h5 class="mb-0">Frame Floors Insulations</h5>
+                      <button
+                        class="ms-2 icon-btn"
+                        (click)="
+                          addToFormArray(
+                            frameFloorInsulationsObj(
+                              atticIndex,
+                              frameFloorIndex
+                            ),
+                            insulationInputs()
+                          )
+                        "
+                      >
+                        <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                      </button>
+                    </div>
+                    <div
+                      *ngFor="
+                        let frameFloorInsulationItem of frameFloorInsulationsObj(
+                          atticIndex,
+                          frameFloorIndex
+                        )?.controls;
+                        let frameFloorInsulationIndex = index
+                      "
+                      class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+                    >
+                      <div class="col-12 d-flex">
+                        <h5 class="mb-0">
+                          Frame Floor Insulation({{
+                            frameFloorInsulationIndex + 1
+                          }})
+                        </h5>
+                        <button
+                          class="ms-2 icon-btn"
+                          (click)="
+                            removeFromFormArray(
+                              frameFloorInsulationsObj(
+                                atticIndex,
+                                frameFloorIndex
+                              ),
+                              frameFloorInsulationIndex
+                            )
+                          "
+                        >
+                          <img src="/assets/icons/delete.svg" alt="" />
+                        </button>
+                      </div>
+                      <ng-container [formGroupName]="frameFloorInsulationIndex">
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label> Nominal R-Value </label>
+                            <input
+                              formControlName="nominalRValue"
+                              type="number"
+                              id="nominalRValue"
+                              placeholder="Nominal R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (frameFloorInsulationItem.get('nominalRValue')
+                                  ?.touched ||
+                                  frameFloorInsulationItem.get('nominalRValue')
+                                    ?.dirty) &&
+                                frameFloorInsulationItem.get('nominalRValue')
+                                  ?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Nominal R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-box">
+                            <label>Assembly Effective R-Value </label>
+                            <input
+                              formControlName="assemblyEffectiveRValue"
+                              type="number"
+                              id="assemblyEffectiveRValue"
+                              placeholder="Assembly Effective R-Value"
+                            />
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (frameFloorInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.touched ||
+                                  frameFloorInsulationItem.get(
+                                    'assemblyEffectiveRValue'
+                                  )?.dirty) &&
+                                frameFloorInsulationItem.get(
+                                  'assemblyEffectiveRValue'
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Assembly Effective R-Value is required
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div class="d-flex justify-content-end gap-3 my-5">
+      <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+      <button
+        class="bg-secondary btn-style"
+        [disabled]="!enableNext"
+        (click)="goNext()"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+  <!-- <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div> -->
+</div>

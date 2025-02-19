@@ -1,4 +1,5 @@
-﻿using EnergyScore.Domain.Entityies.CommonModels;
+﻿using EnergyScore.Domain.Entityies.AddressModels;
+using EnergyScore.Domain.Entityies.CommonModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnergyScore.Domain.Entityies.ZoneFloorModels
@@ -11,6 +12,8 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public double ExposedPerimeter { get; set; }
         public ICollection<PerimeterInsulation> PerimeterInsulations { get; set; }
         public Guid? FoundationId { get; set; }
-        public Foundation? Foundations { get; set; }
+        public Foundation Foundations { get; set; }
+        public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
     }
 }

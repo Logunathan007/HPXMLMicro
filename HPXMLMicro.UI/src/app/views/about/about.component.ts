@@ -107,12 +107,12 @@ export class AboutComponent implements OnInit {
     }
     this.commonService.sendAbout(this.aboutForm.getRawValue(), this.buildingId).subscribe((val) => {
       console.log(val);
-      this.enableNext = true;
     });
+    this.enableNext = true;
   }
 
   goNext() {
-    this.router.navigate(['zones','floor'], {
+    this.router.navigate(['zones/floor'], {
       queryParams: { id: this.buildingId }
     })
   }

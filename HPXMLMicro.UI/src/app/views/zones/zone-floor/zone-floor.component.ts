@@ -55,10 +55,14 @@ export class ZoneFloorComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
-    this.variableDeclaration();
   }
 
   ngOnInit(): void {
+    this.getBuildingId();
+    this.variableDeclaration();
+  }
+
+  getBuildingId(){
     this.route.queryParamMap.subscribe(params => {
       this.buildingId = params.get('id') ?? ""
     })
@@ -82,12 +86,14 @@ export class ZoneFloorComponent implements OnInit {
       ]),
       foundationWalls: this.fb.array([]),
       slabs: this.fb.array([]),
-      frameFloors: this.fb.array([])
+      frameFloors: this.fb.array([]),
+      buildingId: [this.buildingId],
     })
   }
 
   foundationWallInputs() {
     return this.fb.group({
+      buildingId: [this.buildingId],
       foundationWallName: [null, [Validators.required], [nameValidator('foundationWallName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
@@ -96,6 +102,7 @@ export class ZoneFloorComponent implements OnInit {
 
   frameFloorInput() {
     return this.fb.group({
+      buildingId: [this.buildingId],
       frameFloorName: [null, [Validators.required], [nameValidator('frameFloorName')]],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
@@ -189,6 +196,7 @@ export class ZoneFloorComponent implements OnInit {
 
   slabInputs() {
     return this.fb.group({
+      buildingId: [this.buildingId],
       slabName: [null, [Validators.required], [nameValidator('slabName')]],
       exposedPerimeter: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
       perimeterInsulations: this.fb.array([this.perimeterInsulationInputs()])
@@ -245,8 +253,9 @@ export class ZoneFloorComponent implements OnInit {
       return;
     }
     let found = this.foundationForm.value;
+
     for (let ele of found.foundations) {
-      if(!Array.isArray(ele?.foundationTypeDynamicOptions)) continue;
+      if (!Array.isArray(ele?.foundationTypeDynamicOptions)) continue;
       let opt = [...ele.foundationTypeDynamicOptions];
       if (ele && ele.foundationTypeDynamicOptions) {
         delete ele.foundationTypeDynamicOptions;
@@ -268,8 +277,11 @@ export class ZoneFloorComponent implements OnInit {
     )
     console.log(this.foundationForm)
   }
-  goNext() {
 
+  goNext() {
+    this.router.navigate(['zones/roof'], {
+      queryParams: { id: this.buildingId }
+    })
   }
 
   generateHPXML() {

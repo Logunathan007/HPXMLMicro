@@ -39,4 +39,8 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public Guid ZoneFloorId { get; set; }
     }
+    public class ResponseForZoneRoof : Response
+    {
+        public Guid ZoneRoofId { get; set; }
+    }
 }

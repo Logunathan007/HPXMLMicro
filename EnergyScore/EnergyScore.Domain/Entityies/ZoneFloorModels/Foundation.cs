@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EnergyScore.Domain.Entityies.AddressModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace EnergyScore.Domain.Entityies.ZoneFloorModels
 {
@@ -12,5 +13,9 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public ICollection<FoundationWall> FoundationWalls { get; set; }
         public ICollection<Slab> Slabs { get; set; }
         public ICollection<FrameFloor> FrameFloors { get; set; }
+        public Guid ZoneFloorId { get; set; }
+        public ZoneFloor ZoneFloor { get; set; }
+        public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
     }
 }

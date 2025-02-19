@@ -46,24 +46,5 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneFloors
     }
     public class AboveApartment { }
     public class Ambient { }
-    public class AttachedToWall
-    {
-        [XmlAttribute("idref")]
-        public string IdRef { get; set; }
-    }
-    public class AttachedToFoundationWall
-    {
-        [XmlAttribute("idref")]
-        public string IdRef { get; set; }
-    }
-    public class AttachedToFrameFloor
-    {
-        [XmlAttribute("idref")]
-        public string IdRef { get; set; }
-    }
-    public class AttachedToSlab
-    {
-        [XmlAttribute("idref")]
-        public string IdRef { get; set; }
-    }
+
 }
