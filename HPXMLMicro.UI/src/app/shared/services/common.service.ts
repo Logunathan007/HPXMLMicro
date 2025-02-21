@@ -31,6 +31,12 @@ export class CommonService {
     return this.http.post(envVariable.API_URL + 'ZoneRoof', req, { params })
   }
 
+  //for ZoneWall
+  sendZoneWall(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'ZoneWall', req, { params })
+  }
+
   //for HPXMLGeneration
   getHPXMLString(id: string) {
     const params = new HttpParams().set('buildingId', id)

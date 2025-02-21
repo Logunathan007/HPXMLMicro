@@ -1,4 +1,4 @@
-import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions } from './../../../shared/lookups/about-lookups';
+import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions, ExteriorAdjacentToOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,11 +23,12 @@ export class ZoneWallComponent {
   orientationOptions = OrientationOptions;
   installationTypeOptions = InstallationTypeOptions;
   insulationMaterialOptions = InsulationMaterialOptions;
-  glassTypeOptions=GlassTypeOptions;
+  glassTypeOptions = GlassTypeOptions;
   glassLayersOptions = GlassLayersOptions;
   gasFillOptions = GasFillOptions;
   frameTypeOptions = FrameTypeOptions;
   sidingOptions = SidingOptions;
+  ExteriorAdjacentToOptions = ExteriorAdjacentToOptions
 
   get wallsObj(): FormArray {
     return this.wallForm.get('walls') as FormArray;
@@ -40,13 +41,13 @@ export class ZoneWallComponent {
   wallInsulationsObj(index: number): FormArray {
     return this.wallsObj?.at(index).get('insulations') as FormArray;
   }
-  windowsObj (index:number) :FormArray{
+  windowsObj(index: number): FormArray {
     return this.wallsObj?.at(index).get('windows') as FormArray;
   }
-  frameTypeDynamicOptionsObj(pindx:number,cindex:number):FormArray{
+  frameTypeDynamicOptionsObj(pindx: number, cindex: number): FormArray {
     return this.windowsObj(pindx).at(cindex).get('frameTypeDynamicOptions') as FormArray;
   }
-  insulationMaterialDynamicOptionsObj(pindex:number,cindex:number):FormArray{
+  insulationMaterialDynamicOptionsObj(pindex: number, cindex: number): FormArray {
     return this.wallInsulationsObj(pindex).at(cindex).get('insulationMaterialDynamicOptions') as FormArray;
   }
 
@@ -67,7 +68,7 @@ export class ZoneWallComponent {
 
   getBuildingId() {
     this.route.queryParamMap.subscribe(params => {
-     this.buildingId = params.get('id') ?? ""
+      this.buildingId = params.get('id') ?? ""
     })
   }
 
@@ -76,12 +77,12 @@ export class ZoneWallComponent {
   wallInputs() {
     return this.fb.group({
       buildingId: [this.buildingId],
-      wallName: [null, Validators.required, nameValidator('wallName')],
+      wallName: [null, [Validators.required], nameValidator('wallName')],
       exteriorAdjacentTo: [null, Validators.required],
       wallType: [null, Validators.required],
       wallTypeDynamicOptions: this.fb.array([]),
       siding: [null, Validators.required],
-      area: [null, Validators.required],
+      area: [null, Validators.required, Validators.min(0)],
       azimuth: [null, [Validators.required, Validators.min(0), Validators.max(360)]],
       orientation: [null, Validators.required],
       insulations: this.fb.array([]),
@@ -143,22 +144,22 @@ export class ZoneWallComponent {
 
   insulationInputs() {
     let insulation = this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
-      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
+      nominalRValue: [null, [Validators.required, Validators.min(0)]],
+      assemblyEffectiveRValue: [null, [Validators.min(0)]],
       installationType: [null, [Validators.required]],
       insulationMaterial: [null, [Validators.required]],
       insulationMaterialDynamicOptions: this.fb.array([])
     })
-    insulation.get('insulationMaterial')?.valueChanges.subscribe((val:any)=>{
+    insulation.get('insulationMaterial')?.valueChanges.subscribe((val: any) => {
       let arr = insulation.get('insulationMaterialDynamicOptions') as FormArray;
       let group = this.AddInsulationMaterialOptions(val)
       arr.clear();
-      if(group) arr.push(group);
+      if (group) arr.push(group);
     })
     return insulation;
   }
 
-  AddInsulationMaterialOptions(insulationMaterial: string): FormGroup | null{
+  AddInsulationMaterialOptions(insulationMaterial: string): FormGroup | null {
     var fg = null;
     switch (insulationMaterial) {
       case 'Batt':
@@ -204,7 +205,7 @@ export class ZoneWallComponent {
     return fg;
   }
 
-  thermalBreakInput(){
+  thermalBreakInput() {
     let opt = {
       label: 'Thermal Break',
       placeHolder: 'Thermal Break',
@@ -220,21 +221,22 @@ export class ZoneWallComponent {
 
   windowInputs() {
     let window = this.fb.group({
-      area: [null, [Validators.required]],
+      buildingId: [this.buildingId],
+      area: [null, [Validators.required, Validators.min(0)]],
       uFactor: [null, [Validators.required, Validators.min(0)]],
-      sHGC: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
+      sHGC: [null, [Validators.required, Validators.max(1), Validators.min(0)]],
       frameType: [null, [Validators.required]],
       frameTypeDynamicOptions: this.fb.array([]),
       glassType: [null, [Validators.required]],
       glassLayers: [null, [Validators.required]],
       gasFill: [null, [Validators.required]],
       orientation: [null, [Validators.required]],
-      azimuth: [null, [Validators.required,  Validators.min(0), Validators.max(360)]]
+      azimuth: [null, [Validators.required, Validators.min(0), Validators.max(360)]]
     })
-    window.get('frameType')?.valueChanges.subscribe((val)=>{
+    window.get('frameType')?.valueChanges.subscribe((val) => {
       let arr = window.get('frameTypeDynamicOptions') as FormArray;
       arr.clear();
-      if(val == 'Aluminum' || val == 'Metal'){
+      if (val == 'Aluminum' || val == 'Metal') {
         arr.push(this.thermalBreakInput());
       }
     })
@@ -243,12 +245,12 @@ export class ZoneWallComponent {
 
   addNewWall() {
     let wall = this.wallInputs();
-    wall.get('wallType')?.valueChanges.subscribe((val)=>{
+    wall.get('wallType')?.valueChanges.subscribe((val) => {
       let arr = wall.get('wallTypeDynamicOptions') as FormArray
       arr.clear();
-      if(val == 'WoodStud'){
-        this.woodStudInputs().forEach(obj=> arr.push(obj));
-      }else if(val == 'DoubleWoodStud'){
+      if (val == 'WoodStud') {
+        this.woodStudInputs().forEach(obj => arr.push(obj));
+      } else if (val == 'DoubleWoodStud') {
         arr.push(this.doubleWoodStudInputs())
       }
     })
@@ -263,36 +265,46 @@ export class ZoneWallComponent {
     array.removeAt(index);
   }
 
+  arrayToObjectTransformer(ele: any, name: string) {
+    if (!Array.isArray(ele?.[name])) return;
+    let opt = [...ele?.[name]];
+    if (ele && ele?.[name]) {
+      delete ele?.[name];
+    }
+    ele[name] = {};
+    for (let obj of opt) {
+      for (let [key, value] of Object.entries(obj)) {
+        if (key !== 'options') {
+          ele[name][key] = value;
+        }
+      }
+    }
+  }
+
   // for click event functions
   onSubmit() {
-    // if (this.atticForm.invalid) {
-    //   this.atticForm.markAllAsTouched();
-    //   return;
-    // }
-    // let attic = this.atticForm.value;
-    // for (let ele of attic.attics) {
-    //   if (!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
-    //   let opt = [...ele.atticTypeDynamicOptions];
-    //   if (ele && ele.atticTypeDynamicOptions) {
-    //     delete ele.atticTypeDynamicOptions;
-    //   }
-    //   ele.atticTypeDynamicOptions = {};
-    //   for (let obj of opt) {
-    //     for (let [key, value] of Object.entries(obj)) {
-    //       if (key !== 'options') {
-    //         ele.atticTypeDynamicOptions[key] = value;
-    //       }
-    //     }
-    //   }
-    // }
-    // this.commonService.sendZoneRoof(attic, this.buildingId).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //   },
-    //   error: (err) => {
-    //     console.log("Error occured");
-    //   }
-    // })
+    if (this.wallForm.invalid) {
+      this.wallForm.markAllAsTouched();
+      return;
+    }
+    let wall = this.wallForm.value;
+    for (let ele of wall?.walls) {
+      this.arrayToObjectTransformer(ele, 'wallTypeDynamicOptions');
+      for (let insulation of ele?.insulations) {
+        this.arrayToObjectTransformer(insulation, 'insulationMaterialDynamicOptions');
+      }
+      for (let window of ele?.windows) {
+        this.arrayToObjectTransformer(window, 'frameTypeDynamicOptions');
+      }
+    }
+    this.commonService.sendZoneWall(wall, this.buildingId).subscribe({
+      next: (res:any) => {
+        console.log(res);
+      },
+      error: (err:any) => {
+        console.log("Error occured");
+      }
+    })
   }
 
   goNext() {

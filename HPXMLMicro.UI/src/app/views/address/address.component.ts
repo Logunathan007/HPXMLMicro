@@ -24,7 +24,7 @@ export class AddressComponent {
   variableDeclaration() {
     this.addressForm = this.fb.group({
       address1: ["", Validators.required],
-      address2: ["",Validators.required],
+      address2: [""],
       state: ["", Validators.required],
       city: ["", Validators.required],
       zipcode: [null, [Validators.required, Validators.min(999), Validators.max(100000)]],

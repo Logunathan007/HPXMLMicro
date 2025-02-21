@@ -94,7 +94,7 @@ export class ZoneFloorComponent implements OnInit {
     return this.fb.group({
       buildingId: [this.buildingId],
       foundationWallName: [null, [Validators.required], [nameValidator('foundationWallName')]],
-      area: [null, [Validators.required]],
+      area: [null, [Validators.required,Validators.min(0)]],
       insulations: this.fb.array([this.insulationInputs()])
     })
   }
@@ -110,8 +110,8 @@ export class ZoneFloorComponent implements OnInit {
 
   insulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
-      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]]
+      nominalRValue: [null, [Validators.required, Validators.min(0)]],
+      assemblyEffectiveRValue: [null, [Validators.required, Validators.min(0)]]
     })
   }
 
@@ -197,15 +197,15 @@ export class ZoneFloorComponent implements OnInit {
     return this.fb.group({
       buildingId: [this.buildingId],
       slabName: [null, [Validators.required], [nameValidator('slabName')]],
-      exposedPerimeter: [null, [Validators.required, Validators.max(100), Validators.min(0)]],
+      exposedPerimeter: [null, [Validators.required, Validators.min(0)]],
       perimeterInsulations: this.fb.array([this.perimeterInsulationInputs()])
     })
   }
 
   perimeterInsulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
-      assemblyEffectiveRValue: [null, [Validators.max(1), Validators.min(0.1)]]
+      nominalRValue: [null, [Validators.required, Validators.min(0)]],
+      assemblyEffectiveRValue: [null, [Validators.min(0)]]
     })
   }
 

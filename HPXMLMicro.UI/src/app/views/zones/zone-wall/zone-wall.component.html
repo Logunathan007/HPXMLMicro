@@ -84,6 +84,34 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Exterior Adjacent To </label>
+                <ng-select
+                  [items]="ExteriorAdjacentToOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Wall Type"
+                  id="exteriorAdjacentTo"
+                  formControlName="exteriorAdjacentTo"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('exteriorAdjacentTo')?.touched ||
+                      wallItem.get('exteriorAdjacentTo')?.dirty) &&
+                    wallItem.get('exteriorAdjacentTo')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Exterior Adjacent to is required
+                  </label>
+                </div>
+              </div>
+            </div>
             <ng-container formArrayName="wallTypeDynamicOptions">
               <ng-container
                 *ngFor="
