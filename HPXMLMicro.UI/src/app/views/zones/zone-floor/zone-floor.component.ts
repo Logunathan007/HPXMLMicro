@@ -279,7 +279,7 @@ export class ZoneFloorComponent implements OnInit {
 
   goNext() {
     this.router.navigate(['zones/roof'], {
-      queryParams: { id: this.buildingId }
+      queryParams: { id:' this.buildingId' }
     })
   }
 

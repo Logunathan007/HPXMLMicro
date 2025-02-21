@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { housePressureOptions, leakinessDescriptionOptions, ManufacturedHomeSectionsOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
+import { housePressureOptions, leakinessDescriptionOptions, ManufacturedHomeSectionsOptions, OrientationOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,9 +15,9 @@ export class AboutComponent implements OnInit {
   buildingId: string = 'sdfasdf';
   aboutForm!: FormGroup;
   residentialFacilityTypeOptions = residentialFacilityTypeOptions;
-  orientationOfFrontOfHomeOptions = orientationOfFrontOfHomeOptions;
-  housePressureOptions = housePressureOptions
-  unitofMeasureOptions = unitofMeasureOptions
+  orientationOfFrontOfHomeOptions = OrientationOptions;
+  housePressureOptions = housePressureOptions;
+  unitofMeasureOptions = unitofMeasureOptions;
   leakinessDescriptionOptions = leakinessDescriptionOptions;
   manufacturedHomeSectionsOptions = ManufacturedHomeSectionsOptions;
   hpxmlString!: string;

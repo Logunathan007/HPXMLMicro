@@ -77,7 +77,7 @@ export class ZoneRoofComponent {
 
   getBuildingId() {
     this.route.queryParamMap.subscribe(params => {
-      this.buildingId = params.get('id') ?? ""
+      //this.buildingId = params.get('id') ?? ""
     })
   }
 

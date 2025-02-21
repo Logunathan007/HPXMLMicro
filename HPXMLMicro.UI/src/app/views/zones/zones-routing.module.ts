@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ZoneFloorComponent } from './zone-floor/zone-floor.component';
 import { ZoneRoofComponent } from './zone-roof/zone-roof.component';
 import { ZoneWallComponent } from './zone-wall/zone-wall.component';
-import { ZoneSkylightComponent } from './zone-skylight/zone-skylight.component';
 import { ZonesComponent } from './zones.component';
 
 const routes: Routes = [
@@ -11,11 +10,11 @@ const routes: Routes = [
     path: '',
     component:ZonesComponent,
     children:[
-      // {
-      //   path: '',
-      //   pathMatch:'full',
-      //   redirectTo:"floor"
-      // },
+      {
+        path: '',
+        pathMatch:'full',
+        redirectTo:"floor"
+      },
       {
         path: 'floor',
         component: ZoneFloorComponent,
