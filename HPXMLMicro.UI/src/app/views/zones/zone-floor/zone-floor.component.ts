@@ -61,7 +61,7 @@ export class ZoneFloorComponent implements OnInit {
     this.variableDeclaration();
   }
 
-  getBuildingId(){
+  getBuildingId() {
     this.route.queryParamMap.subscribe(params => {
       this.buildingId = params.get('id') ?? ""
     })
@@ -279,7 +279,7 @@ export class ZoneFloorComponent implements OnInit {
 
   goNext() {
     this.router.navigate(['zones/roof'], {
-      queryParams: { id:' this.buildingId' }
+      queryParams: { id: this.buildingId }
     })
   }
 

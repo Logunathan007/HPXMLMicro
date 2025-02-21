@@ -4,7 +4,6 @@ import { ZonesRoutingModule } from './zones-routing.module';
 import { ZoneFloorComponent } from './zone-floor/zone-floor.component';
 import { ZoneWallComponent } from './zone-wall/zone-wall.component';
 import { ZoneRoofComponent } from './zone-roof/zone-roof.component';
-import { ZoneSkylightComponent } from './zone-skylight/zone-skylight.component';
 import { ZonesComponent } from './zones.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -16,7 +15,6 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
     ZoneFloorComponent,
     ZoneWallComponent,
     ZoneRoofComponent,
-    ZoneSkylightComponent,
     ZonesComponent
   ],
   imports: [

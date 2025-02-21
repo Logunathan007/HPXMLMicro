@@ -408,6 +408,80 @@
                       </div>
                     </div>
                   </div>
+                  <ng-container
+                    formArrayName="insulationMaterialDynamicOptions"
+                  >
+                    <ng-container
+                      *ngFor="
+                        let insulationMaterialDynamic of insulationMaterialDynamicOptionsObj(
+                          wallIndex,
+                          wallInsulationIndex
+                        )?.controls;
+                        let insulationMaterialDynamicIndex = index
+                      "
+                    >
+                      <ng-container
+                        [formGroupName]="insulationMaterialDynamicIndex"
+                      >
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label>
+                              {{
+                                insulationMaterialDynamic.get("options")?.value
+                                  ?.label
+                              }}
+                            </label>
+                            <ng-select
+                              [items]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.options
+                              "
+                              bindLabel="name"
+                              [clearable]="false"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              [placeholder]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.placeHolder
+                              "
+                              id="radiantBarrier"
+                              [formControlName]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.name
+                              "
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.touched ||
+                                  insulationMaterialDynamic.get(
+                                    insulationMaterialDynamic.get('options')
+                                      ?.value?.name
+                                  )?.dirty) &&
+                                insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                {{
+                                  insulationMaterialDynamic.get("options")
+                                    ?.value?.errorMsg
+                                }}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
                 </ng-container>
               </div>
             </ng-container>
@@ -613,25 +687,34 @@
                   <ng-container formArrayName="frameTypeDynamicOptions">
                     <ng-container
                       *ngFor="
-                        let frameTypeDynamic of frameTypeDynamicOptionsObj(wallIndex,windowIndex)
-                          ?.controls;
+                        let frameTypeDynamic of frameTypeDynamicOptionsObj(
+                          wallIndex,
+                          windowIndex
+                        )?.controls;
                         let frameTypeDynamicOptionsIndex = index
                       "
                     >
-                      <ng-container [formGroupName]="frameTypeDynamicOptionsIndex">
+                      <ng-container
+                        [formGroupName]="frameTypeDynamicOptionsIndex"
+                      >
                         <div class="col-md-6">
                           <div class="select-box">
                             <label>
-                              {{ frameTypeDynamic.get("options")?.value?.label }}
+                              {{
+                                frameTypeDynamic.get("options")?.value?.label
+                              }}
                             </label>
                             <ng-select
-                              [items]="frameTypeDynamic.get('options')?.value?.options"
+                              [items]="
+                                frameTypeDynamic.get('options')?.value?.options
+                              "
                               bindLabel="name"
                               [clearable]="false"
                               [closeOnSelect]="true"
                               bindValue="value"
                               [placeholder]="
-                                frameTypeDynamic.get('options')?.value?.placeHolder
+                                frameTypeDynamic.get('options')?.value
+                                  ?.placeHolder
                               "
                               id="radiantBarrier"
                               [formControlName]="
@@ -656,7 +739,10 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                {{ frameTypeDynamic.get("options")?.value?.errorMsg }}
+                                {{
+                                  frameTypeDynamic.get("options")?.value
+                                    ?.errorMsg
+                                }}
                               </label>
                             </div>
                           </div>
@@ -761,17 +847,17 @@
         </div>
       </ng-container>
     </ng-container>
-    <!-- <div class="d-flex justify-content-end gap-3 my-5">
-      <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
-      <button
-        class="bg-secondary btn-style"
-        (click)="goNext()"
-        [disabled]="!enableNext"
-      >
-        Next
-      </button>
-    </div> -->
   </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      [disabled]="!enableNext"
+    >
+      Next
+    </button>
+  </div>
   <!-- <div class="generate-section">
     <button
       class="d-block btn-style mx-auto bg-success my-5"

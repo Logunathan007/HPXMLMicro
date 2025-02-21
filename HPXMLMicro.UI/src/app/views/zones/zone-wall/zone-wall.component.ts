@@ -46,6 +46,9 @@ export class ZoneWallComponent {
   frameTypeDynamicOptionsObj(pindx:number,cindex:number):FormArray{
     return this.windowsObj(pindx).at(cindex).get('frameTypeDynamicOptions') as FormArray;
   }
+  insulationMaterialDynamicOptionsObj(pindex:number,cindex:number):FormArray{
+    return this.wallInsulationsObj(pindex).at(cindex).get('insulationMaterialDynamicOptions') as FormArray;
+  }
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) { }
 
@@ -64,7 +67,7 @@ export class ZoneWallComponent {
 
   getBuildingId() {
     this.route.queryParamMap.subscribe(params => {
-      this.buildingId = params.get('id') ?? ""
+     this.buildingId = params.get('id') ?? ""
     })
   }
 
@@ -139,16 +142,23 @@ export class ZoneWallComponent {
   }
 
   insulationInputs() {
-    return this.fb.group({
+    let insulation = this.fb.group({
       nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
       assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
       installationType: [null, [Validators.required]],
       insulationMaterial: [null, [Validators.required]],
       insulationMaterialDynamicOptions: this.fb.array([])
     })
+    insulation.get('insulationMaterial')?.valueChanges.subscribe((val:any)=>{
+      let arr = insulation.get('insulationMaterialDynamicOptions') as FormArray;
+      let group = this.AddInsulationMaterialOptions(val)
+      arr.clear();
+      if(group) arr.push(group);
+    })
+    return insulation;
   }
 
-  AddInsulationMaterialOptions(insulationMaterial: string) {
+  AddInsulationMaterialOptions(insulationMaterial: string): FormGroup | null{
     var fg = null;
     switch (insulationMaterial) {
       case 'Batt':
@@ -191,7 +201,7 @@ export class ZoneWallComponent {
         })
         break;
     }
-    // to be added
+    return fg;
   }
 
   thermalBreakInput(){
@@ -254,36 +264,36 @@ export class ZoneWallComponent {
   }
 
   // for click event functions
-  // onSubmit() {
-  //   if (this.atticForm.invalid) {
-  //     this.atticForm.markAllAsTouched();
-  //     return;
-  //   }
-  //   let attic = this.atticForm.value;
-  //   for (let ele of attic.attics) {
-  //     if (!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
-  //     let opt = [...ele.atticTypeDynamicOptions];
-  //     if (ele && ele.atticTypeDynamicOptions) {
-  //       delete ele.atticTypeDynamicOptions;
-  //     }
-  //     ele.atticTypeDynamicOptions = {};
-  //     for (let obj of opt) {
-  //       for (let [key, value] of Object.entries(obj)) {
-  //         if (key !== 'options') {
-  //           ele.atticTypeDynamicOptions[key] = value;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   this.commonService.sendZoneRoof(attic, this.buildingId).subscribe({
-  //     next: (res) => {
-  //       console.log(res);
-  //     },
-  //     error: (err) => {
-  //       console.log("Error occured");
-  //     }
-  //   })
-  // }
+  onSubmit() {
+    // if (this.atticForm.invalid) {
+    //   this.atticForm.markAllAsTouched();
+    //   return;
+    // }
+    // let attic = this.atticForm.value;
+    // for (let ele of attic.attics) {
+    //   if (!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
+    //   let opt = [...ele.atticTypeDynamicOptions];
+    //   if (ele && ele.atticTypeDynamicOptions) {
+    //     delete ele.atticTypeDynamicOptions;
+    //   }
+    //   ele.atticTypeDynamicOptions = {};
+    //   for (let obj of opt) {
+    //     for (let [key, value] of Object.entries(obj)) {
+    //       if (key !== 'options') {
+    //         ele.atticTypeDynamicOptions[key] = value;
+    //       }
+    //     }
+    //   }
+    // }
+    // this.commonService.sendZoneRoof(attic, this.buildingId).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //   },
+    //   error: (err) => {
+    //     console.log("Error occured");
+    //   }
+    // })
+  }
 
   goNext() {
     this.router.navigate(['wall'], {
