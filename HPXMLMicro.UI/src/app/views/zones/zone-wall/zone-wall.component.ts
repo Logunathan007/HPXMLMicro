@@ -246,15 +246,15 @@ export class ZoneWallComponent {
 
   addNewWall() {
     let wall = this.wallInputs();
-    // wall.get('wallType')?.valueChanges.subscribe((val) => {
-    //   let arr = wall.get('wallTypeDynamicOptions') as FormArray
-    //   arr.clear();
-    //   if (val == 'WoodStud') {
-    //     this.woodStudInputs().forEach(obj => arr.push(obj));
-    //   } else if (val == 'DoubleWoodStud') {
-    //     arr.push(this.doubleWoodStudInputs())
-    //   }
-    // })
+    wall.get('wallType')?.valueChanges.subscribe((val) => {
+      let arr = wall.get('wallTypeDynamicOptions') as FormArray
+      arr.clear();
+      if (val == 'WoodStud') {
+        this.woodStudInputs().forEach(obj => arr.push(obj));
+      } else if (val == 'DoubleWoodStud') {
+        arr.push(this.doubleWoodStudInputs())
+      }
+    })
     this.addToFormArray(this.wallsObj, wall)
   }
 
