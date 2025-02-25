@@ -7,5 +7,7 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
         public double Area { get; set; }
         public double SHGC { get; set; }
         public double UFactor { get; set; }
+        public RoofDTO? Roof { get; set; }
+        public Guid BuildingId { get; set; }
     }
 }

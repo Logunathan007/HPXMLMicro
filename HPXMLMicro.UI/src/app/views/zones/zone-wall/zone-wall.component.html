@@ -1,1 +1,942 @@
-<p>zone-wall works!</p>
+<div class="container">
+  <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+    Walls &nbsp;&nbsp;
+    <button class="ms-2 icon-btn" (click)="addNewWall()">
+      <img src="/assets/icons/plus.svg" width="30px" alt="" />
+    </button>
+  </h3>
+  <form [formGroup]="wallForm">
+    <ng-container formArrayName="walls">
+      <ng-container
+        *ngFor="let wallItem of wallsObj?.controls; let wallIndex = index"
+      >
+        <div
+          [formGroupName]="wallIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Wall ({{ wallIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeFromFormArray(wallsObj, wallIndex)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Wall name </label>
+                <input
+                  formControlName="wallName"
+                  type="text"
+                  id="wallName"
+                  placeholder="Wall name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('wallName')?.touched ||
+                      wallItem.get('wallName')?.dirty) &&
+                    wallItem.get('wallName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="wallItem.get('wallName')?.errors?.['required']"
+                  >
+                    Wall name is required
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!wallItem.get('wallName')?.errors?.['required'] && wallItem.get('wallName')?.errors?.['nameSame']"
+                  >
+                    Wall name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Wall Type </label>
+                <ng-select
+                  [items]="wallTypeOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Wall Type"
+                  id="wallType"
+                  formControlName="wallType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('wallType')?.touched ||
+                      wallItem.get('wallType')?.dirty) &&
+                    wallItem.get('wallType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Wall Type is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Exterior Adjacent To </label>
+                <ng-select
+                  [items]="ExteriorAdjacentToOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Exterior Adjacent to"
+                  id="exteriorAdjacentTo"
+                  formControlName="exteriorAdjacentTo"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('exteriorAdjacentTo')?.touched ||
+                      wallItem.get('exteriorAdjacentTo')?.dirty) &&
+                    wallItem.get('exteriorAdjacentTo')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Exterior Adjacent to is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Interior Adjacent To </label>
+                <ng-select
+                  [items]="interiorAdjacentToOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Interior Adjacent to"
+                  id="interiorAdjacentTo"
+                  formControlName="interiorAdjacentTo"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('interiorAdjacentTo')?.touched ||
+                      wallItem.get('interiorAdjacentTo')?.dirty) &&
+                    wallItem.get('interiorAdjacentTo')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Interior Adjacent to is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <ng-container formArrayName="wallTypeDynamicOptions">
+              <ng-container
+                *ngFor="
+                  let wallTypeDynamic of wallTypeDynamicOptionsObj(wallIndex)
+                    ?.controls;
+                  let wallTypeDynamicOptionsIndex = index
+                "
+              >
+                <ng-container [formGroupName]="wallTypeDynamicOptionsIndex">
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label>
+                        {{ wallTypeDynamic.get("options")?.value?.label }}
+                      </label>
+                      <ng-select
+                        [items]="wallTypeDynamic.get('options')?.value?.options"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        [placeholder]="
+                          wallTypeDynamic.get('options')?.value?.placeHolder
+                        "
+                        id="radiantBarrier"
+                        [formControlName]="
+                          wallTypeDynamic.get('options')?.value?.name
+                        "
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallTypeDynamic.get(
+                            wallTypeDynamic.get('options')?.value?.name
+                          )?.touched ||
+                            wallTypeDynamic.get(
+                              wallTypeDynamic.get('options')?.value?.name
+                            )?.dirty) &&
+                          wallTypeDynamic.get(
+                            wallTypeDynamic.get('options')?.value?.name
+                          )?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          {{ wallTypeDynamic.get("options")?.value?.errorMsg }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Siding </label>
+                <ng-select
+                  [items]="sidingOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Siding"
+                  id="siding"
+                  formControlName="siding"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('siding')?.touched ||
+                      wallItem.get('siding')?.dirty) &&
+                    wallItem.get('siding')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Siding is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Area </label>
+                <input
+                  formControlName="area"
+                  type="number"
+                  id="area"
+                  placeholder="Area"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('area')?.touched ||
+                      wallItem.get('area')?.dirty) &&
+                    wallItem.get('area')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Area is required
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="input-box">
+                <label>Azimuth </label>
+                <input
+                  formControlName="azimuth"
+                  type="number"
+                  id="azimuth"
+                  placeholder="Azimuth "
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('azimuth')?.touched ||
+                      wallItem.get('azimuth')?.dirty) &&
+                    wallItem.get('azimuth')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="wallItem.get('azimuth')?.errors?.['required']"
+                  >
+                    Azimuth is required
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="wallItem.get('azimuth')?.errors?.['min'] || wallItem.get('azimuth')?.errors?.['max']"
+                  >
+                    Azimuth is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Orientation </label>
+                <ng-select
+                  [items]="orientationOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Orientation "
+                  id="orientation"
+                  formControlName="orientation"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('orientation')?.touched ||
+                      wallItem.get('orientation')?.dirty) &&
+                    wallItem.get('orientation')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Orientation is required
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <ng-container formArrayName="insulations">
+              <div class="col-12 d-flex my-3">
+                <h5 class="mb-0">Wall Insulations</h5>
+                <button
+                  class="ms-2 icon-btn"
+                  (click)="
+                    addToFormArray(
+                      wallInsulationsObj(wallIndex),
+                      insulationInputs()
+                    )
+                  "
+                >
+                  <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                </button>
+              </div>
+              <div
+                *ngFor="
+                  let wallInsulationItem of wallInsulationsObj(wallIndex)
+                    ?.controls;
+                  let wallInsulationIndex = index
+                "
+                class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">
+                    Insulation ({{ wallInsulationIndex + 1 }})
+                  </h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(
+                        wallInsulationsObj(wallIndex),
+                        wallInsulationIndex
+                      )
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="wallInsulationIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Nominal R-Value </label>
+                      <input
+                        formControlName="nominalRValue"
+                        type="number"
+                        id="nominalRValue"
+                        placeholder="Nominal R-Value"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallInsulationItem.get('nominalRValue')?.touched ||
+                            wallInsulationItem.get('nominalRValue')?.dirty) &&
+                          wallInsulationItem.get('nominalRValue')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Nominal R-Value is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label>Assembly Effective R-Value </label>
+                      <input
+                        formControlName="assemblyEffectiveRValue"
+                        type="number"
+                        id="assemblyEffectiveRValue"
+                        placeholder="Assembly Effective R-Value"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallInsulationItem.get('assemblyEffectiveRValue')
+                            ?.touched ||
+                            wallInsulationItem.get('assemblyEffectiveRValue')
+                              ?.dirty) &&
+                          wallInsulationItem.get('assemblyEffectiveRValue')
+                            ?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Assembly Effective R-Value is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Installation Type </label>
+                      <ng-select
+                        [items]="installationTypeOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Installation Type"
+                        id="installationType"
+                        formControlName="installationType"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallInsulationItem.get('installationType')
+                            ?.touched ||
+                            wallInsulationItem.get('installationType')
+                              ?.dirty) &&
+                          wallInsulationItem.get('installationType')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Installation Type is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Insulation Material </label>
+                      <ng-select
+                        [items]="insulationMaterialOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Insulation Material"
+                        id="insulationMaterial"
+                        formControlName="insulationMaterial"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallInsulationItem.get('insulationMaterial')
+                            ?.touched ||
+                            wallInsulationItem.get('insulationMaterial')
+                              ?.dirty) &&
+                          wallInsulationItem.get('insulationMaterial')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Insulation Material is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container
+                    formArrayName="insulationMaterialDynamicOptions"
+                  >
+                    <ng-container
+                      *ngFor="
+                        let insulationMaterialDynamic of insulationMaterialDynamicOptionsObj(
+                          wallIndex,
+                          wallInsulationIndex
+                        )?.controls;
+                        let insulationMaterialDynamicIndex = index
+                      "
+                    >
+                      <ng-container
+                        [formGroupName]="insulationMaterialDynamicIndex"
+                      >
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label>
+                              {{
+                                insulationMaterialDynamic.get("options")?.value
+                                  ?.label
+                              }}
+                            </label>
+                            <ng-select
+                              [items]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.options
+                              "
+                              bindLabel="name"
+                              [clearable]="false"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              [placeholder]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.placeHolder
+                              "
+                              id="radiantBarrier"
+                              [formControlName]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.name
+                              "
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.touched ||
+                                  insulationMaterialDynamic.get(
+                                    insulationMaterialDynamic.get('options')
+                                      ?.value?.name
+                                  )?.dirty) &&
+                                insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                {{
+                                  insulationMaterialDynamic.get("options")
+                                    ?.value?.errorMsg
+                                }}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+
+            <ng-container formArrayName="windows">
+              <div class="col-12 d-flex my-3">
+                <h5 class="mb-0">Windows</h5>
+                <button
+                  class="ms-2 icon-btn"
+                  (click)="
+                    addToFormArray(windowsObj(wallIndex), windowInputs())
+                  "
+                >
+                  <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                </button>
+              </div>
+              <div
+                *ngFor="
+                  let windowItem of windowsObj(wallIndex)?.controls;
+                  let windowIndex = index
+                "
+                class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">Window ({{ windowIndex + 1 }})</h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(windowsObj(windowIndex), windowIndex)
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="windowIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Area </label>
+                      <input
+                        formControlName="area"
+                        type="number"
+                        id="area"
+                        placeholder="Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('area')?.touched ||
+                            windowItem.get('area')?.dirty) &&
+                          windowItem.get('area')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Area is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> UFactor </label>
+                      <input
+                        formControlName="uFactor"
+                        type="number"
+                        id="uFactor"
+                        placeholder="UFactor"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('uFactor')?.touched ||
+                            windowItem.get('uFactor')?.dirty) &&
+                          windowItem.get('uFactor')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          UFactor is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> SHGC </label>
+                      <input
+                        formControlName="sHGC"
+                        type="number"
+                        id="sHGC"
+                        placeholder="SHGC"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('sHGC')?.touched ||
+                            windowItem.get('sHGC')?.dirty) &&
+                          windowItem.get('sHGC')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          SHGC is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label>Azimuth </label>
+                      <input
+                        formControlName="azimuth"
+                        type="number"
+                        id="azimuth"
+                        placeholder="Azimuth "
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('azimuth')?.touched ||
+                            windowItem.get('azimuth')?.dirty) &&
+                          windowItem.get('azimuth')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="windowItem.get('azimuth')?.errors?.['required']"
+                        >
+                          Azimuth is required
+                        </label>
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                          *ngIf="windowItem.get('azimuth')?.errors?.['min'] || windowItem.get('azimuth')?.errors?.['max']"
+                        >
+                          Azimuth is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Orientation </label>
+                      <ng-select
+                        [items]="orientationOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Orientation "
+                        id="orientation"
+                        formControlName="orientation"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('orientation')?.touched ||
+                            windowItem.get('orientation')?.dirty) &&
+                          windowItem.get('orientation')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Orientation is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Frame Type </label>
+                      <ng-select
+                        [items]="frameTypeOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Frame Type"
+                        id="frameType"
+                        formControlName="frameType"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('frameType')?.touched ||
+                            windowItem.get('frameType')?.dirty) &&
+                          windowItem.get('frameType')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Frame Type is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container formArrayName="frameTypeDynamicOptions">
+                    <ng-container
+                      *ngFor="
+                        let frameTypeDynamic of frameTypeDynamicOptionsObj(
+                          wallIndex,
+                          windowIndex
+                        )?.controls;
+                        let frameTypeDynamicOptionsIndex = index
+                      "
+                    >
+                      <ng-container
+                        [formGroupName]="frameTypeDynamicOptionsIndex"
+                      >
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label>
+                              {{
+                                frameTypeDynamic.get("options")?.value?.label
+                              }}
+                            </label>
+                            <ng-select
+                              [items]="
+                                frameTypeDynamic.get('options')?.value?.options
+                              "
+                              bindLabel="name"
+                              [clearable]="false"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              [placeholder]="
+                                frameTypeDynamic.get('options')?.value
+                                  ?.placeHolder
+                              "
+                              id="radiantBarrier"
+                              [formControlName]="
+                                frameTypeDynamic.get('options')?.value?.name
+                              "
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (frameTypeDynamic.get(
+                                  frameTypeDynamic.get('options')?.value?.name
+                                )?.touched ||
+                                  frameTypeDynamic.get(
+                                    frameTypeDynamic.get('options')?.value?.name
+                                  )?.dirty) &&
+                                frameTypeDynamic.get(
+                                  frameTypeDynamic.get('options')?.value?.name
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                {{
+                                  frameTypeDynamic.get("options")?.value
+                                    ?.errorMsg
+                                }}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Glass Type </label>
+                      <ng-select
+                        [items]="glassTypeOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Glass Type"
+                        id="glassType"
+                        formControlName="glassType"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('glassType')?.touched ||
+                            windowItem.get('glassType')?.dirty) &&
+                          windowItem.get('glassType')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Glass Type is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Gas Fill </label>
+                      <ng-select
+                        [items]="gasFillOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Gas Fill"
+                        id="gasFill"
+                        formControlName="gasFill"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('gasFill')?.touched ||
+                            windowItem.get('gasFill')?.dirty) &&
+                          windowItem.get('gasFill')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Gas Fill is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Glass Layers </label>
+                      <ng-select
+                        [items]="glassLayersOptions"
+                        bindLabel="name"
+                        [clearable]="false"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Glass Layers"
+                        id="glassLayers"
+                        formControlName="glassLayers"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (windowItem.get('glassLayers')?.touched ||
+                            windowItem.get('glassLayers')?.dirty) &&
+                          windowItem.get('glassLayers')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Glass Layers is required
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">
+      Submit
+    </button>
+    <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      [disabled]="!enableNext"
+    >
+      Next
+    </button>
+  </div>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div>
+</div>

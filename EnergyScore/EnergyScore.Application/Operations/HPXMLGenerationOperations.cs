@@ -17,12 +17,10 @@ namespace EnergyScore.Application.Operations
         public string GenerateHPXMLString(HPXML hpxml);
         public string GenerateHPXMLStringBase64Encode(HPXML hpxml);
     }
-
     public class Utf8StringWriter : StringWriter
     {
         public override Encoding Encoding => Encoding.UTF8;
     }
-
     public class HPXMLGenerationOperations : IHPXMLGenerationOperations
     {
         private readonly DbConnect _dbConnect;
@@ -39,7 +37,8 @@ namespace EnergyScore.Application.Operations
             IAddressOperations addressOperations,
             IAboutOperations aboutOperations,
             IHPXMLOperations hpxmlOperations,
-            IZoneFloorOperatoins zoneFloorOperatoins)
+            IZoneFloorOperatoins zoneFloorOperatoins
+            )
         {
             _dbConnect = dbConnect;
             _mapper = mapper;

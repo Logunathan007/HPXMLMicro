@@ -1,7 +1,7 @@
-﻿
-using EnergyScore.Domain.Entityies.AboutModels;
+﻿using EnergyScore.Domain.Entityies.AboutModels;
 using EnergyScore.Domain.Entityies.ZoneFloorModels;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
+using EnergyScore.Domain.Entityies.ZoneWallModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnergyScore.Domain.Entityies.AddressModels
@@ -17,7 +17,9 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public Guid? ZoneFloorId { get; set; } 
         public ZoneFloor? ZoneFloors { get; set; } 
         public Guid? ZoneRoofId { get; set; } 
-        public ZoneRoof? ZoneRoofs { get; set; } 
+        public ZoneRoof? ZoneRoofs { get; set; }
+        public Guid? ZoneWallId { get; set; }
+        public ZoneWall? ZoneWall { get; set; }
         public ICollection<Slab>? Slab { get; set; }
         public ICollection<Foundation>? Foundation { get; set; }
         public ICollection<FoundationWall>? FoundationWall { get; set; }
@@ -25,5 +27,7 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public ICollection<Attic>? Attic { get; set; }
         public ICollection<Roof>? Roof { get; set; }
         public ICollection<Wall>? Wall { get; set; }
+        public ICollection<Window>? Windows { get; set; }
+        public ICollection<Skylight>? Skylights { get; set; }
     }
 }

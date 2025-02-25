@@ -6,5 +6,6 @@
         public Guid AddressId { get; set; }
         public Guid? ZoneFloorId { get; set; } = null;
         public Guid? ZoneRoofId { get; set; } = null;
+        public Guid? ZoneWallId { get; set; } = null;   
     }
 }

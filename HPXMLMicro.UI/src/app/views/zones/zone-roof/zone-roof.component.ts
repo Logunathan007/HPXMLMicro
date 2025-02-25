@@ -97,8 +97,8 @@ export class ZoneRoofComponent {
   roofInputs() {
     return this.fb.group({
       roofName: [null, [Validators.required], [nameValidator('roofName')]],
-      area: [null, [Validators.required]],
-      solarAbsorptance: [null, [Validators.required, Validators.min(0.1), Validators.max(1)]],
+      area: [null, [Validators.required],Validators.min(0)],
+      solarAbsorptance: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
       roofColor: [null, [Validators.required]],
       roofType: [null, [Validators.required]],
       radiantBarrier: [null, [Validators.required]],
@@ -128,16 +128,17 @@ export class ZoneRoofComponent {
 
   insulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
-      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]]
+      nominalRValue: [null, [Validators.required, Validators.min(0)]],
+      assemblyEffectiveRValue: [null, [ Validators.min(0)]]
     })
   }
 
   skylightInputs(){
     return this.fb.group({
-      area:[null,Validators.required],
+      buildingId:[this.buildingId],
+      area:[null,[Validators.required,Validators.min(0)]],
       uFactor : [null, [Validators.required,Validators.min(0)]],
-      sHGC : [null, [Validators.required, Validators.max(1), Validators.min(0.1)]]
+      sHGC : [null, [Validators.required, Validators.max(1), Validators.min(0)]]
     })
   }
 

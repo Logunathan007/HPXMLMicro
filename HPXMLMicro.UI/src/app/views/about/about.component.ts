@@ -1,5 +1,5 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { housePressureOptions, leakinessDescriptionOptions, ManufacturedHomeSectionsOptions, orientationOfFrontOfHomeOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
+import { housePressureOptions, leakinessDescriptionOptions, ManufacturedHomeSectionsOptions, OrientationOptions, residentialFacilityTypeOptions, unitofMeasureOptions } from './../../shared/lookups/about-lookups';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,12 +12,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AboutComponent implements OnInit {
 
   //variable initializations
-  buildingId: string = 'sdfasdf';
+  buildingId!: string;
   aboutForm!: FormGroup;
   residentialFacilityTypeOptions = residentialFacilityTypeOptions;
-  orientationOfFrontOfHomeOptions = orientationOfFrontOfHomeOptions;
-  housePressureOptions = housePressureOptions
-  unitofMeasureOptions = unitofMeasureOptions
+  orientationOfFrontOfHomeOptions = OrientationOptions;
+  housePressureOptions = housePressureOptions;
+  unitofMeasureOptions = unitofMeasureOptions;
   leakinessDescriptionOptions = leakinessDescriptionOptions;
   manufacturedHomeSectionsOptions = ManufacturedHomeSectionsOptions;
   hpxmlString!: string;
@@ -45,7 +45,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
-      this.buildingId = params.get('id') ?? "sfdasdf";
+      this.buildingId = params.get('id') ?? "";
     })
   }
 
@@ -54,11 +54,11 @@ export class AboutComponent implements OnInit {
     this.aboutForm = this.fb.group({
       residentialFacilityType: [null, Validators.required],
       yearBuilt: ["", [Validators.required, Validators.min(999), Validators.max(new Date().getFullYear())]],
-      numberofBedrooms: [null, [Validators.required]],
-      numberofConditionedFloorsAboveGrade: [null, [Validators.required]],
-      averageCeilingHeight: [null, [Validators.required]],
-      conditionedBuildingVolume: [null, [Validators.required]],
-      conditionedFloorArea: [null, [Validators.required]],
+      numberofBedrooms: [null, [Validators.required,Validators.min(0)]],
+      numberofConditionedFloorsAboveGrade: [null, [Validators.required,Validators.min(0)]],
+      averageCeilingHeight: [null, [Validators.required,Validators.min(0)]],
+      conditionedBuildingVolume: [null, [Validators.required,Validators.min(0)]],
+      conditionedFloorArea: [null, [Validators.required,Validators.min(0)]],
       azimuthOfFrontOfHome: [null, [Validators.required, Validators.min(0), Validators.max(360)]],
       orientationOfFrontOfHome: [null, [Validators.required]],
       manufacturedHomeSections:[null],
@@ -84,9 +84,9 @@ export class AboutComponent implements OnInit {
 
   airInfiltrationInput() {
     return this.fb.group({
-      housePressure: [null, Validators.required],
+      housePressure: [null, [Validators.required,Validators.min(0)]],
       unitofMeasure: [null, [Validators.required]],
-      airLeakage: [null, [Validators.required, Validators.max(1), Validators.min(0)]],
+      airLeakage: [null, [Validators.required, Validators.min(0)]],
       leakinessDescription: [null, [Validators.required]]
     });
   }

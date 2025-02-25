@@ -1,4 +1,4 @@
-import { AppModule } from './../../app.module';
+
 // common
 export const BooleanOptions = [
   { name: "True", value: true },
@@ -52,7 +52,7 @@ export const residentialFacilityTypeOptions = [
   { name: 'apartment unit', value: 'Apartment unit' }
 ]
 
-export const orientationOfFrontOfHomeOptions = [
+export const OrientationOptions = [
   { name: 'north', value: 'north' },
   { name: 'northeast', value: 'northeast' },
   { name: 'east', value: 'east' },
@@ -100,10 +100,10 @@ export const FoundationTypeOptions = [
 
 // for zone-roof
 export const AtticTypeOptions = [
-  { name: "Attic", value:"Attic"},
-  { name: "CathedralCeiling", value:"CathedralCeiling"},
-  { name: "FlatRoof", value:"FlatRoof"},
-  { name: "BelowApartment", value:"BelowApartment"},
+  { name: "Attic", value: "Attic" },
+  { name: "CathedralCeiling", value: "CathedralCeiling" },
+  { name: "FlatRoof", value: "FlatRoof" },
+  { name: "BelowApartment", value: "BelowApartment" },
 ]
 
 export const RoofTypeOptions = [
@@ -128,4 +128,143 @@ export const atticWallTypeOptions = [
   { name: "other", value: 'other' },
   { name: "knee wall", value: 'knee wall' },
   { name: "gable", value: 'gable' },
+]
+
+// for zone-wall
+export const ExteriorAdjacentToOptions = [
+  { name: "unconditioned space", value: "unconditioned space" },
+  { name: "outside", value: "outside" },
+  { name: "other housing unit below", value: "other housing unit below" },
+  { name: "other housing unit above", value: "other housing unit above" },
+  { name: "other housing unit", value: "other housing unit" },
+  { name: "other", value: "other" },
+  { name: "living space", value: "living space" },
+  { name: "ground", value: "ground" },
+  { name: "garage - unconditioned", value: "garage - unconditioned" },
+  { name: "garage - conditioned", value: "garage - conditioned" },
+  { name: "garage", value: "garage" },
+  { name: "crawlspace - vented", value: "crawlspace - vented" },
+  { name: "crawlspace - unvented", value: "crawlspace - unvented" },
+  { name: "crawlspace - unconditioned", value: "crawlspace - unconditioned" },
+  { name: "crawlspace - conditioned", value: "crawlspace - conditioned" },
+  { name: "crawlspace", value: "crawlspace" },
+  { name: "conditioned space", value: "conditioned space" },
+  { name: "basement - unconditioned", value: "basement - unconditioned" },
+  { name: "basement - conditioned", value: "basement - conditioned" },
+  { name: "basement", value: "basement" },
+  { name: "attic - vented", value: "attic - vented" },
+  { name: "attic - unvented", value: "attic - unvented" },
+  { name: "attic - unconditioned", value: "attic - unconditioned" },
+  { name: "attic - conditioned", value: "attic - conditioned" },
+  { name: "attic", value: "attic" },
+]
+
+export const InteriorAdjacentToOptions = [
+  { name: "unconditioned space", value: "unconditioned space" },
+  { name: "outside", value: "outside" },
+  { name: "other housing unit below", value: "other housing unit below" },
+  { name: "other housing unit above", value: "other housing unit above" },
+  { name: "other housing unit", value: "other housing unit" },
+  { name: "other", value: "other" },
+  { name: "living space", value: "living space" },
+  { name: "ground", value: "ground" },
+  { name: "garage - unconditioned", value: "garage - unconditioned" },
+  { name: "garage - conditioned", value: "garage - conditioned" },
+  { name: "garage", value: "garage" },
+  { name: "crawlspace - vented", value: "crawlspace - vented" },
+  { name: "crawlspace - unvented", value: "crawlspace - unvented" },
+  { name: "crawlspace - unconditioned", value: "crawlspace - unconditioned" },
+  { name: "crawlspace - conditioned", value: "crawlspace - conditioned" },
+  { name: "crawlspace", value: "crawlspace" },
+  { name: "conditioned space", value: "conditioned space" },
+  { name: "basement - unconditioned", value: "basement - unconditioned" },
+  { name: "basement - conditioned", value: "basement - conditioned" },
+  { name: "basement", value: "basement" },
+  { name: "attic - vented", value: "attic - vented" },
+  { name: "attic - unvented", value: "attic - unvented" },
+  { name: "attic - unconditioned", value: "attic - unconditioned" },
+  { name: "attic - conditioned", value: "attic - conditioned" },
+  { name: "attic", value: "attic" },
+]
+
+export const WallTypeOptions = [
+  { name: "WoodStud", value: "WoodStud" },
+  { name: "DoubleWoodStud", value: "DoubleWoodStud" },
+  { name: "ConcreteMasonryUnit", value: "ConcreteMasonryUnit" },
+  { name: "StructurallyInsulatedPanel", value: "StructurallyInsulatedPanel" },
+  { name: "InsulatedConcreteForms", value: "InsulatedConcreteForms" },
+  { name: "SteelFrame", value: "SteelFrame" },
+  { name: "SolidConcrete", value: "SolidConcrete" },
+  { name: "StructuralBrick", value: "StructuralBrick" },
+  { name: "StrawBale", value: "StrawBale" },
+  { name: "Stone", value: "Stone" },
+  { name: "LogWall", value: "LogWall" },
+  { name: "Adobe", value: "Adobe" },
+  { name: "Other", value: "Other" },
+]
+
+export const FramingTypeOptions = [
+  { name: "other", value: "other" },
+  { name: "timber", value: "timber" },
+  { name: "balloon", value: "balloon" },
+  { name: "platform", value: "platform" },
+]
+
+export const SidingOptions = [
+  { name: "masonite siding", value: "masonite siding" },
+  { name: "composite shingle siding", value: "composite shingle siding" },
+  { name: "fiber cement siding", value: "fiber cement siding" },
+  { name: "asbestos siding", value: "asbestos siding" },
+  { name: "brick veneer", value: "brick veneer" },
+  { name: "aluminum siding", value: "aluminum siding" },
+  { name: "vinyl siding", value: "vinyl siding" },
+  { name: "synthetic stucco", value: "synthetic stucco" },
+  { name: "stucco", value: "stucco" },
+  { name: "wood siding", value: "wood siding" },
+  { name: "none", value: "none" },
+  { name: "other", value: "other" },
+]
+
+export const InstallationTypeOptions = [
+  { name: "continuous - exterior", value: "continuous - exterior" },
+  { name: "continuous - interior", value: "continuous - interior" },
+  { name: "continuous", value: "continuous" },
+  { name: "cavity", value: "cavity" },
+]
+
+export const GlassTypeOptions = [
+  { name: "other", value: "other" },
+  { name: "tinted/reflective", value: "tinted/reflective" },
+  { name: "reflective", value: "reflective" },
+  { name: "tinted", value: "tinted" },
+  { name: "low-e", value: "low-e" },
+  { name: "clear", value: "clear" },
+]
+
+export const GlassLayersOptions = [
+  { name: "other", value: "other" },
+  { name: "glass block", value: "glass block" },
+  { name: "multi-layered", value: "multi-layered" },
+  { name: "triple-pane", value: "triple-pane" },
+  { name: "double-pane", value: "double-pane" },
+  { name: "single-pane", value: "single-pane" },
+]
+
+export const GasFillOptions = [
+  { name: "other", value: "other" },
+  { name: "nitrogen", value: "nitrogen" },
+  { name: "xenon", value: "xenon" },
+  { name: "krypton", value: "krypton" },
+  { name: "argon", value: "argon" },
+  { name: "air", value: "air" },
+]
+
+export const FrameTypeOptions = [
+  { name: "Aluminum", value: "Aluminum" },
+  { name: "Composite", value: "Composite" },
+  { name: "Fiberglass", value: "Fiberglass" },
+  { name: "Metal", value: "Metal" },
+  { name: "Vinyl", value: "Vinyl" },
+  { name: "Wood", value: "Wood" },
+  { name: "Other", value: "Other" },
 ]
