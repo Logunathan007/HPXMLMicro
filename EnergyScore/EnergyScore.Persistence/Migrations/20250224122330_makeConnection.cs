@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EnergyScore.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class makeConnect4 : Migration
+    public partial class makeConnection : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -252,6 +252,44 @@ namespace EnergyScore.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Walls",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    WallName = table.Column<string>(type: "text", nullable: false),
+                    AtticWallType = table.Column<string>(type: "text", nullable: true),
+                    Area = table.Column<double>(type: "double precision", nullable: false),
+                    ExteriorAdjacentTo = table.Column<string>(type: "text", nullable: true),
+                    WallType = table.Column<string>(type: "text", nullable: true),
+                    Siding = table.Column<string>(type: "text", nullable: true),
+                    Azimuth = table.Column<int>(type: "integer", nullable: true),
+                    Orientation = table.Column<string>(type: "text", nullable: true),
+                    AtticId = table.Column<Guid>(type: "uuid", nullable: true),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ZoneWallId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Walls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Walls_Attics_AtticId",
+                        column: x => x.AtticId,
+                        principalTable: "Attics",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Walls_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Walls_ZoneWalls_ZoneWallId",
+                        column: x => x.ZoneWallId,
+                        principalTable: "ZoneWalls",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FoundationTypeDynamicOptions",
                 columns: table => new
                 {
@@ -365,132 +403,22 @@ namespace EnergyScore.Persistence.Migrations
                     Area = table.Column<double>(type: "double precision", nullable: false),
                     SHGC = table.Column<double>(type: "double precision", nullable: false),
                     UFactor = table.Column<double>(type: "double precision", nullable: false),
-                    RoofId = table.Column<Guid>(type: "uuid", nullable: false)
+                    RoofId = table.Column<Guid>(type: "uuid", nullable: true),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skylights", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Skylights_Roofs_RoofId",
-                        column: x => x.RoofId,
-                        principalTable: "Roofs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Insulations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    NominalRValue = table.Column<double>(type: "double precision", nullable: false),
-                    AssemblyEffectiveRValue = table.Column<double>(type: "double precision", nullable: false),
-                    InstallationType = table.Column<string>(type: "text", nullable: true),
-                    InsulationMaterial = table.Column<string>(type: "text", nullable: true),
-                    FoundationWallId = table.Column<Guid>(type: "uuid", nullable: true),
-                    FrameFloorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    RoofId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Insulations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Insulations_FoundationWalls_FoundationWallId",
-                        column: x => x.FoundationWallId,
-                        principalTable: "FoundationWalls",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Insulations_FrameFloors_FrameFloorId",
-                        column: x => x.FrameFloorId,
-                        principalTable: "FrameFloors",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Insulations_Roofs_RoofId",
-                        column: x => x.RoofId,
-                        principalTable: "Roofs",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PerimeterInsulations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    NominalRValue = table.Column<double>(type: "double precision", nullable: false),
-                    AssemblyEffectiveRValue = table.Column<double>(type: "double precision", nullable: false),
-                    SlabId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PerimeterInsulations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PerimeterInsulations_Slabs_SlabId",
-                        column: x => x.SlabId,
-                        principalTable: "Slabs",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InsulationMaterialDynamicOptions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Batt = table.Column<string>(type: "text", nullable: true),
-                    LooseFill = table.Column<string>(type: "text", nullable: true),
-                    Rigit = table.Column<string>(type: "text", nullable: true),
-                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InsulationMaterialDynamicOptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InsulationMaterialDynamicOptions_Insulations_InsulationId",
-                        column: x => x.InsulationId,
-                        principalTable: "Insulations",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Walls",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    WallName = table.Column<string>(type: "text", nullable: false),
-                    AtticWallType = table.Column<string>(type: "text", nullable: true),
-                    Area = table.Column<double>(type: "double precision", nullable: false),
-                    ExteriorAdjacentTo = table.Column<string>(type: "text", nullable: true),
-                    WallType = table.Column<string>(type: "text", nullable: true),
-                    Siding = table.Column<string>(type: "text", nullable: true),
-                    Azimuth = table.Column<int>(type: "integer", nullable: true),
-                    Orientation = table.Column<string>(type: "text", nullable: true),
-                    InsulationsId = table.Column<Guid>(type: "uuid", nullable: true),
-                    AtticId = table.Column<Guid>(type: "uuid", nullable: true),
-                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ZoneWallId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Walls", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Walls_Attics_AtticId",
-                        column: x => x.AtticId,
-                        principalTable: "Attics",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Walls_Buildings_BuildingId",
+                        name: "FK_Skylights_Buildings_BuildingId",
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Walls_Insulations_InsulationsId",
-                        column: x => x.InsulationsId,
-                        principalTable: "Insulations",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Walls_ZoneWalls_ZoneWallId",
-                        column: x => x.ZoneWallId,
-                        principalTable: "ZoneWalls",
+                        name: "FK_Skylights_Roofs_RoofId",
+                        column: x => x.RoofId,
+                        principalTable: "Roofs",
                         principalColumn: "Id");
                 });
 
@@ -530,17 +458,82 @@ namespace EnergyScore.Persistence.Migrations
                     GasFill = table.Column<string>(type: "text", nullable: false),
                     Orientation = table.Column<string>(type: "text", nullable: false),
                     Azimuth = table.Column<int>(type: "integer", nullable: false),
-                    WallId = table.Column<Guid>(type: "uuid", nullable: false)
+                    WallId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Windows", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Windows_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Windows_Walls_WallId",
                         column: x => x.WallId,
                         principalTable: "Walls",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Insulations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NominalRValue = table.Column<double>(type: "double precision", nullable: false),
+                    AssemblyEffectiveRValue = table.Column<double>(type: "double precision", nullable: false),
+                    InstallationType = table.Column<string>(type: "text", nullable: true),
+                    InsulationMaterial = table.Column<string>(type: "text", nullable: true),
+                    FoundationWallId = table.Column<Guid>(type: "uuid", nullable: true),
+                    FrameFloorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    RoofId = table.Column<Guid>(type: "uuid", nullable: true),
+                    WallId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Insulations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Insulations_FoundationWalls_FoundationWallId",
+                        column: x => x.FoundationWallId,
+                        principalTable: "FoundationWalls",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Insulations_FrameFloors_FrameFloorId",
+                        column: x => x.FrameFloorId,
+                        principalTable: "FrameFloors",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Insulations_Roofs_RoofId",
+                        column: x => x.RoofId,
+                        principalTable: "Roofs",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Insulations_Walls_WallId",
+                        column: x => x.WallId,
+                        principalTable: "Walls",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PerimeterInsulations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NominalRValue = table.Column<double>(type: "double precision", nullable: false),
+                    AssemblyEffectiveRValue = table.Column<double>(type: "double precision", nullable: false),
+                    SlabId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PerimeterInsulations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PerimeterInsulations_Slabs_SlabId",
+                        column: x => x.SlabId,
+                        principalTable: "Slabs",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -560,6 +553,26 @@ namespace EnergyScore.Persistence.Migrations
                         principalTable: "Windows",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InsulationMaterialDynamicOptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Batt = table.Column<string>(type: "text", nullable: true),
+                    LooseFill = table.Column<string>(type: "text", nullable: true),
+                    Rigit = table.Column<string>(type: "text", nullable: true),
+                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InsulationMaterialDynamicOptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InsulationMaterialDynamicOptions_Insulations_InsulationId",
+                        column: x => x.InsulationId,
+                        principalTable: "Insulations",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -677,6 +690,11 @@ namespace EnergyScore.Persistence.Migrations
                 column: "RoofId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Insulations_WallId",
+                table: "Insulations",
+                column: "WallId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PerimeterInsulations_SlabId",
                 table: "PerimeterInsulations",
                 column: "SlabId");
@@ -689,6 +707,11 @@ namespace EnergyScore.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Roofs_BuildingId",
                 table: "Roofs",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Skylights_BuildingId",
+                table: "Skylights",
                 column: "BuildingId");
 
             migrationBuilder.CreateIndex(
@@ -717,11 +740,6 @@ namespace EnergyScore.Persistence.Migrations
                 column: "BuildingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Walls_InsulationsId",
-                table: "Walls",
-                column: "InsulationsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Walls_ZoneWallId",
                 table: "Walls",
                 column: "ZoneWallId");
@@ -733,10 +751,14 @@ namespace EnergyScore.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Windows_BuildingId",
+                table: "Windows",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Windows_WallId",
                 table: "Windows",
-                column: "WallId",
-                unique: true);
+                column: "WallId");
         }
 
         /// <inheritdoc />
@@ -770,13 +792,10 @@ namespace EnergyScore.Persistence.Migrations
                 name: "Windows");
 
             migrationBuilder.DropTable(
-                name: "Slabs");
-
-            migrationBuilder.DropTable(
-                name: "Walls");
-
-            migrationBuilder.DropTable(
                 name: "Insulations");
+
+            migrationBuilder.DropTable(
+                name: "Slabs");
 
             migrationBuilder.DropTable(
                 name: "FoundationWalls");
@@ -786,6 +805,9 @@ namespace EnergyScore.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roofs");
+
+            migrationBuilder.DropTable(
+                name: "Walls");
 
             migrationBuilder.DropTable(
                 name: "Foundations");

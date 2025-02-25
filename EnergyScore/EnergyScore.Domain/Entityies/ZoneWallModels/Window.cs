@@ -1,4 +1,5 @@
-﻿using EnergyScore.Domain.Entityies.ZoneRoofModels;
+﻿using EnergyScore.Domain.Entityies.AddressModels;
+using EnergyScore.Domain.Entityies.ZoneRoofModels;
 
 namespace EnergyScore.Domain.Entityies.ZoneWallModels
 {
@@ -18,5 +19,6 @@ namespace EnergyScore.Domain.Entityies.ZoneWallModels
         public Guid WallId { get; set; }
         public Wall Wall { get; set; }
         public Guid BuildingId { get; set; }
+        public Building Building { get; set; }
     }
 }

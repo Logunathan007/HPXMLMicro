@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneWallDTOS;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
 using EnergyScore.Persistence.DBConnection;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace EnergyScore.Application.Operations
@@ -10,9 +12,9 @@ namespace EnergyScore.Application.Operations
     public interface IZoneWallOperations
     {
         public ResponseForZoneWall AddZoneWall(ZoneWallDTO zoneWallDTO, Guid buildingId);
-
+        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid buildingId);
     }
-    public class ZoneWallOperations:IZoneWallOperations
+    public class ZoneWallOperations : IZoneWallOperations
     {
         private readonly DbConnect _dbConnect;
         private readonly IBuildingOperations _buildingOperations;
@@ -30,6 +32,15 @@ namespace EnergyScore.Application.Operations
             _dbConnect.SaveChanges();
             _buildingOperations.UpdateZoneWallId(buildingId, zoneWall.Id);
             return new ResponseForZoneWall { Failed = false, Message = "ZoneWall Added Successfully", ZoneWallId = zoneWall.Id };
+        }
+        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            var walls = _dbConnect.Walls
+                .Include(obj => obj.Insulations)
+                .Include(obj => obj.WallTypeDynamicOptions)
+                .Where(x => x.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<WallDTO>>(walls);
         }
     }
 }

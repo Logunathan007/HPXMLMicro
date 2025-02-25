@@ -135,6 +135,7 @@ export class ZoneRoofComponent {
 
   skylightInputs(){
     return this.fb.group({
+      buildingId:[this.buildingId],
       area:[null,[Validators.required,Validators.min(0)]],
       uFactor : [null, [Validators.required,Validators.min(0)]],
       sHGC : [null, [Validators.required, Validators.max(1), Validators.min(0)]]

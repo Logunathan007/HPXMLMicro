@@ -27,5 +27,7 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public ICollection<Attic>? Attic { get; set; }
         public ICollection<Roof>? Roof { get; set; }
         public ICollection<Wall>? Wall { get; set; }
+        public ICollection<Window>? Windows { get; set; }
+        public ICollection<Skylight>? Skylights { get; set; }
     }
 }

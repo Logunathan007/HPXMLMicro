@@ -148,8 +148,25 @@ namespace EnergyScore.Application.Templates.HPXMLs
     }
     public class Layer
     {
+        public string? InstallationType { get; set; }
+        public InsulationMaterial? InsulationMaterial {  get; set; }
         public double NominalRValue { get; set; }
     }
+    public class InsulationMaterial
+    {
+        public string? Batt { get; set; }
+        public string? LooseFill { get; set; }
+        public string? Rigid { get; set; }
+        public SprayFoam? SprayFoam { get; set; }
+        [XmlElement("Other")]
+        public Others? Other { get; set; }
+        public None? None { get; set; }
+        public Unknown? Unknown { get; set; }
+    }
+    public class SprayFoam { }
+    public class Others { }
+    public class None { }
+    public class Unknown { }
     public class extension
     {
         public string? ManufacturedHomeSections { get; set; } = null;

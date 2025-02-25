@@ -1,4 +1,4 @@
-import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions, ExteriorAdjacentToOptions } from './../../../shared/lookups/about-lookups';
+import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions, ExteriorAdjacentToOptions, InteriorAdjacentToOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class ZoneWallComponent {
   frameTypeOptions = FrameTypeOptions;
   sidingOptions = SidingOptions;
   ExteriorAdjacentToOptions = ExteriorAdjacentToOptions
-
+  interiorAdjacentToOptions = InteriorAdjacentToOptions;
   get wallsObj(): FormArray {
     return this.wallForm.get('walls') as FormArray;
   }
@@ -79,10 +79,11 @@ export class ZoneWallComponent {
       buildingId: [this.buildingId],
       wallName: [null, [Validators.required], nameValidator('wallName')],
       exteriorAdjacentTo: [null, Validators.required],
+      interiorAdjacentTo: [null, Validators.required],
       wallType: [null, Validators.required],
       wallTypeDynamicOptions: this.fb.array([]),
       siding: [null, Validators.required],
-      area: [null, Validators.required, Validators.min(0)],
+      area: [null, [Validators.required, Validators.min(0)]],
       azimuth: [null, [Validators.required, Validators.min(0), Validators.max(360)]],
       orientation: [null, Validators.required],
       insulations: this.fb.array([]),
@@ -184,7 +185,7 @@ export class ZoneWallComponent {
           errorMsg: 'Loose Fill is required',
         }
         fg = this.fb.group({
-          looseFill: [null, Validators.required],
+          looseFill: [null,[Validators.required]],
           options: this.fb.control(optForLooseFill)
         })
         break;
@@ -245,15 +246,15 @@ export class ZoneWallComponent {
 
   addNewWall() {
     let wall = this.wallInputs();
-    wall.get('wallType')?.valueChanges.subscribe((val) => {
-      let arr = wall.get('wallTypeDynamicOptions') as FormArray
-      arr.clear();
-      if (val == 'WoodStud') {
-        this.woodStudInputs().forEach(obj => arr.push(obj));
-      } else if (val == 'DoubleWoodStud') {
-        arr.push(this.doubleWoodStudInputs())
-      }
-    })
+    // wall.get('wallType')?.valueChanges.subscribe((val) => {
+    //   let arr = wall.get('wallTypeDynamicOptions') as FormArray
+    //   arr.clear();
+    //   if (val == 'WoodStud') {
+    //     this.woodStudInputs().forEach(obj => arr.push(obj));
+    //   } else if (val == 'DoubleWoodStud') {
+    //     arr.push(this.doubleWoodStudInputs())
+    //   }
+    // })
     this.addToFormArray(this.wallsObj, wall)
   }
 

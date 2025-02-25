@@ -93,7 +93,7 @@
                   [clearable]="false"
                   [closeOnSelect]="true"
                   bindValue="value"
-                  placeholder="Wall Type"
+                  placeholder="Exterior Adjacent to"
                   id="exteriorAdjacentTo"
                   formControlName="exteriorAdjacentTo"
                 >
@@ -108,6 +108,34 @@
                 >
                   <label class="text-danger fw-semibold position-absolute">
                     Exterior Adjacent to is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Interior Adjacent To </label>
+                <ng-select
+                  [items]="interiorAdjacentToOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Interior Adjacent to"
+                  id="interiorAdjacentTo"
+                  formControlName="interiorAdjacentTo"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (wallItem.get('interiorAdjacentTo')?.touched ||
+                      wallItem.get('interiorAdjacentTo')?.dirty) &&
+                    wallItem.get('interiorAdjacentTo')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Interior Adjacent to is required
                   </label>
                 </div>
               </div>
@@ -877,7 +905,9 @@
     </ng-container>
   </form>
   <div class="d-flex justify-content-end gap-3 my-5">
-    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <button class="bg-primary btn-style" (click)="onSubmit()">
+      Submit
+    </button>
     <button
       class="bg-secondary btn-style"
       (click)="goNext()"

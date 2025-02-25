@@ -1,5 +1,6 @@
 ﻿using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
 using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
+using EnergyScore.Application.Mappers.DTOS.CommonDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Application.Templates.HPXMLs;
@@ -18,37 +19,18 @@ namespace EnergyScore.Application.Operations
         private readonly IIdConversionOpertaions _idConvertor;
         private readonly IZoneFloorOperatoins _zoneFloorOperatoins;
         private readonly IZoneRoofOperations _zoneRoofOperations;
+        private readonly IZoneWallOperations _zoneWallOperations;
         public HPXMLOperations(IIdConversionOpertaions idConversionOpertaions,
             IZoneFloorOperatoins zoneFloorOperatoins,
-            IZoneRoofOperations zoneRoofOperations)
+            IZoneRoofOperations zoneRoofOperations,
+            IZoneWallOperations zoneWallOperations)
         {
             _idConvertor = idConversionOpertaions;
             _zoneFloorOperatoins = zoneFloorOperatoins;
             _zoneRoofOperations = zoneRoofOperations;
+            _zoneWallOperations = zoneWallOperations;
         }
 
-        public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO)
-        {
-            List<AirInfiltrationMeasurement> airInFilMeasure = new List<AirInfiltrationMeasurement>();
-            foreach (var item in aboutDTO.AirInfiltrationMeasurements)
-            {
-                airInFilMeasure.Add(new AirInfiltrationMeasurement
-                {
-                    SystemIdentifier = new SystemIdentifier
-                    {
-                        Id = _idConvertor.GuidToHPXMLIDConvertor(item.Id),
-                    },
-                    HousePressure = item.HousePressure,
-                    LeakinessDescription = item.LeakinessDescription,
-                    BuildingAirLeakage = new BuildingAirLeakage()
-                    {
-                        UnitofMeasure = item.UnitofMeasure,
-                        AirLeakage = item.AirLeakage
-                    }
-                });
-            }
-            return airInFilMeasure;
-        }
         public HPXML GetHPXMLObj(Guid buildingId, AddressDTO addressDTO, AboutDTO aboutDTO)
         {
             IEnumerable<FoundationDTO> foundationList = _zoneFloorOperatoins.GetFoundationsByBuildingId(buildingId);
@@ -57,8 +39,8 @@ namespace EnergyScore.Application.Operations
             IEnumerable<SlabDTO> slabList = _zoneFloorOperatoins.GetSlabByBuildingId(buildingId);
             IEnumerable<RoofDTO> roofList = _zoneRoofOperations.GetRoofsByBuildingId(buildingId);
             IEnumerable<AtticDTO> atticList = _zoneRoofOperations.GetAtticsByBuildingId(buildingId);
-            IEnumerable<WallDTO> wallList = _zoneRoofOperations.GetWallsByBuildingId(buildingId);
-
+            IEnumerable<WallDTO> wallList = _zoneWallOperations.GetWallsByBuildingId(buildingId);
+            IEnumerable<SkylightDTO> skylightList = _zoneRoofOperations.GetSkylightsByBuildingId(buildingId);
             var hpxml = new HPXML
             {
                 XMLTransactionHeaderInformation = new XMLTransactionHeaderInformation
@@ -152,9 +134,9 @@ namespace EnergyScore.Application.Operations
                             {
                                 Slab = this.SlabConvertor(slabList)
                             },
-                            Skylights = (!roofList.Any(obj => obj.Skylights.Count > 0)) ? null : new Skylights()
+                            Skylights = (skylightList == null || skylightList.Count() == 0) ? null : new Skylights()
                             {
-                                Skylight = this.SkyLightConvertor(roofList)
+                                Skylight = this.SkyLightConvertor(skylightList)
                             }
                         }
                     }
@@ -162,28 +144,48 @@ namespace EnergyScore.Application.Operations
             };
             return hpxml;
         }
-        public List<Skylight> SkyLightConvertor(IEnumerable<RoofDTO> roofList)
+
+        public List<AirInfiltrationMeasurement> AirInfiltrationMeasurementConvertor(AboutDTO aboutDTO)
+        {
+            List<AirInfiltrationMeasurement> airInFilMeasure = new List<AirInfiltrationMeasurement>();
+            foreach (var item in aboutDTO.AirInfiltrationMeasurements)
+            {
+                airInFilMeasure.Add(new AirInfiltrationMeasurement
+                {
+                    SystemIdentifier = new SystemIdentifier
+                    {
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(item.Id),
+                    },
+                    HousePressure = item.HousePressure,
+                    LeakinessDescription = item.LeakinessDescription,
+                    BuildingAirLeakage = new BuildingAirLeakage()
+                    {
+                        UnitofMeasure = item.UnitofMeasure,
+                        AirLeakage = item.AirLeakage
+                    }
+                });
+            }
+            return airInFilMeasure;
+        }
+        public List<Skylight> SkyLightConvertor(IEnumerable<SkylightDTO> skylightList)
         {
             List<Skylight> skylights = new List<Skylight>();
-            foreach (RoofDTO roof in roofList)
+            foreach (SkylightDTO skylight in skylightList)
             {
-                foreach (SkylightDTO skylight in roof.Skylights)
+                skylights.Add(new Skylight()
                 {
-                    skylights.Add(new Skylight()
+                    SystemIdentifier = new SystemIdentifier()
                     {
-                        SystemIdentifier = new SystemIdentifier()
-                        {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(skylight.Id)
-                        },
-                        Area = skylight.Area,
-                        UFactor = skylight.UFactor,
-                        SHGC = skylight.SHGC,
-                        AttachedToRoof = new AttachedToRoof()
-                        {
-                            IdRef = _idConvertor.GuidToHPXMLIDConvertor(roof.Id)
-                        }
-                    });
-                }
+                        Id = _idConvertor.GuidToHPXMLIDConvertor(skylight.Id)
+                    },
+                    Area = skylight.Area,
+                    UFactor = skylight.UFactor,
+                    SHGC = skylight.SHGC,
+                    AttachedToRoof = (skylight?.Roof == null) ? null : new AttachedToRoof()
+                    {
+                        IdRef = _idConvertor.GuidToHPXMLIDConvertor(skylight.Roof.Id)
+                    }
+                });
             }
             return skylights;
         }
@@ -200,6 +202,21 @@ namespace EnergyScore.Application.Operations
                     },
                     AtticWallType = wall.AtticWallType,
                     Area = wall.Area,
+                    Insulations = wall.Insulations.Select(obj => new Insulation
+                    {
+                        SystemIdentifier = new SystemIdentifier
+                        {
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                        },
+                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
+                        Layer = new Layer
+                        {
+                            NominalRValue = obj.NominalRValue,
+                            InstallationType = obj.InstallationType,
+                            InsulationMaterial = InsulationMaterialDynamicOpions(obj.InsulationMaterial,obj.InsulationMaterialDynamicOptions)
+
+                        }
+                    }).ToList()
                 });
             }
             return walls;
@@ -251,6 +268,28 @@ namespace EnergyScore.Application.Operations
                 });
             }
             return attics;
+        }
+        public InsulationMaterial InsulationMaterialDynamicOpions(string type, InsulationMaterialDynamicOptionsDTO options)
+        {
+            switch (type)
+            {
+                case "Batt":
+                    return new InsulationMaterial() { Batt = options.Batt };
+                case "LooseFill":
+                    return new InsulationMaterial() { LooseFill = options.LooseFill };
+                case "Rigid":
+                    return new InsulationMaterial() { Rigid = options.Rigit };
+                case "SprayFoam":
+                    return new InsulationMaterial() { SprayFoam = new SprayFoam() };
+                case "Other":
+                    return new InsulationMaterial() { Other = new Others() };
+                case "None":
+                    return new InsulationMaterial() { None = new None() };
+                case "Unknown":
+                    return new InsulationMaterial() { Unknown = new Unknown() };
+                default:
+                    return new InsulationMaterial();
+            }
         }
         public AtticType GetAtticTypeDynamicOption(string type, AtticTypeDynamicOptionDTO options)
         {
