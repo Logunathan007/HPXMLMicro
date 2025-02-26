@@ -137,6 +137,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("DistributionSystemsId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("ZoneFloorId")
                         .HasColumnType("uuid");
 
@@ -151,6 +154,8 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasIndex("AboutId");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("DistributionSystemsId");
 
                     b.HasIndex("ZoneFloorId");
 
@@ -213,6 +218,9 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<string>("Batt")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("DuctId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("InsulationId")
                         .HasColumnType("uuid");
 
@@ -222,7 +230,13 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<string>("Rigit")
                         .HasColumnType("text");
 
+                    b.Property<string>("SprayFoam")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DuctId")
+                        .IsUnique();
 
                     b.HasIndex("InsulationId")
                         .IsUnique();
@@ -250,6 +264,96 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasIndex("SlabId");
 
                     b.ToTable("PerimeterInsulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DistributionSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("DistributionSystemsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("DuctSystemSealed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("DuctType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LeakinessObservedVisualInspection")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TotalOrToOutside")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Units")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("DistributionSystemsId");
+
+                    b.ToTable("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystems", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DistributionSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.Duct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DistributionSystemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DuctInsulationMaterial")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("DuctInsulationRValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("DuctInsulationThickness")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("DuctLocation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("FractionDuctArea")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DistributionSystemId");
+
+                    b.ToTable("Ducts");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
@@ -732,6 +836,10 @@ namespace EnergyScore.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystems", "DistributionSystems")
+                        .WithMany()
+                        .HasForeignKey("DistributionSystemsId");
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", "ZoneFloors")
                         .WithMany()
                         .HasForeignKey("ZoneFloorId");
@@ -747,6 +855,8 @@ namespace EnergyScore.Persistence.Migrations
                     b.Navigation("Abouts");
 
                     b.Navigation("Address");
+
+                    b.Navigation("DistributionSystems");
 
                     b.Navigation("ZoneFloors");
 
@@ -776,9 +886,17 @@ namespace EnergyScore.Persistence.Migrations
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", b =>
                 {
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystem.Duct", "Duct")
+                        .WithOne("DuctInsulationMaterialDynamicOptions")
+                        .HasForeignKey("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", "DuctId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnergyScore.Domain.Entityies.CommonModels.Insulation", "Insulation")
                         .WithOne("InsulationMaterialDynamicOptions")
                         .HasForeignKey("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", "InsulationId");
+
+                    b.Navigation("Duct");
 
                     b.Navigation("Insulation");
                 });
@@ -788,6 +906,36 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", null)
                         .WithMany("PerimeterInsulations")
                         .HasForeignKey("SlabId");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany()
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystems", "DistributionSystems")
+                        .WithMany("DistributionSystem")
+                        .HasForeignKey("DistributionSystemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("DistributionSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.Duct", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystem", "DistributionSystem")
+                        .WithMany("Ducts")
+                        .HasForeignKey("DistributionSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DistributionSystem");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
@@ -1036,6 +1184,22 @@ namespace EnergyScore.Persistence.Migrations
             modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.Insulation", b =>
                 {
                     b.Navigation("InsulationMaterialDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystem", b =>
+                {
+                    b.Navigation("Ducts");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.DistributionSystems", b =>
+                {
+                    b.Navigation("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystem.Duct", b =>
+                {
+                    b.Navigation("DuctInsulationMaterialDynamicOptions")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>

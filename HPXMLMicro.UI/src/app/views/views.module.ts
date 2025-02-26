@@ -17,7 +17,6 @@ import { ShowErrorDirective } from '../shared/modules/directives/show-error.dire
   declarations: [
     AboutComponent,
     AddressComponent,
-    SystemsComponent,
     ViewsComponent,
     ShowErrorDirective,
   ],

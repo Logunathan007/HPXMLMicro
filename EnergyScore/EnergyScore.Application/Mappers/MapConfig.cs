@@ -11,6 +11,8 @@ using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
 using EnergyScore.Application.Mappers.DTOS.ZoneWallDTOS;
+using EnergyScore.Domain.Entityies.DistributionSystem;
+using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
 
 namespace EnergyScore.Application.Mappers
 {
@@ -41,6 +43,9 @@ namespace EnergyScore.Application.Mappers
             CreateMap<Window, WindowDTO>().ReverseMap();
             CreateMap<ZoneWall, ZoneWallDTO>().ReverseMap();
             CreateMap<InsulationMaterialDynamicOptionsDTO, InsulationMaterialDynamicOptions>().ReverseMap();
+            CreateMap<DistributionSystem, DistributionSystemDTO>().ReverseMap();
+            CreateMap<Duct, DuctDTO>().ReverseMap();
+            CreateMap<DistributionSystems, DistributionSystemsDTO>().ReverseMap();
         }
     }
 }

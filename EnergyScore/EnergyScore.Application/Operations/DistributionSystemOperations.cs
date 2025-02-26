@@ -1,0 +1,45 @@
+﻿
+using AutoMapper;
+using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
+using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
+using EnergyScore.Application.Templates.Responses;
+using EnergyScore.Domain.Entityies.DistributionSystem;
+using EnergyScore.Persistence.DBConnection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+
+namespace EnergyScore.Application.Operations
+{
+    public interface IDistributionSystemOperations
+    {
+        public ResponseForDistributionSystem AddDistributionSystem(DistributionSystemsDTO dsDTO, Guid BuildingId);
+    }
+    public class DistributionSystemOperations : IDistributionSystemOperations
+    {
+        private readonly DbConnect _dbConnect;
+        private readonly IMapper _mapper;
+        private readonly IBuildingOperations _buildingOperations;
+        public DistributionSystemOperations(DbConnect dbConnect, IMapper mapper, IBuildingOperations buildingOperations)
+        {
+            _dbConnect = dbConnect;
+            _mapper = mapper;
+            _buildingOperations = buildingOperations;
+        }
+
+        public ResponseForDistributionSystem AddDistributionSystem(DistributionSystemsDTO dsDTO, Guid BuildingId)
+        {
+            DistributionSystems ds = _mapper.Map<DistributionSystems>(dsDTO);
+            _dbConnect.DistributionSystems.Add(ds);
+            _dbConnect.SaveChanges();
+            _buildingOperations.UpdateDistributionSystemId(BuildingId, ds.Id);
+            return new ResponseForDistributionSystem() { Failed = false, Message = "Distribution System added succesfully", DistributionSystemID = ds.Id };
+        }
+        public IEnumerable<DistributionSystemDTO> GetDistributionSystemByBuildingId(Guid? BuildingId)
+        {
+            if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
+            ICollection<DistributionSystem> ds = _dbConnect.DistributionSystem
+                .Where(obj => obj.BuildingId == BuildingId).ToList();
+            return _mapper.Map<IEnumerable<DistributionSystemDTO>>(ds);
+        }
+    }
+}

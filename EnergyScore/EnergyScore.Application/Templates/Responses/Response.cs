@@ -47,4 +47,8 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public Guid ZoneWallId { get; set; }
     }
+    public class ResponseForDistributionSystem : Response
+    {
+        public Guid DistributionSystemID { get; set; }
+    }
 }

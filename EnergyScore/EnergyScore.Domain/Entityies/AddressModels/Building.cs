@@ -3,6 +3,7 @@ using EnergyScore.Domain.Entityies.ZoneFloorModels;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
 using System.ComponentModel.DataAnnotations;
+using EnergyScore.Domain.Entityies.DistributionSystem;
 
 namespace EnergyScore.Domain.Entityies.AddressModels
 {
@@ -20,6 +21,8 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public ZoneRoof? ZoneRoofs { get; set; }
         public Guid? ZoneWallId { get; set; }
         public ZoneWall? ZoneWall { get; set; }
+        public Guid? DistributionSystemsId { get; set; }
+        public DistributionSystems? DistributionSystems { get; set; }   
         public ICollection<Slab>? Slab { get; set; }
         public ICollection<Foundation>? Foundation { get; set; }
         public ICollection<FoundationWall>? FoundationWall { get; set; }

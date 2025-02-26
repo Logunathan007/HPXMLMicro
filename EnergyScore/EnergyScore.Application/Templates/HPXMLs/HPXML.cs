@@ -2,6 +2,7 @@
 using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
 using EnergyScore.Application.Templates.HPXMLs.ZoneRoofs;
 using System.Xml.Serialization;
+using EnergyScore.Application.Templates.HPXMLs.Systems;
 
 namespace EnergyScore.Application.Templates.HPXMLs
 {
@@ -77,6 +78,8 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         public BuildingSummary BuildingSummary { get; set; }
         public Enclosure Enclosure { get; set; }
+        [XmlElement("Systems")]
+        public HpxmlSystems Systems { get; set; }
     }
 
     public class BuildingSummary
@@ -157,13 +160,12 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public string? Batt { get; set; }
         public string? LooseFill { get; set; }
         public string? Rigid { get; set; }
-        public SprayFoam? SprayFoam { get; set; }
+        public string? SprayFoam { get; set; }
         [XmlElement("Other")]
         public Others? Other { get; set; }
         public None? None { get; set; }
         public Unknown? Unknown { get; set; }
     }
-    public class SprayFoam { }
     public class Others { }
     public class None { }
     public class Unknown { }

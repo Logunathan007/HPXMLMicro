@@ -49,6 +49,17 @@ namespace EnergyScore.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DistributionSystems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DistributionSystems", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ZoneFloors",
                 columns: table => new
                 {
@@ -112,7 +123,8 @@ namespace EnergyScore.Persistence.Migrations
                     AddressId = table.Column<Guid>(type: "uuid", nullable: false),
                     ZoneFloorId = table.Column<Guid>(type: "uuid", nullable: true),
                     ZoneRoofId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ZoneWallId = table.Column<Guid>(type: "uuid", nullable: true)
+                    ZoneWallId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DistributionSystemsId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,6 +140,11 @@ namespace EnergyScore.Persistence.Migrations
                         principalTable: "Addresss",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Buildings_DistributionSystems_DistributionSystemsId",
+                        column: x => x.DistributionSystemsId,
+                        principalTable: "DistributionSystems",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Buildings_ZoneFloors_ZoneFloorId",
                         column: x => x.ZoneFloorId,
@@ -168,6 +185,38 @@ namespace EnergyScore.Persistence.Migrations
                         name: "FK_Attics_ZoneRoofs_ZoneRoofId",
                         column: x => x.ZoneRoofId,
                         principalTable: "ZoneRoofs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DistributionSystem",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DistributionSystemName = table.Column<string>(type: "text", nullable: false),
+                    LeakinessObservedVisualInspection = table.Column<string>(type: "text", nullable: false),
+                    DuctSystemSealed = table.Column<bool>(type: "boolean", nullable: false),
+                    DuctType = table.Column<string>(type: "text", nullable: true),
+                    Units = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<double>(type: "double precision", nullable: false),
+                    TotalOrToOutside = table.Column<string>(type: "text", nullable: false),
+                    DistributionSystemsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DistributionSystem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DistributionSystem_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DistributionSystem_DistributionSystems_DistributionSystemsId",
+                        column: x => x.DistributionSystemsId,
+                        principalTable: "DistributionSystems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -287,6 +336,29 @@ namespace EnergyScore.Persistence.Migrations
                         column: x => x.ZoneWallId,
                         principalTable: "ZoneWalls",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ducts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DuctInsulationRValue = table.Column<double>(type: "double precision", nullable: false),
+                    DuctInsulationThickness = table.Column<double>(type: "double precision", nullable: false),
+                    DuctInsulationMaterial = table.Column<string>(type: "text", nullable: false),
+                    DuctLocation = table.Column<string>(type: "text", nullable: false),
+                    FractionDuctArea = table.Column<double>(type: "double precision", nullable: false),
+                    DistributionSystemId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ducts_DistributionSystem_DistributionSystemId",
+                        column: x => x.DistributionSystemId,
+                        principalTable: "DistributionSystem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -563,11 +635,19 @@ namespace EnergyScore.Persistence.Migrations
                     Batt = table.Column<string>(type: "text", nullable: true),
                     LooseFill = table.Column<string>(type: "text", nullable: true),
                     Rigit = table.Column<string>(type: "text", nullable: true),
-                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true)
+                    SprayFoam = table.Column<string>(type: "text", nullable: true),
+                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DuctId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InsulationMaterialDynamicOptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InsulationMaterialDynamicOptions_Ducts_DuctId",
+                        column: x => x.DuctId,
+                        principalTable: "Ducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_InsulationMaterialDynamicOptions_Insulations_InsulationId",
                         column: x => x.InsulationId,
@@ -607,6 +687,11 @@ namespace EnergyScore.Persistence.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Buildings_DistributionSystemsId",
+                table: "Buildings",
+                column: "DistributionSystemsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Buildings_ZoneFloorId",
                 table: "Buildings",
                 column: "ZoneFloorId");
@@ -620,6 +705,21 @@ namespace EnergyScore.Persistence.Migrations
                 name: "IX_Buildings_ZoneWallId",
                 table: "Buildings",
                 column: "ZoneWallId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DistributionSystem_BuildingId",
+                table: "DistributionSystem",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DistributionSystem_DistributionSystemsId",
+                table: "DistributionSystem",
+                column: "DistributionSystemsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ducts_DistributionSystemId",
+                table: "Ducts",
+                column: "DistributionSystemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Foundations_BuildingId",
@@ -666,6 +766,12 @@ namespace EnergyScore.Persistence.Migrations
                 name: "IX_FrameTypeDynamicOptions_WindowId",
                 table: "FrameTypeDynamicOptions",
                 column: "WindowId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InsulationMaterialDynamicOptions_DuctId",
+                table: "InsulationMaterialDynamicOptions",
+                column: "DuctId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -792,10 +898,16 @@ namespace EnergyScore.Persistence.Migrations
                 name: "Windows");
 
             migrationBuilder.DropTable(
+                name: "Ducts");
+
+            migrationBuilder.DropTable(
                 name: "Insulations");
 
             migrationBuilder.DropTable(
                 name: "Slabs");
+
+            migrationBuilder.DropTable(
+                name: "DistributionSystem");
 
             migrationBuilder.DropTable(
                 name: "FoundationWalls");
@@ -823,6 +935,9 @@ namespace EnergyScore.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Addresss");
+
+            migrationBuilder.DropTable(
+                name: "DistributionSystems");
 
             migrationBuilder.DropTable(
                 name: "ZoneFloors");

@@ -8,6 +8,7 @@ namespace EnergyScore.Application.Mappers.DTOS.CommonDTOS
         public string? Batt { get; set; }
         public string? LooseFill { get; set; }
         public string? Rigit { get; set; }
+        public string? SprayFoam { get; set; }
     }
 }
 

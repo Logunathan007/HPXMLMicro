@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using System;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
+using EnergyScore.Domain.Entityies.DistributionSystem;
 
 
 namespace EnergyScore.Persistence.DBConnection
@@ -39,6 +40,9 @@ namespace EnergyScore.Persistence.DBConnection
         public DbSet<WallTypeDynamicOptions> WallsTypeDynamicOptions { get;set; }
         public DbSet<Window> Windows { get; set; }
         public DbSet<InsulationMaterialDynamicOptions> InsulationMaterialDynamicOptions {  get; set; }
+        public DbSet<DistributionSystems> DistributionSystems { get; set; }
+        public DbSet<Duct> Ducts { get; set; }  
+        public DbSet<DistributionSystem> DistributionSystem { get; set; }
     }
 }
 

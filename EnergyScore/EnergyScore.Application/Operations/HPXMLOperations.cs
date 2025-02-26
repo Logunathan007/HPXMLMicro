@@ -280,7 +280,7 @@ namespace EnergyScore.Application.Operations
                 case "Rigid":
                     return new InsulationMaterial() { Rigid = options.Rigit };
                 case "SprayFoam":
-                    return new InsulationMaterial() { SprayFoam = new SprayFoam() };
+                    return new InsulationMaterial() { SprayFoam = options.SprayFoam };
                 case "Other":
                     return new InsulationMaterial() { Other = new Others() };
                 case "None":

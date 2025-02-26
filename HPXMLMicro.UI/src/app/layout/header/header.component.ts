@@ -29,34 +29,10 @@ export class HeaderComponent {
       {
         name: "Zones",
         routerLink: "zones",
-        sub: [
-          {
-            name: 'Roof',
-            routerLink: "roof",
-          },
-          {
-            name: 'Floor',
-            routerLink: "floor",
-          },
-          {
-            name: 'Wall',
-            routerLink: "wall",
-          },
-        ]
       },
       {
         name: "Systems",
         routerLink: "systems",
-        sub: [
-          {
-            name: 'HAVC',
-            routerLink: "havc",
-          },
-          {
-            name: 'Domestic Hot Water',
-            routerLink: "domestic-hot-water",
-          },
-        ]
       }
     ]
     this.selectedNav = this.headerNavs[0];
