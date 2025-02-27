@@ -1,6 +1,6 @@
 ﻿
 
-using EnergyScore.Domain.Entityies.DistributionSystem;
+using EnergyScore.Domain.Entityies.DistributionSystemModels;
 
 namespace EnergyScore.Domain.Entityies.CommonModels
 {

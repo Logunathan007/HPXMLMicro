@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SystemsComponent } from './systems.component';
 import { DistributedSystemComponent } from './distributed-system/distributed-system.component';
-import { HvacComponent } from './hvac/hvac.component';
 import { PvSystemComponent } from './pv-system/pv-system.component';
+import { HvacHeatCoolComponent } from './hvac-heat-cool/hvac-heat-cool.component';
 
 const routes: Routes = [
   {
@@ -20,8 +20,8 @@ const routes: Routes = [
         component:DistributedSystemComponent
       },
       {
-        path:'hvac',
-        component:HvacComponent
+        path:'hvac-heat-cool',
+        component:HvacHeatCoolComponent
       },
       {
         path:'pv-system',

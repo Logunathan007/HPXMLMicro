@@ -6,13 +6,13 @@ import { SystemsComponent } from './systems.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { HvacHeatCoolComponent } from './hvac-heat-cool/hvac-heat-cool.component';
 
 @NgModule({
   declarations: [
     DistributedSystemComponent,
     SystemsComponent,
+    HvacHeatCoolComponent,
   ],
   imports: [
     CommonModule,

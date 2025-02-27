@@ -60,6 +60,17 @@ namespace EnergyScore.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HVACPlants",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HVACPlants", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ZoneFloors",
                 columns: table => new
                 {
@@ -124,7 +135,8 @@ namespace EnergyScore.Persistence.Migrations
                     ZoneFloorId = table.Column<Guid>(type: "uuid", nullable: true),
                     ZoneRoofId = table.Column<Guid>(type: "uuid", nullable: true),
                     ZoneWallId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DistributionSystemsId = table.Column<Guid>(type: "uuid", nullable: true)
+                    DistributionSystemsId = table.Column<Guid>(type: "uuid", nullable: true),
+                    HVACPlantId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -144,6 +156,11 @@ namespace EnergyScore.Persistence.Migrations
                         name: "FK_Buildings_DistributionSystems_DistributionSystemsId",
                         column: x => x.DistributionSystemsId,
                         principalTable: "DistributionSystems",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Buildings_HVACPlants_HVACPlantId",
+                        column: x => x.HVACPlantId,
+                        principalTable: "HVACPlants",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Buildings_ZoneFloors_ZoneFloorId",
@@ -249,6 +266,45 @@ namespace EnergyScore.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HeatPumps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    HeatPumpName = table.Column<string>(type: "text", nullable: false),
+                    FractionHeatLoadServed = table.Column<double>(type: "double precision", nullable: false),
+                    HeatingCapacity17F = table.Column<double>(type: "double precision", nullable: false),
+                    HeatingCapacity = table.Column<double>(type: "double precision", nullable: false),
+                    FractionCoolLoadServed = table.Column<double>(type: "double precision", nullable: false),
+                    CoolingCapacity = table.Column<double>(type: "double precision", nullable: false),
+                    HeatPumpType = table.Column<string>(type: "text", nullable: false),
+                    AnnualHeatingEfficiencyUnits = table.Column<string>(type: "text", nullable: false),
+                    AnnualHeatingEfficiencyValue = table.Column<double>(type: "double precision", nullable: false),
+                    AnnualCoolingEfficiencyUnits = table.Column<string>(type: "text", nullable: false),
+                    AnnualCoolingEfficiencyValue = table.Column<double>(type: "double precision", nullable: false),
+                    ModelYear = table.Column<int>(type: "integer", nullable: false),
+                    YearInstalled = table.Column<int>(type: "integer", nullable: false),
+                    FloorAreaServed = table.Column<double>(type: "double precision", nullable: false),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    HVACPlantId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HeatPumps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HeatPumps_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeatPumps_HVACPlants_HVACPlantId",
+                        column: x => x.HVACPlantId,
+                        principalTable: "HVACPlants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AtticTypeDynamicOptions",
                 columns: table => new
                 {
@@ -339,6 +395,46 @@ namespace EnergyScore.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CoolingSystems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CoolingSystemName = table.Column<string>(type: "text", nullable: false),
+                    FractionCoolLoadServed = table.Column<double>(type: "double precision", nullable: false),
+                    CoolingCapacity = table.Column<double>(type: "double precision", nullable: false),
+                    CoolingSystemType = table.Column<string>(type: "text", nullable: false),
+                    AnnualCoolingEfficiencyUnits = table.Column<string>(type: "text", nullable: false),
+                    AnnualCoolingEfficiencyValue = table.Column<double>(type: "double precision", nullable: false),
+                    ModelYear = table.Column<int>(type: "integer", nullable: false),
+                    YearInstalled = table.Column<int>(type: "integer", nullable: false),
+                    FloorAreaServed = table.Column<double>(type: "double precision", nullable: false),
+                    DistributionSystemId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    HVACPlantId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoolingSystems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CoolingSystems_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CoolingSystems_DistributionSystem_DistributionSystemId",
+                        column: x => x.DistributionSystemId,
+                        principalTable: "DistributionSystem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CoolingSystems_HVACPlants_HVACPlantId",
+                        column: x => x.HVACPlantId,
+                        principalTable: "HVACPlants",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ducts",
                 columns: table => new
                 {
@@ -359,6 +455,47 @@ namespace EnergyScore.Persistence.Migrations
                         principalTable: "DistributionSystem",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HeatingSystems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    HeatingSystemName = table.Column<string>(type: "text", nullable: false),
+                    FractionHeatLoadServed = table.Column<double>(type: "double precision", nullable: false),
+                    HeatingCapacity = table.Column<double>(type: "double precision", nullable: false),
+                    HeatingSystemFuel = table.Column<string>(type: "text", nullable: false),
+                    HeatingSystemType = table.Column<string>(type: "text", nullable: false),
+                    AnnualHeatingEfficiencyUnits = table.Column<string>(type: "text", nullable: false),
+                    AnnualHeatingEfficiencyValue = table.Column<double>(type: "double precision", nullable: false),
+                    ModelYear = table.Column<int>(type: "integer", nullable: false),
+                    YearInstalled = table.Column<int>(type: "integer", nullable: false),
+                    FloorAreaServed = table.Column<double>(type: "double precision", nullable: false),
+                    DistributionSystemId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    HVACPlantId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HeatingSystems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HeatingSystems_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeatingSystems_DistributionSystem_DistributionSystemId",
+                        column: x => x.DistributionSystemId,
+                        principalTable: "DistributionSystem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeatingSystems_HVACPlants_HVACPlantId",
+                        column: x => x.HVACPlantId,
+                        principalTable: "HVACPlants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -692,6 +829,11 @@ namespace EnergyScore.Persistence.Migrations
                 column: "DistributionSystemsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Buildings_HVACPlantId",
+                table: "Buildings",
+                column: "HVACPlantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Buildings_ZoneFloorId",
                 table: "Buildings",
                 column: "ZoneFloorId");
@@ -705,6 +847,21 @@ namespace EnergyScore.Persistence.Migrations
                 name: "IX_Buildings_ZoneWallId",
                 table: "Buildings",
                 column: "ZoneWallId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoolingSystems_BuildingId",
+                table: "CoolingSystems",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoolingSystems_DistributionSystemId",
+                table: "CoolingSystems",
+                column: "DistributionSystemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoolingSystems_HVACPlantId",
+                table: "CoolingSystems",
+                column: "HVACPlantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DistributionSystem_BuildingId",
@@ -767,6 +924,31 @@ namespace EnergyScore.Persistence.Migrations
                 table: "FrameTypeDynamicOptions",
                 column: "WindowId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeatingSystems_BuildingId",
+                table: "HeatingSystems",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeatingSystems_DistributionSystemId",
+                table: "HeatingSystems",
+                column: "DistributionSystemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeatingSystems_HVACPlantId",
+                table: "HeatingSystems",
+                column: "HVACPlantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeatPumps_BuildingId",
+                table: "HeatPumps",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeatPumps_HVACPlantId",
+                table: "HeatPumps",
+                column: "HVACPlantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InsulationMaterialDynamicOptions_DuctId",
@@ -877,10 +1059,19 @@ namespace EnergyScore.Persistence.Migrations
                 name: "AtticTypeDynamicOptions");
 
             migrationBuilder.DropTable(
+                name: "CoolingSystems");
+
+            migrationBuilder.DropTable(
                 name: "FoundationTypeDynamicOptions");
 
             migrationBuilder.DropTable(
                 name: "FrameTypeDynamicOptions");
+
+            migrationBuilder.DropTable(
+                name: "HeatingSystems");
+
+            migrationBuilder.DropTable(
+                name: "HeatPumps");
 
             migrationBuilder.DropTable(
                 name: "InsulationMaterialDynamicOptions");
@@ -938,6 +1129,9 @@ namespace EnergyScore.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "DistributionSystems");
+
+            migrationBuilder.DropTable(
+                name: "HVACPlants");
 
             migrationBuilder.DropTable(
                 name: "ZoneFloors");

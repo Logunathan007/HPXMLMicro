@@ -42,6 +42,16 @@ export class CommonService {
     const params = new HttpParams().set('buildingId', id)
     return this.http.post(envVariable.API_URL + 'DistributionSystem', req, { params })
   }
+  getDistributionSystemNamesByBuildingId(id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.get(envVariable.API_URL + 'DistributionSystem/GetNames', { params })
+  }
+
+  //for HVAC Systems
+  sendHAVCPlant(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'HVACPlant', req, { params })
+  }
 
   //for HPXMLGeneration
   getHPXMLString(id: string) {

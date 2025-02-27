@@ -51,4 +51,18 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public Guid DistributionSystemID { get; set; }
     }
+
+    public class NameWithIds : Response
+    {
+        public IEnumerable<NameWithId>? NamesAndIds { get; set; }
+    }
+    public class NameWithId
+    {
+        public string Name { get; set; }
+        public Guid Id { get; set; }
+    }
+    public class ResponseForHVACPlant : Response
+    {
+        public Guid HVACPlantID { get; set; }
+    }
 }

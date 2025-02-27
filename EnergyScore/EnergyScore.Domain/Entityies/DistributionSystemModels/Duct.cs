@@ -1,5 +1,5 @@
 ﻿using EnergyScore.Domain.Entityies.CommonModels;
-namespace EnergyScore.Domain.Entityies.DistributionSystem
+namespace EnergyScore.Domain.Entityies.DistributionSystemModels
 {
     public class Duct
     {

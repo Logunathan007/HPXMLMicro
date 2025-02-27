@@ -323,3 +323,64 @@ export const DuctLocationOptions = [
   { name: 'attic - unvented', value: 'attic - unvented' },
   { name: 'attic - vented', value: 'attic - vented' },
 ]
+
+// for heating and cooling system
+
+export const HeatingSystemFuelOptions = [
+  { name: 'electricity', value: 'electricity' },
+  { name: 'renewable electricity', value: 'renewable electricity' },
+  { name: 'natural gas', value: 'natural gas' },
+  { name: 'renewable natural gas', value: 'renewable natural gas' },
+  { name: 'fuel oil', value: 'fuel oil' },
+  { name: 'fuel oil 1', value: 'fuel oil 1' },
+  { name: 'fuel oil 2', value: 'fuel oil 2' },
+  { name: 'fuel oil 4', value: 'fuel oil 4' },
+  { name: 'fuel oil 5/6', value: 'fuel oil 5/6' },
+  { name: 'propane', value: 'propane' },
+  { name: 'wood', value: 'wood' },
+  { name: 'wood pellets', value: 'wood pellets' },
+]
+
+export const HeatingSystemTypeOptions = [
+  { name: "Furnace", value: "Furnace" },
+  { name: "WallFurnace", value: "WallFurnace" },
+  { name: "FloorFurnace", value: "FloorFurnace" },
+  { name: "Boiler", value: "Boiler" },
+  { name: "ElectricResistance", value: "ElectricResistance" },
+  { name: "Stove", value: "Stove" },
+]
+
+export const AnnualHeatingEfficiencyUnitsOptions = [
+  { name: "Percent", value: "Percent" },
+  { name: "AFUE", value: "AFUE" },
+  { name: "COP", value: "COP" },
+  { name: "HSPF2", value: "HSPF2" },
+  { name: "HSPF", value: "HSPF" },
+]
+
+export const HeatPumpTypeOptions = [
+  { name: "ground-to-water", value: "ground-to-water" },
+  { name: "ground-to-air", value: "ground-to-air" },
+  { name: "mini-split", value: "mini-split" },
+  { name: "air-to-water", value: "air-to-water" },
+  { name: "air-to-air", value: "air-to-air" },
+  { name: "water-to-water", value: "water-to-water" },
+  { name: "water-to-air", value: "water-to-air" },
+]
+
+export const CoolingSystemTypeOptions = [
+  { name: "evaporative cooler", value: "evaporative cooler" },
+  { name: "room air conditioner", value: "room air conditioner" },
+  { name: "mini-split", value: "mini-split" },
+  { name: "central air conditioner", value: "central air conditioner" },
+]
+
+export const AnnualCoolingEfficiencyUnitsOptions = [
+  { name: "kW/ton", value: "kW/ton" },
+  { name: "COP", value: "COP" },
+  { name: "EER2", value: "EER2" },
+  { name: "EER", value: "EER" },
+  { name: "CEER", value: "CEER" },
+  { name: "SEER2", value: "SEER2" },
+  { name: "SEER", value: "SEER" },
+]

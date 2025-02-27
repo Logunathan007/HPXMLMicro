@@ -1,7 +1,7 @@
 ﻿
 using EnergyScore.Domain.Entityies.AddressModels;
 
-namespace EnergyScore.Domain.Entityies.DistributionSystem
+namespace EnergyScore.Domain.Entityies.DistributionSystemModels
 {
     public class DistributionSystem
     {

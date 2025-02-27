@@ -11,8 +11,10 @@ using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
 using EnergyScore.Application.Mappers.DTOS.ZoneWallDTOS;
-using EnergyScore.Domain.Entityies.DistributionSystem;
 using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
+using EnergyScore.Domain.Entityies.DistributionSystemModels;
+using EnergyScore.Domain.Entityies.HVACPlantModels;
+using EnergyScore.Application.Mappers.DTOS.HVACPlantDTOS;
 
 namespace EnergyScore.Application.Mappers
 {
@@ -46,6 +48,10 @@ namespace EnergyScore.Application.Mappers
             CreateMap<DistributionSystem, DistributionSystemDTO>().ReverseMap();
             CreateMap<Duct, DuctDTO>().ReverseMap();
             CreateMap<DistributionSystems, DistributionSystemsDTO>().ReverseMap();
+            CreateMap<HeatingSystem, HeatingSystemDTO>().ReverseMap();
+            CreateMap<CoolingSystem, CoolingSystemDTO>().ReverseMap();
+            CreateMap<HeatPump, HeatPumpDTO>().ReverseMap();
+            CreateMap<HVACPlant, HVACPlantDTO>().ReverseMap();
         }
     }
 }

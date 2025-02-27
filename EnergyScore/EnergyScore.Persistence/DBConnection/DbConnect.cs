@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using System;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
-using EnergyScore.Domain.Entityies.DistributionSystem;
+using EnergyScore.Domain.Entityies.DistributionSystemModels;
+using EnergyScore.Domain.Entityies.HVACPlantModels;
 
 
 namespace EnergyScore.Persistence.DBConnection
@@ -43,6 +44,10 @@ namespace EnergyScore.Persistence.DBConnection
         public DbSet<DistributionSystems> DistributionSystems { get; set; }
         public DbSet<Duct> Ducts { get; set; }  
         public DbSet<DistributionSystem> DistributionSystem { get; set; }
+        public DbSet<CoolingSystem> CoolingSystems { get; set; }
+        public DbSet<HeatingSystem> HeatingSystems { get; set; }
+        public DbSet<HeatPump> HeatPumps { get; set; }
+        public DbSet<HVACPlant> HVACPlants { get; set; }
     }
 }
 
