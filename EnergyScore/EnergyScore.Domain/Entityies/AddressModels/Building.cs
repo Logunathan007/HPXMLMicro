@@ -5,6 +5,8 @@ using EnergyScore.Domain.Entityies.ZoneWallModels;
 using System.ComponentModel.DataAnnotations;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Domain.Entityies.HVACPlantModels;
+using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
 
 namespace EnergyScore.Domain.Entityies.AddressModels
 {
@@ -26,6 +28,10 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public DistributionSystems? DistributionSystems { get; set; }   
         public Guid? HVACPlantId { get; set; }
         public HVACPlant? HVACPlant { get; set; }
+        public Guid? WaterHeatingId { get; set; }
+        public WaterHeating? WaterHeating { get; set; }
+        public Guid? PhotovoltaicsId { get; set; }
+        public Photovoltaics? Photovoltaics { get; set; }
         public ICollection<Slab>? Slab { get; set; }
         public ICollection<Foundation>? Foundation { get; set; }
         public ICollection<FoundationWall>? FoundationWall { get; set; }
@@ -35,5 +41,11 @@ namespace EnergyScore.Domain.Entityies.AddressModels
         public ICollection<Wall>? Wall { get; set; }
         public ICollection<Window>? Windows { get; set; }
         public ICollection<Skylight>? Skylights { get; set; }
+        public ICollection<DistributionSystem>? DistributionSystem { get; set; }
+        public ICollection<HeatingSystem>? HeatingSystems { get; set; }
+        public ICollection<CoolingSystem>? CoolingSystems { get; set; }
+        public ICollection<HeatPump>? HeatPumps { get; set; }
+        public ICollection<WaterHeatingSystem>? WaterHeatingSystems { get; set; }
+        public ICollection<PVSystem>? PVSystems { get; set; }
     }
 }

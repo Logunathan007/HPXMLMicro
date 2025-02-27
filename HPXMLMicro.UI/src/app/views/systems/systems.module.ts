@@ -7,12 +7,16 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HvacHeatCoolComponent } from './hvac-heat-cool/hvac-heat-cool.component';
+import { WaterHeatingSystemComponent } from './water-heating-system/water-heating-system.component';
+import { PvSystemComponent } from './pv-system/pv-system.component';
 
 @NgModule({
   declarations: [
     DistributedSystemComponent,
     SystemsComponent,
     HvacHeatCoolComponent,
+    WaterHeatingSystemComponent,
+    PvSystemComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,6 @@ import { HvacHeatCoolComponent } from './hvac-heat-cool/hvac-heat-cool.component
     NgxJsonViewerModule,
     NgSelectModule,
     ReactiveFormsModule,
-
   ]
 })
 export class SystemsModule { }

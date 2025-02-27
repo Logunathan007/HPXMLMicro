@@ -1,0 +1,242 @@
+<div class="container">
+  <form [formGroup]="waterHeaterForm">
+    <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Water Heating Systems &nbsp;&nbsp;
+      <button
+        class="ms-2 icon-btn"
+        (click)="
+          this.addToFormArray(
+            this.waterHeatingSystemsObj,
+            this.WaterHeatingSystemInputs()
+          )
+        "
+      >
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <ng-container formArrayName="waterHeatingSystems">
+      <ng-container
+        *ngFor="
+          let waterHeatingSystemItem of waterHeatingSystemsObj?.controls;
+          let waterHeatingSystemIndex = index
+        "
+      >
+        <div
+          [formGroupName]="waterHeatingSystemIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Water Heating System ({{ waterHeatingSystemIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="
+                removeFromFormArray(
+                  waterHeatingSystemsObj,
+                  waterHeatingSystemIndex
+                )
+              "
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Water Heating System Name </label>
+                <input
+                  formControlName="HeatingSystemName"
+                  type="text"
+                  id="HeatingSystemName"
+                  placeholder="Water Heating System Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('HeatingSystemName')?.touched ||
+                      waterHeatingSystemItem.get('HeatingSystemName')?.dirty) &&
+                    waterHeatingSystemItem.get('HeatingSystemName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="waterHeatingSystemItem.get('HeatingSystemName')?.errors?.['required']"
+                  >
+                    Water Heating System Name is required
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!waterHeatingSystemItem.get('HeatingSystemName')?.errors?.['required'] && waterHeatingSystemItem.get('HeatingSystemName')?.errors?.['nameSame']"
+                  >
+                    Water Heating System Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Fraction DHW Load Served </label>
+                <input
+                  formControlName="fractionDHWLoadServed"
+                  type="number"
+                  id="fractionDHWLoadServed"
+                  placeholder="Fraction DHW Load Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('fractionDHWLoadServed')
+                      ?.touched ||
+                      waterHeatingSystemItem.get('fractionDHWLoadServed')
+                        ?.dirty) &&
+                    waterHeatingSystemItem.get('fractionDHWLoadServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fraction DHW Load Served is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Water Heater Type </label>
+                <ng-select
+                  [items]="waterHeaterTypeOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Water Heater Type"
+                  id="waterHeaterType"
+                  formControlName="waterHeaterType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('waterHeaterType')?.touched ||
+                      waterHeatingSystemItem.get('waterHeaterType')?.dirty) &&
+                    waterHeatingSystemItem.get('waterHeaterType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Water Heater Type is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Fuel Type </label>
+                <ng-select
+                  [items]="fuelTypeOptions"
+                  bindLabel="name"
+                  [clearable]="false"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Fuel Type"
+                  id="fuelType"
+                  formControlName="fuelType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('fuelType')?.touched ||
+                      waterHeatingSystemItem.get('fuelType')?.dirty) &&
+                    waterHeatingSystemItem.get('fuelType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fuel Type is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Energy Factor </label>
+                <input
+                  formControlName="energyFactor"
+                  type="number"
+                  id="energyFactor"
+                  placeholder="Energy Factor"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('energyFactor')?.touched ||
+                      waterHeatingSystemItem.get('energyFactor')?.dirty) &&
+                    waterHeatingSystemItem.get('energyFactor')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Energy Factor is required
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Uniform Energy Factor</label>
+                <input
+                  formControlName="uniformEnergyFactor"
+                  type="number"
+                  id="uniformEnergyFactor"
+                  placeholder="Uniform Energy Factor"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (waterHeatingSystemItem.get('uniformEnergyFactor')
+                      ?.touched ||
+                      waterHeatingSystemItem.get('uniformEnergyFactor')
+                        ?.dirty) &&
+                    waterHeatingSystemItem.get('uniformEnergyFactor')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Uniform Energy Factor is required
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      [disabled]="!enableNext"
+    >
+      Next
+    </button>
+  </div>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div>
+</div>

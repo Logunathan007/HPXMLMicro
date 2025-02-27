@@ -15,6 +15,10 @@ using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Domain.Entityies.HVACPlantModels;
 using EnergyScore.Application.Mappers.DTOS.HVACPlantDTOS;
+using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Application.Mappers.DTOS.WaterHeating;
+using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
+using EnergyScore.Application.Mappers.DTOS.PhotovoltaicsDTOS;
 
 namespace EnergyScore.Application.Mappers
 {
@@ -52,6 +56,10 @@ namespace EnergyScore.Application.Mappers
             CreateMap<CoolingSystem, CoolingSystemDTO>().ReverseMap();
             CreateMap<HeatPump, HeatPumpDTO>().ReverseMap();
             CreateMap<HVACPlant, HVACPlantDTO>().ReverseMap();
+            CreateMap<WaterHeating, WaterHeatingDTO>().ReverseMap();
+            CreateMap<WaterHeatingSystem, WaterHeatingSystemDTO>().ReverseMap();
+            CreateMap<Photovoltaics, PhotovoltaicsDTO>().ReverseMap();
+            CreateMap<PVSystem, PVSystemDTO>().ReverseMap();
         }
     }
 }

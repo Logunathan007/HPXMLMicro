@@ -384,3 +384,28 @@ export const AnnualCoolingEfficiencyUnitsOptions = [
   { name: "SEER2", value: "SEER2" },
   { name: "SEER", value: "SEER" },
 ]
+
+// for waterHeatingSystem
+export const FuelTypeOptions = [
+  { name: 'electricity', value: 'electricity' },
+  { name: 'renewable electricity', value: 'renewable electricity' },
+  { name: 'natural gas', value: 'natural gas' },
+  { name: 'renewable natural gas', value: 'renewable natural gas' },
+  { name: 'fuel oil', value: 'fuel oil' },
+  { name: 'fuel oil 1', value: 'fuel oil 1' },
+  { name: 'fuel oil 2', value: 'fuel oil 2' },
+  { name: 'fuel oil 4', value: 'fuel oil 4' },
+  { name: 'fuel oil 5/6', value: 'fuel oil 5/6' },
+  { name: 'propane', value: 'propane' },
+  { name: 'wood', value: 'wood' },
+  { name: 'wood pellets', value: 'wood pellets' },
+]
+
+export const WaterHeaterTypeOptions = [
+  { name: "space-heating boiler with tankless coil", value: "space-heating boiler with tankless coil" },
+  { name: "space-heating boiler with storage tank", value: "space-heating boiler with storage tank" },
+  { name: "heat pump water heater", value: "heat pump water heater" },
+  { name: "instantaneous water heater", value: "instantaneous water heater" },
+  { name: "dedicated boiler with storage tank", value: "dedicated boiler with storage tank" },
+  { name: "storage water heater", value: "storage water heater" },
+]

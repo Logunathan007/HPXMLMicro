@@ -1,26 +1,27 @@
-import { OrientationOptions } from './../../../shared/lookups/about-lookups';
+import { WaterHeaterTypeOptions, FuelTypeOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { nameValidator } from '../../../shared/modules/Validators/validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../../shared/services/common.service';
-import { nameValidator } from '../../../shared/modules/Validators/validators';
 
 @Component({
-  selector: 'app-pv-system',
-  templateUrl: './pv-system.component.html',
-  styleUrl: './pv-system.component.scss'
+  selector: 'app-water-heating-system',
+  templateUrl: './water-heating-system.component.html',
+  styleUrl: './water-heating-system.component.scss'
 })
-export class PvSystemComponent {
+export class WaterHeatingSystemComponent {
   //variable initialization
-  photovoltaicForm!: FormGroup;
+  waterHeaterForm!: FormGroup;
   enableNext: boolean = false;
   buildingId!: string;
   hpxmlString!: string;
   validationMsg!: any;
-  orientationOptions = OrientationOptions
+  waterHeaterTypeOptions = WaterHeaterTypeOptions
+  fuelTypeOptions = FuelTypeOptions
 
-  get pVSystemsObj(): FormArray {
-    return this.photovoltaicForm.get('pVSystems') as FormArray;
+  get waterHeatingSystemsObj(): FormArray {
+    return this.waterHeaterForm.get('waterHeatingSystems') as FormArray;
   }
 
   constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) { }
@@ -32,8 +33,9 @@ export class PvSystemComponent {
 
   //variable declaration
   variableDeclaration() {
-    this.photovoltaicForm = this.fb.group({
-      pVSystems: this.fb.array([]),
+    this.waterHeaterForm = this.fb.group({
+      waterHeatingSystems: this.fb.array([]),
+
     })
   }
 
@@ -42,22 +44,18 @@ export class PvSystemComponent {
       this.buildingId = params.get('id') ?? ""
     })
   }
-
   //Input Field methods
-  pVSystemInputs(): FormGroup {
-    let pvs = this.fb.group({
+  WaterHeatingSystemInputs(): FormGroup {
+    let hw = this.fb.group({
       buildingId: [this.buildingId],
-      pVSystemName: [null, [Validators.required], [nameValidator('pVSystemName')]],
-      maxPowerOutput: [null, [Validators.required, Validators.min(0)]], //double
-      collectorArea: [null, [Validators.required, Validators.min(0)]], //double
-      numberOfPanels: [null, [Validators.required, Validators.min(0)]], //int
-      yearInverterManufactured: [null, [Validators.required, Validators.min(999), Validators.max(new Date().getFullYear())]],
-      yearModulesManufactured: [null, [Validators.required, Validators.min(999), Validators.max(new Date().getFullYear())]],
-      arrayAzimuth: [null, [Validators.required, Validators.min(0), Validators.max(360)]],//double
-      arrayOrientation: [null, [Validators.required]], //options
-      arrayTilt: [null, [Validators.required, Validators.min(0), Validators.max(90)]],//double
+      HeatingSystemName: [null, [Validators.required], [nameValidator('HeatingSystemName')]],
+      fractionDHWLoadServed: [null, [Validators.required]], //double
+      waterHeaterType: [null, [Validators.required]], //options
+      fuelType: [null, [Validators.required]], //options
+      energyFactor: [null, [Validators.required, Validators.min(0), Validators.max(5)]],
+      uniformEnergyFactor: [null, [Validators.required, Validators.min(0), Validators.max(5)]],
     })
-    return pvs;
+    return hw;
   }
 
   // for add and remove a dynamic form
@@ -67,7 +65,6 @@ export class PvSystemComponent {
   removeFromFormArray(array: FormArray, index: number) {
     array.removeAt(index);
   }
-
   arrayToObjectTransformer(ele: any, name: string) {
     if (!Array.isArray(ele?.[name])) return;
     let opt = [...ele?.[name]];
@@ -85,11 +82,12 @@ export class PvSystemComponent {
   }
   // for click event functions
   onSubmit() {
-    if (this.photovoltaicForm.invalid) {
-      this.photovoltaicForm.markAllAsTouched();
+    if (this.waterHeaterForm.invalid) {
+      this.waterHeaterForm.markAllAsTouched();
       return;
     }
-    this.commonService.sendPhotovoltaic(this.photovoltaicForm.value, this.buildingId).subscribe({
+
+    this.commonService.sendWaterHeating(this.waterHeaterForm.value, this.buildingId).subscribe({
       next: (res: any) => {
         console.log(res);
       },

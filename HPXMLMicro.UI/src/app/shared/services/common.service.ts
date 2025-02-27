@@ -53,6 +53,18 @@ export class CommonService {
     return this.http.post(envVariable.API_URL + 'HVACPlant', req, { params })
   }
 
+  //for WaterHeating Systems
+  sendWaterHeating(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'WaterHeating', req, { params })
+  }
+
+  //for Photovoltaic Systems
+  sendPhotovoltaic(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'Photovoltaic', req, { params })
+  }
+
   //for HPXMLGeneration
   getHPXMLString(id: string) {
     const params = new HttpParams().set('buildingId', id)

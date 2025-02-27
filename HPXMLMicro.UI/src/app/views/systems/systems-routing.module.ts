@@ -4,6 +4,7 @@ import { SystemsComponent } from './systems.component';
 import { DistributedSystemComponent } from './distributed-system/distributed-system.component';
 import { PvSystemComponent } from './pv-system/pv-system.component';
 import { HvacHeatCoolComponent } from './hvac-heat-cool/hvac-heat-cool.component';
+import { WaterHeatingSystemComponent } from './water-heating-system/water-heating-system.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path:'pv-system',
         component:PvSystemComponent
+      },
+      {
+        path:'water-heating-system',
+        component:WaterHeatingSystemComponent
       }
     ]
   },

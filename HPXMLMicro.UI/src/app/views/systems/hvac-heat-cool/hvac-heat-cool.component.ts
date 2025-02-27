@@ -23,6 +23,7 @@ export class HvacHeatCoolComponent {
   heatPumpTypeOptions = HeatPumpTypeOptions
   annualHeatingEfficiencyUnitsOptions = AnnualHeatingEfficiencyUnitsOptions
   annualCoolingEfficiencyUnitsOptions = AnnualCoolingEfficiencyUnitsOptions
+  coolingSystemTypeOptions = CoolingSystemTypeOptions
 
   get heatingSystemsObj(): FormArray {
     return this.hvacPlantForm.get('heatingSystems') as FormArray;
@@ -105,7 +106,6 @@ export class HvacHeatCoolComponent {
     })
     return hp;
   }
-  coolingSystemTypeOptions = CoolingSystemTypeOptions
   coolingSystemInputs(): FormGroup {
     let cs = this.fb.group({
       buildingId: [this.buildingId],

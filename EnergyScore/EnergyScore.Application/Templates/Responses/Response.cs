@@ -65,4 +65,12 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public Guid HVACPlantID { get; set; }
     }
+    public class ResponseForWaterHeating : Response
+    {
+        public Guid WaterHeatingId { get; set; }
+    }
+    public class ResponseForPhotovoltaic : Response
+    {
+        public Guid PhotovoltaicsID { get; set; }
+    }
 }
