@@ -3,6 +3,7 @@ using EnergyScore.Application.Templates.HPXMLs.ZoneFloors;
 using EnergyScore.Application.Templates.HPXMLs.ZoneRoofs;
 using System.Xml.Serialization;
 using EnergyScore.Application.Templates.HPXMLs.Systems;
+using EnergyScore.Application.Templates.HPXMLs.ZoneWalls;
 
 namespace EnergyScore.Application.Templates.HPXMLs
 {
@@ -94,17 +95,17 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public int YearBuilt { get; set; }
         public string ResidentialFacilityType { get; set; }
         public double NumberofConditionedFloorsAboveGrade { get; set; }
-        public double AverageCeilingHeight { get; set; }
+        public double? AverageCeilingHeight { get; set; }
         public int NumberofBedrooms { get; set; }
-        public double ConditionedFloorArea { get; set; }
-        public double ConditionedBuildingVolume { get; set; }
+        public double? ConditionedFloorArea { get; set; }
+        public double? ConditionedBuildingVolume { get; set; }
         public extension extension { get; set; }
     }
 
     public class BSSite
     {
-        public string OrientationOfFrontOfHome { get; set; }
-        public int AzimuthOfFrontOfHome { get; set; }
+        public string? OrientationOfFrontOfHome { get; set; }
+        public int? AzimuthOfFrontOfHome { get; set; }
     }
 
     public class Enclosure
@@ -117,6 +118,7 @@ namespace EnergyScore.Application.Templates.HPXMLs
         public FoundationWalls? FoundationWalls { get; set; }
         public FrameFloors? FrameFloors { get; set; }
         public Slabs? Slabs { get; set; }
+        public Windows? Windows { get; set; }
         public Skylights? Skylights { get; set; }
     }
 
@@ -129,8 +131,8 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         [XmlElement("SystemIdentifier")]
         public SystemIdentifier SystemIdentifier { get; set; }
-        public double HousePressure { get; set; }
-        public string LeakinessDescription { get; set; }
+        public double? HousePressure { get; set; }
+        public string? LeakinessDescription { get; set; }
         public BuildingAirLeakage BuildingAirLeakage { get; set; }
     }
     public class SystemIdentifier
@@ -140,8 +142,8 @@ namespace EnergyScore.Application.Templates.HPXMLs
     }
     public class BuildingAirLeakage
     {
-        public string UnitofMeasure { get; set; }
-        public double AirLeakage { get; set; }
+        public string? UnitofMeasure { get; set; }
+        public double? AirLeakage { get; set; }
     }
     public class Insulation
     {
@@ -197,5 +199,9 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         [XmlAttribute("idref")]
         public string IdRef { get; set; }
+    }
+    public class Other
+    {
+        public string? Description { get; set; }
     }
 }

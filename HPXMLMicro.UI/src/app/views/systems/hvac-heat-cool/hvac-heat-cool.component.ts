@@ -150,7 +150,7 @@ export class HvacHeatCoolComponent {
   // for click event functions
   onSubmit() {
     if (this.hvacPlantForm.invalid) {
-      this.hvacPlantForm.markAllAsTouched();
+      this.hvacPlantForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -165,7 +165,7 @@ export class HvacHeatCoolComponent {
   }
 
   goNext() {
-    this.router.navigate([''], {
+    this.router.navigate(['/systems/water-heating-system'], {
       queryParams: { id: this.buildingId }
     })
   }

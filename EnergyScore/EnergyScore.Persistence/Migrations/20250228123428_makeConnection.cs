@@ -20,12 +20,13 @@ namespace EnergyScore.Persistence.Migrations
                     YearBuilt = table.Column<int>(type: "integer", nullable: false),
                     NumberofBedrooms = table.Column<int>(type: "integer", nullable: false),
                     NumberofConditionedFloorsAboveGrade = table.Column<double>(type: "double precision", nullable: false),
-                    AverageCeilingHeight = table.Column<double>(type: "double precision", nullable: false),
-                    ConditionedBuildingVolume = table.Column<double>(type: "double precision", nullable: false),
+                    AverageCeilingHeight = table.Column<double>(type: "double precision", nullable: true),
+                    ConditionedBuildingVolume = table.Column<double>(type: "double precision", nullable: true),
                     ManufacturedHomeSections = table.Column<string>(type: "text", nullable: true),
-                    ConditionedFloorArea = table.Column<double>(type: "double precision", nullable: false),
-                    AzimuthOfFrontOfHome = table.Column<int>(type: "integer", nullable: false),
-                    OrientationOfFrontOfHome = table.Column<string>(type: "text", nullable: false)
+                    ConditionedFloorArea = table.Column<double>(type: "double precision", nullable: true),
+                    AzimuthOfFrontOfHome = table.Column<int>(type: "integer", nullable: true),
+                    OrientationOfFrontOfHome = table.Column<string>(type: "text", nullable: true),
+                    Comments = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,10 +131,11 @@ namespace EnergyScore.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    HousePressure = table.Column<double>(type: "double precision", nullable: false),
-                    UnitofMeasure = table.Column<string>(type: "text", nullable: false),
-                    AirLeakage = table.Column<double>(type: "double precision", nullable: false),
-                    LeakinessDescription = table.Column<string>(type: "text", nullable: false),
+                    HousePressure = table.Column<double>(type: "double precision", nullable: true),
+                    UnitofMeasure = table.Column<string>(type: "text", nullable: true),
+                    AirLeakage = table.Column<double>(type: "double precision", nullable: true),
+                    LeakinessDescription = table.Column<string>(type: "text", nullable: true),
+                    AirSealing = table.Column<bool>(type: "boolean", nullable: true),
                     AboutId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -383,6 +385,8 @@ namespace EnergyScore.Persistence.Migrations
                     FuelType = table.Column<string>(type: "text", nullable: false),
                     EnergyFactor = table.Column<double>(type: "double precision", nullable: false),
                     UniformEnergyFactor = table.Column<double>(type: "double precision", nullable: false),
+                    ModelYear = table.Column<int>(type: "integer", nullable: false),
+                    YearInstalled = table.Column<int>(type: "integer", nullable: false),
                     BuildingId = table.Column<Guid>(type: "uuid", nullable: false),
                     WaterHeatingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -531,29 +535,6 @@ namespace EnergyScore.Persistence.Migrations
                         column: x => x.HVACPlantId,
                         principalTable: "HVACPlants",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Ducts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DuctInsulationRValue = table.Column<double>(type: "double precision", nullable: false),
-                    DuctInsulationThickness = table.Column<double>(type: "double precision", nullable: false),
-                    DuctInsulationMaterial = table.Column<string>(type: "text", nullable: false),
-                    DuctLocation = table.Column<string>(type: "text", nullable: false),
-                    FractionDuctArea = table.Column<double>(type: "double precision", nullable: false),
-                    DistributionSystemId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ducts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Ducts_DistributionSystem_DistributionSystemId",
-                        column: x => x.DistributionSystemId,
-                        principalTable: "DistributionSystem",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -872,23 +853,46 @@ namespace EnergyScore.Persistence.Migrations
                     LooseFill = table.Column<string>(type: "text", nullable: true),
                     Rigit = table.Column<string>(type: "text", nullable: true),
                     SprayFoam = table.Column<string>(type: "text", nullable: true),
-                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DuctId = table.Column<Guid>(type: "uuid", nullable: false)
+                    InsulationId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InsulationMaterialDynamicOptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InsulationMaterialDynamicOptions_Ducts_DuctId",
-                        column: x => x.DuctId,
-                        principalTable: "Ducts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_InsulationMaterialDynamicOptions_Insulations_InsulationId",
                         column: x => x.InsulationId,
                         principalTable: "Insulations",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ducts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DuctInsulationRValue = table.Column<double>(type: "double precision", nullable: false),
+                    DuctInsulationThickness = table.Column<double>(type: "double precision", nullable: false),
+                    DuctInsulationMaterial = table.Column<string>(type: "text", nullable: false),
+                    DuctInsulationMaterialDynamicOptionsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DuctLocation = table.Column<string>(type: "text", nullable: false),
+                    FractionDuctArea = table.Column<double>(type: "double precision", nullable: false),
+                    DistributionSystemId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ducts_DistributionSystem_DistributionSystemId",
+                        column: x => x.DistributionSystemId,
+                        principalTable: "DistributionSystem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ducts_InsulationMaterialDynamicOptions_DuctInsulationMateri~",
+                        column: x => x.DuctInsulationMaterialDynamicOptionsId,
+                        principalTable: "InsulationMaterialDynamicOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -988,6 +992,11 @@ namespace EnergyScore.Persistence.Migrations
                 column: "DistributionSystemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ducts_DuctInsulationMaterialDynamicOptionsId",
+                table: "Ducts",
+                column: "DuctInsulationMaterialDynamicOptionsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Foundations_BuildingId",
                 table: "Foundations",
                 column: "BuildingId");
@@ -1058,12 +1067,6 @@ namespace EnergyScore.Persistence.Migrations
                 name: "IX_HeatPumps_HVACPlantId",
                 table: "HeatPumps",
                 column: "HVACPlantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InsulationMaterialDynamicOptions_DuctId",
-                table: "InsulationMaterialDynamicOptions",
-                column: "DuctId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_InsulationMaterialDynamicOptions_InsulationId",
@@ -1191,6 +1194,9 @@ namespace EnergyScore.Persistence.Migrations
                 name: "CoolingSystems");
 
             migrationBuilder.DropTable(
+                name: "Ducts");
+
+            migrationBuilder.DropTable(
                 name: "FoundationTypeDynamicOptions");
 
             migrationBuilder.DropTable(
@@ -1201,9 +1207,6 @@ namespace EnergyScore.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "HeatPumps");
-
-            migrationBuilder.DropTable(
-                name: "InsulationMaterialDynamicOptions");
 
             migrationBuilder.DropTable(
                 name: "PerimeterInsulations");
@@ -1221,19 +1224,19 @@ namespace EnergyScore.Persistence.Migrations
                 name: "WaterHeatingSystems");
 
             migrationBuilder.DropTable(
+                name: "InsulationMaterialDynamicOptions");
+
+            migrationBuilder.DropTable(
                 name: "Windows");
 
             migrationBuilder.DropTable(
-                name: "Ducts");
-
-            migrationBuilder.DropTable(
-                name: "Insulations");
+                name: "DistributionSystem");
 
             migrationBuilder.DropTable(
                 name: "Slabs");
 
             migrationBuilder.DropTable(
-                name: "DistributionSystem");
+                name: "Insulations");
 
             migrationBuilder.DropTable(
                 name: "FoundationWalls");

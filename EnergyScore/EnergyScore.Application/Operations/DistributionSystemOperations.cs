@@ -4,6 +4,7 @@ using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Persistence.DBConnection;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnergyScore.Application.Operations
 {
@@ -11,6 +12,7 @@ namespace EnergyScore.Application.Operations
     {
         public ResponseForDistributionSystem AddDistributionSystem(DistributionSystemsDTO dsDTO, Guid BuildingId);
         public IEnumerable<NameWithId>? GetDistributionSystemNameByBuildingId(Guid? BuildingId);
+        public IEnumerable<DistributionSystemDTO> GetDistributionSystemByBuildingId(Guid? BuildingId);
     }
     public class DistributionSystemOperations : IDistributionSystemOperations
     {
@@ -36,7 +38,7 @@ namespace EnergyScore.Application.Operations
         public IEnumerable<DistributionSystemDTO> GetDistributionSystemByBuildingId(Guid? BuildingId)
         {
             if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
-            ICollection<DistributionSystem> ds = _dbConnect.DistributionSystem
+            ICollection<DistributionSystem> ds = _dbConnect.DistributionSystem.Include(obj=>obj.Ducts).ThenInclude(obj=>obj.DuctInsulationMaterialDynamicOptions)
                 .Where(obj => obj.BuildingId == BuildingId).ToList();
             return _mapper.Map<IEnumerable<DistributionSystemDTO>>(ds);
         }

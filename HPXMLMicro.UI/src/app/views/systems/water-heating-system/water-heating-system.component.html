@@ -26,7 +26,9 @@
           class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
         >
           <div class="col-12 d-flex">
-            <h5 class="mb-0">Water Heating System ({{ waterHeatingSystemIndex + 1 }})</h5>
+            <h5 class="mb-0">
+              Water Heating System ({{ waterHeatingSystemIndex + 1 }})
+            </h5>
             <button
               class="ms-2 icon-btn"
               (click)="
@@ -61,7 +63,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="waterHeatingSystemItem.get('HeatingSystemName')?.errors?.['required']"
                   >
-                    Water Heating System Name is required
+                    Water Heating System Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -92,7 +94,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fraction DHW Load Served is required
+                    Fraction DHW Load Served is invalid
                   </label>
                 </div>
               </div>
@@ -103,7 +105,7 @@
                 <ng-select
                   [items]="waterHeaterTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Water Heater Type"
@@ -120,7 +122,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Water Heater Type is required
+                    Water Heater Type is invalid
                   </label>
                 </div>
               </div>
@@ -131,7 +133,7 @@
                 <ng-select
                   [items]="fuelTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Fuel Type"
@@ -148,7 +150,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fuel Type is required
+                    Fuel Type is invalid
                   </label>
                 </div>
               </div>
@@ -171,7 +173,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Energy Factor is required
+                    Energy Factor is invalid
                   </label>
                 </div>
               </div>
@@ -196,9 +198,55 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Uniform Energy Factor is required
+                    Uniform Energy Factor is invalid
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-box">
+              <label> Model Year </label>
+              <input
+                formControlName="modelYear"
+                type="number"
+                id="modelYear"
+                placeholder="Model Year"
+              />
+              <div
+                class="errormsg"
+                *ngIf="
+                  (waterHeatingSystemItem.get('modelYear')?.touched ||
+                    waterHeatingSystemItem.get('modelYear')?.dirty) &&
+                  waterHeatingSystemItem.get('modelYear')?.invalid
+                "
+              >
+                <label class="text-danger fw-semibold position-absolute">
+                  Model Year is invalid
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-box">
+              <label> Year Installed </label>
+              <input
+                formControlName="yearInstalled"
+                type="number"
+                id="yearInstalled"
+                placeholder="Year Installed"
+              />
+              <div
+                class="errormsg"
+                *ngIf="
+                  (waterHeatingSystemItem.get('yearInstalled')?.touched ||
+                    waterHeatingSystemItem.get('yearInstalled')?.dirty) &&
+                  waterHeatingSystemItem.get('yearInstalled')?.invalid
+                "
+              >
+                <label class="text-danger fw-semibold position-absolute">
+                  Year Installed is invalid
+                </label>
               </div>
             </div>
           </div>
@@ -211,8 +259,8 @@
     <button
       class="bg-secondary btn-style"
       (click)="goNext()"
-      [disabled]="!enableNext"
-    >
+      >
+      <!-- [disabled]="!enableNext" -->
       Next
     </button>
   </div>

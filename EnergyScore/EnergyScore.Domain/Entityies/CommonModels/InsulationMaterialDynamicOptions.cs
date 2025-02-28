@@ -13,7 +13,5 @@ namespace EnergyScore.Domain.Entityies.CommonModels
         public string? SprayFoam { get; set; }
         public Insulation? Insulation { get; set; }
         public Guid? InsulationId { get; set; }
-        public Duct? Duct { get; set; }
-        public Guid DuctId { get; set; }
     }
 }

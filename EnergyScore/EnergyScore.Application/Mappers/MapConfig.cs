@@ -15,7 +15,7 @@ using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Domain.Entityies.HVACPlantModels;
 using EnergyScore.Application.Mappers.DTOS.HVACPlantDTOS;
-using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Domain.Entityies.WaterHeatingModels;
 using EnergyScore.Application.Mappers.DTOS.WaterHeating;
 using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
 using EnergyScore.Application.Mappers.DTOS.PhotovoltaicsDTOS;

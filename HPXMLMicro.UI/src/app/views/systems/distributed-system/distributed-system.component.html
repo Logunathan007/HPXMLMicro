@@ -66,7 +66,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="distributionSystemItem.get('distributionSystemName')?.errors?.['required']"
                   >
-                    Distribution System Name is required
+                    Distribution System Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -83,7 +83,7 @@
                 <ng-select
                   [items]="leakinessObservedVisualInspectionOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Leakiness Observed Visual Inspection"
@@ -106,7 +106,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Leakiness Observed Visual Inspection is required
+                    Leakiness Observed Visual Inspection is invalid
                   </label>
                 </div>
               </div>
@@ -117,7 +117,7 @@
                 <ng-select
                   [items]="booleanOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Duct System Sealed or not"
@@ -134,7 +134,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Duct System Sealed to is required
+                    Duct System Sealed to is invalid
                   </label>
                 </div>
               </div>
@@ -145,7 +145,7 @@
                 <ng-select
                   [items]="ductTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Duct Type"
@@ -162,7 +162,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Duct Type is required
+                    Duct Type is invalid
                   </label>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                 <ng-select
                   [items]="unitsOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Units"
@@ -190,7 +190,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Units is required
+                    Units is invalid
                   </label>
                 </div>
               </div>
@@ -213,7 +213,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Value is required
+                    Value is invalid
                   </label>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                 <ng-select
                   [items]="totalOrToOutsideOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Total Or To Outside"
@@ -241,7 +241,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Total Or To Outside is required
+                    Total Or To Outside is invalid
                   </label>
                 </div>
               </div>
@@ -276,7 +276,7 @@
                           )?.value?.options
                         "
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         [placeholder]="
@@ -381,7 +381,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Duct Insulation R-Value is required
+                          Duct Insulation R-Value is invalid
                         </label>
                       </div>
                     </div>
@@ -406,7 +406,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Duct Insulation Thickness is required
+                          Duct Insulation Thickness is invalid
                         </label>
                       </div>
                     </div>
@@ -417,7 +417,7 @@
                       <ng-select
                         [items]="ductInsulationMaterialOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="DuctInsulation Material"
@@ -436,7 +436,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          DuctInsulation Material is required
+                          DuctInsulation Material is invalid
                         </label>
                       </div>
                     </div>
@@ -470,7 +470,7 @@
                                   ?.options
                               "
                               bindLabel="name"
-                              [clearable]="false"
+                              [clearable]="true"
                               [closeOnSelect]="true"
                               bindValue="value"
                               [placeholder]="
@@ -521,7 +521,7 @@
                       <ng-select
                         [items]="ductLocationOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Duct Location"
@@ -540,7 +540,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Duct Location is required
+                          Duct Location is invalid
                         </label>
                       </div>
                     </div>
@@ -565,7 +565,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Fraction Duct Area is required
+                          Fraction Duct Area is invalid
                         </label>
                       </div>
                     </div>
@@ -583,8 +583,8 @@
     <button
       class="bg-secondary btn-style"
       (click)="goNext()"
-      [disabled]="!enableNext"
-    >
+      >
+      <!-- [disabled]="!enableNext" -->
       Next
     </button>
   </div>

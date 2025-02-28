@@ -206,7 +206,7 @@ export class ZoneRoofComponent {
   // for click event functions
   onSubmit() {
     if (this.atticForm.invalid) {
-      this.atticForm.markAllAsTouched();
+      this.atticForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let attic = this.atticForm.value;

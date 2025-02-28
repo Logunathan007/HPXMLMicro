@@ -11,6 +11,8 @@ namespace EnergyScore.Application.Mappers.DTOS.WaterHeating
         public string FuelType { get; set; }
         public double EnergyFactor { get; set; }
         public double UniformEnergyFactor { get; set; }
+        public int ModelYear { get; set; }
+        public int YearInstalled { get; set; }
         public Guid BuildingId { get; set; }
         public Guid WaterHeatingSystemsId { get; set; }
     }

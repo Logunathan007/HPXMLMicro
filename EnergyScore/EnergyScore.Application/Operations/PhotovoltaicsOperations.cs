@@ -11,6 +11,7 @@ namespace EnergyScore.Application.Operations
     public interface IPhotovoltaicsOperations
     {
         public ResponseForPhotovoltaic Addphotovoltaic(PhotovoltaicsDTO photovoltaicsDTO, Guid buildingId);
+        public IEnumerable<PVSystemDTO> GetPVSystemsByBuildingId(Guid buildingId);
     }
     public class PhotovoltaicsOperations : IPhotovoltaicsOperations
     {
@@ -30,6 +31,12 @@ namespace EnergyScore.Application.Operations
             _dbConnect.SaveChanges();
             _buildingOperations.UpdatePhotovoltaicsId(buildingId, photovoltaic.Id);
             return new ResponseForPhotovoltaic { Failed = false, Message = "Photovoltaics Added Successfully",PhotovoltaicsID  = photovoltaic.Id };
+        }
+        public IEnumerable<PVSystemDTO> GetPVSystemsByBuildingId(Guid buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<PVSystem> pVSystem = _dbConnect.PVSystems.Where(obj => obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<PVSystemDTO>>(pVSystem);  
         }
     }
 }

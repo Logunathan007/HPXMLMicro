@@ -51,7 +51,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="pVSystemItem.get('pVSystemName')?.errors?.['required']"
                   >
-                    Photo Voltaic System Name is required
+                    Photo Voltaic System Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -80,7 +80,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Max Power Output is required
+                    Max Power Output is invalid
                   </label>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Collector Area is required
+                    Collector Area is invalid
                   </label>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Number Of Panels is required
+                    Number Of Panels is invalid
                   </label>
                 </div>
               </div>
@@ -149,7 +149,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Year Inverter Manufactured is required
+                    Year Inverter Manufactured is invalid
                   </label>
                 </div>
               </div>
@@ -172,7 +172,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Year Modules Manufactured is required
+                    Year Modules Manufactured is invalid
                   </label>
                 </div>
               </div>
@@ -195,7 +195,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Array Azimuth is required
+                    Array Azimuth is invalid
                   </label>
                 </div>
               </div>
@@ -206,7 +206,7 @@
                 <ng-select
                   [items]="orientationOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Array Orientation"
@@ -223,7 +223,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Array Orientation is required
+                    Array Orientation is invalid
                   </label>
                 </div>
               </div>
@@ -246,7 +246,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Array Tilt is required
+                    Array Tilt is invalid
                   </label>
                 </div>
               </div>
@@ -258,13 +258,13 @@
   </form>
   <div class="d-flex justify-content-end gap-3 my-5">
     <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
-    <button
+    <!-- <button
       class="bg-secondary btn-style"
       (click)="goNext()"
+      >
       [disabled]="!enableNext"
-    >
       Next
-    </button>
+    </button> -->
   </div>
   <div class="generate-section">
     <button

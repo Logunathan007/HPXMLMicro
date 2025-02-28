@@ -1,13 +1,24 @@
 <section class="about-section">
+  <div
+    class="rounded-3 border-danger px-lg-4 px-md-3 py-3 p-2 my-lg-5 my-md-3 my-2 error-box"
+    *ngIf="errorList.length != 0"
+  >
+    <h5
+      class="text-danger my-lg-3 my-2"
+      *ngFor="let errorMsg of errorList; let i = index"
+    >
+      {{ i + 1 + ")   " + errorMsg }}
+    </h5>
+  </div>
   <form [formGroup]="aboutForm">
     <div class="row">
       <div class="col-md-6">
         <div class="select-box">
-          <label> Residential Facility Type </label>
+          <label class="required"> Residential Facility Type </label>
           <ng-select
             [items]="residentialFacilityTypeOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Residential Facility Type"
@@ -24,14 +35,14 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Residential Facility Type is required
+              Residential Facility Type is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label> Year of Build </label>
+          <label class="required"> Year of Build </label>
           <input
             formControlName="yearBuilt"
             type="number"
@@ -50,7 +61,7 @@
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['yearBuilt']?.errors?.['required']"
             >
-              Year of Build is required
+              Year of Build is invalid
             </label>
             <label
               class="text-danger fw-semibold position-absolute"
@@ -63,7 +74,7 @@
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label> Number of Bedrooms </label>
+          <label class="required"> Number of Bedrooms </label>
           <input
             formControlName="numberofBedrooms"
             type="number"
@@ -79,14 +90,14 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Number of Bedrooms is required
+              Number of Bedrooms is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="input-box">
-          <label> Number of Conditioned Floors Above Grade </label>
+        <div class="input-box" >
+          <label class="required"> Number of Conditioned Floors Above Grade </label>
           <input
             formControlName="numberofConditionedFloorsAboveGrade"
             type="number"
@@ -104,7 +115,7 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Number of Conditioned Floors Above Grade is required
+              Number of Conditioned Floors Above Grade is invalid
             </label>
           </div>
         </div>
@@ -127,7 +138,7 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Average Ceiling Height is required
+              Average Ceiling Height is invalid
             </label>
           </div>
         </div>
@@ -150,7 +161,7 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Conditioned Building Volume is required
+              Conditioned Building Volume is invalid
             </label>
           </div>
         </div>
@@ -173,7 +184,7 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Conditioned Floor Area is required
+              Conditioned Floor Area is invalid
             </label>
           </div>
         </div>
@@ -199,7 +210,7 @@
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['azimuthOfFrontOfHome']?.errors?.['required']"
             >
-              Azimuth Of Front Of Home is required
+              Azimuth Of Front Of Home is invalid
             </label>
             <label
               class="text-danger fw-semibold position-absolute"
@@ -216,7 +227,7 @@
           <ng-select
             [items]="orientationOfFrontOfHomeOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Orientation Of Front Of Home"
@@ -233,7 +244,7 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Orientation Of Front Of Home is required
+              Orientation Of Front Of Home is invalid
             </label>
           </div>
         </div>
@@ -244,7 +255,7 @@
           <ng-select
             [items]="manufacturedHomeSectionsOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Manufactured Home Sections"
@@ -261,7 +272,33 @@
             "
           >
             <label class="text-danger fw-semibold position-absolute">
-              Manufactured Home Sections is required
+              Manufactured Home Sections is invalid
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="input-box">
+          <label> Comments </label>
+          <textarea
+            formControlName="comments"
+            type="text"
+            id="comments"
+            placeholder="Comments"
+          ></textarea>
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['comments']?.touched ||
+                aboutFormControl['comments']?.dirty) &&
+              aboutFormControl['comments']?.invalid
+            "
+          >
+            <label
+              class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['comments']?.errors?.['required']"
+            >
+              Comments is invalid
             </label>
           </div>
         </div>
@@ -270,7 +307,11 @@
 
     <h3 class="mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
       Air Infiltration Measurements &nbsp;&nbsp;
-      <button class="ms-2 icon-btn" (click)="addAirInfiltrationInput()">
+      <button
+        class="ms-2 icon-btn"
+        [disabled]=""
+        (click)="addAirInfiltrationInput()"
+      >
         <img src="/assets/icons/plus.svg" width="30px" alt="" />
       </button>
     </h3>
@@ -284,7 +325,7 @@
       >
         <div class="row" [formGroupName]="i">
           <div class="col-12 d-flex">
-            <h5 class="mb-0">Air Infiltration Test ({{ i + 1 }})</h5>
+            <h5 class="mb-0">Air Infiltration ({{ i + 1 }})</h5>
             <button
               class="ms-2 icon-btn"
               (click)="removeAirInfiltrationInput(i)"
@@ -298,7 +339,7 @@
               <ng-select
                 [items]="housePressureOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="House Pressure"
@@ -315,7 +356,7 @@
                 "
               >
                 <label class="text-danger fw-semibold position-absolute">
-                  House Pressure is required
+                  House Pressure is invalid
                 </label>
               </div>
             </div>
@@ -326,7 +367,7 @@
               <ng-select
                 [items]="unitofMeasureOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="Unit of Measure"
@@ -343,7 +384,35 @@
                 "
               >
                 <label class="text-danger fw-semibold position-absolute">
-                  Unit of Measure is required
+                  Unit of Measure is invalid
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="select-box">
+              <label> Air Sealing </label>
+              <ng-select
+                [items]="booleanOptions"
+                bindLabel="name"
+                [clearable]="true"
+                [closeOnSelect]="true"
+                bindValue="value"
+                placeholder="Air Sealing"
+                id="airSealing"
+                formControlName="airSealing"
+              >
+              </ng-select>
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('airSealing')?.touched ||
+                    infiltration.get('airSealing')?.dirty) &&
+                  infiltration.get('airSealing')?.invalid
+                "
+              >
+                <label class="text-danger fw-semibold position-absolute">
+                  Air Sealing is invalid
                 </label>
               </div>
             </div>
@@ -366,7 +435,7 @@
                 "
               >
                 <label class="text-danger fw-semibold position-absolute">
-                  Air Leakage is required
+                  Air Leakage is invalid
                 </label>
               </div>
             </div>
@@ -377,7 +446,7 @@
               <ng-select
                 [items]="leakinessDescriptionOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="Leakiness Description"
@@ -394,7 +463,7 @@
                 "
               >
                 <label class="text-danger fw-semibold position-absolute">
-                  Leakiness Description is required
+                  Leakiness Description is invalid
                 </label>
               </div>
             </div>
@@ -404,7 +473,7 @@
     </div>
     <div class="d-flex justify-content-end gap-3">
       <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
-      <button type="button"  class="bg-secondary btn-style" (click)="goNext()">
+      <button type="button" class="bg-secondary btn-style" (click)="goNext()">
         <!-- [disabled]="!enableNext" -->
         Next
       </button>

@@ -45,7 +45,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="wallItem.get('wallName')?.errors?.['required']"
                   >
-                    Wall name is required
+                    Wall name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -62,7 +62,7 @@
                 <ng-select
                   [items]="wallTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Wall Type"
@@ -79,7 +79,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Wall Type is required
+                    Wall Type is invalid
                   </label>
                 </div>
               </div>
@@ -90,7 +90,7 @@
                 <ng-select
                   [items]="ExteriorAdjacentToOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Exterior Adjacent to"
@@ -107,7 +107,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Exterior Adjacent to is required
+                    Exterior Adjacent to is invalid
                   </label>
                 </div>
               </div>
@@ -118,7 +118,7 @@
                 <ng-select
                   [items]="interiorAdjacentToOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Interior Adjacent to"
@@ -135,7 +135,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Interior Adjacent to is required
+                    Interior Adjacent to is invalid
                   </label>
                 </div>
               </div>
@@ -157,7 +157,7 @@
                       <ng-select
                         [items]="wallTypeDynamic.get('options')?.value?.options"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         [placeholder]="
@@ -200,7 +200,7 @@
                 <ng-select
                   [items]="sidingOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Siding"
@@ -217,7 +217,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Siding is required
+                    Siding is invalid
                   </label>
                 </div>
               </div>
@@ -240,7 +240,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Area is required
+                    Area is invalid
                   </label>
                 </div>
               </div>
@@ -267,7 +267,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="wallItem.get('azimuth')?.errors?.['required']"
                   >
-                    Azimuth is required
+                    Azimuth is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -284,7 +284,7 @@
                 <ng-select
                   [items]="orientationOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Orientation "
@@ -301,7 +301,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Orientation is required
+                    Orientation is invalid
                   </label>
                 </div>
               </div>
@@ -367,7 +367,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Nominal R-Value is required
+                          Nominal R-Value is invalid
                         </label>
                       </div>
                     </div>
@@ -395,7 +395,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Assembly Effective R-Value is required
+                          Assembly Effective R-Value is invalid
                         </label>
                       </div>
                     </div>
@@ -406,7 +406,7 @@
                       <ng-select
                         [items]="installationTypeOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Installation Type"
@@ -427,7 +427,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Installation Type is required
+                          Installation Type is invalid
                         </label>
                       </div>
                     </div>
@@ -438,7 +438,7 @@
                       <ng-select
                         [items]="insulationMaterialOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Insulation Material"
@@ -459,7 +459,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Insulation Material is required
+                          Insulation Material is invalid
                         </label>
                       </div>
                     </div>
@@ -493,7 +493,7 @@
                                   ?.options
                               "
                               bindLabel="name"
-                              [clearable]="false"
+                              [clearable]="true"
                               [closeOnSelect]="true"
                               bindValue="value"
                               [placeholder]="
@@ -593,7 +593,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -618,7 +618,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          UFactor is required
+                          UFactor is invalid
                         </label>
                       </div>
                     </div>
@@ -643,7 +643,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          SHGC is required
+                          SHGC is invalid
                         </label>
                       </div>
                     </div>
@@ -669,7 +669,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="windowItem.get('azimuth')?.errors?.['required']"
                         >
-                          Azimuth is required
+                          Azimuth is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -686,7 +686,7 @@
                       <ng-select
                         [items]="orientationOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Orientation "
@@ -705,7 +705,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Orientation is required
+                          Orientation is invalid
                         </label>
                       </div>
                     </div>
@@ -716,7 +716,7 @@
                       <ng-select
                         [items]="frameTypeOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Frame Type"
@@ -735,7 +735,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Frame Type is required
+                          Frame Type is invalid
                         </label>
                       </div>
                     </div>
@@ -765,7 +765,7 @@
                                 frameTypeDynamic.get('options')?.value?.options
                               "
                               bindLabel="name"
-                              [clearable]="false"
+                              [clearable]="true"
                               [closeOnSelect]="true"
                               bindValue="value"
                               [placeholder]="
@@ -812,7 +812,7 @@
                       <ng-select
                         [items]="glassTypeOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Glass Type"
@@ -831,7 +831,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Glass Type is required
+                          Glass Type is invalid
                         </label>
                       </div>
                     </div>
@@ -842,7 +842,7 @@
                       <ng-select
                         [items]="gasFillOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Gas Fill"
@@ -861,7 +861,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Gas Fill is required
+                          Gas Fill is invalid
                         </label>
                       </div>
                     </div>
@@ -872,7 +872,7 @@
                       <ng-select
                         [items]="glassLayersOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Glass Layers"
@@ -891,7 +891,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Glass Layers is required
+                          Glass Layers is invalid
                         </label>
                       </div>
                     </div>

@@ -1,8 +1,9 @@
 ﻿
 using AutoMapper;
 using EnergyScore.Application.Mappers.DTOS.WaterHeating;
+using EnergyScore.Application.Templates.HPXMLs;
 using EnergyScore.Application.Templates.Responses;
-using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Domain.Entityies.WaterHeatingModels;
 using EnergyScore.Persistence.DBConnection;
 
 namespace EnergyScore.Application.Operations
@@ -10,6 +11,7 @@ namespace EnergyScore.Application.Operations
     public interface IWaterHeatingOperations
     {
         public ResponseForWaterHeating AddWaterHeating(WaterHeatingDTO waterHeatingDTO, Guid buildingId);
+        public IEnumerable<WaterHeatingSystemDTO> GetWaterHeatingSystemByBuildingId(Guid buildingId);
     }
     public class WaterHeatingOperations : IWaterHeatingOperations
     {
@@ -29,6 +31,12 @@ namespace EnergyScore.Application.Operations
             _dbConnect.SaveChanges();
             _buildingOperations.UpdateWaterHeatingSystemId(buildingId, waterHeating.Id);
             return new ResponseForWaterHeating { Failed = false, Message = "WaterHeating Added Successfully", WaterHeatingId = waterHeating.Id };
+        }
+        public IEnumerable<WaterHeatingSystemDTO> GetWaterHeatingSystemByBuildingId(Guid buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<WaterHeatingSystem> whs = _dbConnect.WaterHeatingSystems.Where(obj => obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<WaterHeatingSystemDTO>>(whs);
         }
     }
 }

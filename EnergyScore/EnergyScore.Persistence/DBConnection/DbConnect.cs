@@ -7,7 +7,7 @@ using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Domain.Entityies.ZoneWallModels;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Domain.Entityies.HVACPlantModels;
-using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Domain.Entityies.WaterHeatingModels;
 using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
 
 

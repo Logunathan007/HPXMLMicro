@@ -86,7 +86,7 @@ export class PvSystemComponent {
   // for click event functions
   onSubmit() {
     if (this.photovoltaicForm.invalid) {
-      this.photovoltaicForm.markAllAsTouched();
+      this.photovoltaicForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     this.commonService.sendPhotovoltaic(this.photovoltaicForm.value, this.buildingId).subscribe({
@@ -98,11 +98,11 @@ export class PvSystemComponent {
       }
     })
   }
-  goNext() {
-    this.router.navigate([''], {
-      queryParams: { id: this.buildingId }
-    })
-  }
+  // goNext() {
+  //   this.router.navigate([''], {
+  //     queryParams: { id: this.buildingId }
+  //   })
+  // }
   generateHPXML() {
     this.commonService.getHPXMLString(this.buildingId).subscribe(
       (val: any) => {

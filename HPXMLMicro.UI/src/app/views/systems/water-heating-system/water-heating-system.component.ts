@@ -54,6 +54,8 @@ export class WaterHeatingSystemComponent {
       fuelType: [null, [Validators.required]], //options
       energyFactor: [null, [Validators.required, Validators.min(0), Validators.max(5)]],
       uniformEnergyFactor: [null, [Validators.required, Validators.min(0), Validators.max(5)]],
+      modelYear: [null, [Validators.required, Validators.min(999), Validators.max(new Date().getFullYear())]],
+      yearInstalled: [null, [Validators.required, Validators.min(999), Validators.max(new Date().getFullYear())]],
     })
     return hw;
   }
@@ -83,7 +85,7 @@ export class WaterHeatingSystemComponent {
   // for click event functions
   onSubmit() {
     if (this.waterHeaterForm.invalid) {
-      this.waterHeaterForm.markAllAsTouched();
+      this.waterHeaterForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -97,7 +99,7 @@ export class WaterHeatingSystemComponent {
     })
   }
   goNext() {
-    this.router.navigate([''], {
+    this.router.navigate(['/systems/pv-system'], {
       queryParams: { id: this.buildingId }
     })
   }

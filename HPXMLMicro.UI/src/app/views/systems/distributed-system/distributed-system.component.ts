@@ -177,7 +177,7 @@ export class DistributedSystemComponent {
   // for click event functions
   onSubmit() {
     if (this.distributedSystemForm.invalid) {
-      this.distributedSystemForm.markAllAsTouched();
+      this.distributedSystemForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let ds = this.distributedSystemForm.value;
@@ -197,7 +197,7 @@ export class DistributedSystemComponent {
   }
 
   goNext() {
-    this.router.navigate([''], {
+    this.router.navigate(['/systems/hvac-heat-cool'], {
       queryParams: { id: this.buildingId }
     })
   }

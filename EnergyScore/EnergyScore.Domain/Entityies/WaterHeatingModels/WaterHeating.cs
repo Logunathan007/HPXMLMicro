@@ -1,5 +1,5 @@
 ﻿
-namespace EnergyScore.Domain.Entityies.HeatingSystemModels
+namespace EnergyScore.Domain.Entityies.WaterHeatingModels
 {
     public class WaterHeating
     {

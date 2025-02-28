@@ -1,6 +1,5 @@
 ﻿
 using System.Xml.Serialization;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace EnergyScore.Application.Templates.HPXMLs.ZoneRoofs
 {
@@ -59,5 +58,4 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneRoofs
     public class Stone {}
     public class LogWall {}
     public class Adobe {}
-    public class Other {}
 }

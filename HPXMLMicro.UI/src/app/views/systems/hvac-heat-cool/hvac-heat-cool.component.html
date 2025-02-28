@@ -51,7 +51,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="heatPumpItem.get('heatPumpName')?.errors?.['required']"
                   >
-                    Heat Pump Name is required
+                    Heat Pump Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -80,7 +80,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fraction Heat Load Served is required
+                    Fraction Heat Load Served is invalid
                   </label>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heating Capacity 17F is required
+                    Heating Capacity 17F is invalid
                   </label>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heating Capacity is required
+                    Heating Capacity is invalid
                   </label>
                 </div>
               </div>
@@ -150,7 +150,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fraction Cool Load Served is required
+                    Fraction Cool Load Served is invalid
                   </label>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Cooling Capacity is required
+                    Cooling Capacity is invalid
                   </label>
                 </div>
               </div>
@@ -184,7 +184,7 @@
                 <ng-select
                   [items]="heatPumpTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Heat Pump Type"
@@ -201,7 +201,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heat Pump Type is required
+                    Heat Pump Type is invalid
                   </label>
                 </div>
               </div>
@@ -212,7 +212,7 @@
                 <ng-select
                   [items]="annualHeatingEfficiencyUnitsOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Annual Heating Efficiency Units"
@@ -231,7 +231,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Heating Efficiency Units is required
+                    Annual Heating Efficiency Units is invalid
                   </label>
                 </div>
               </div>
@@ -256,7 +256,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Heating Efficiency Value is required
+                    Annual Heating Efficiency Value is invalid
                   </label>
                 </div>
               </div>
@@ -267,7 +267,7 @@
                 <ng-select
                   [items]="annualHeatingEfficiencyUnitsOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Annual Cooling Efficiency Units"
@@ -286,7 +286,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Cooling Efficiency Units is required
+                    Annual Cooling Efficiency Units is invalid
                   </label>
                 </div>
               </div>
@@ -311,7 +311,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Cooling Efficiency Value is required
+                    Annual Cooling Efficiency Value is invalid
                   </label>
                 </div>
               </div>
@@ -334,7 +334,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Model Year is required
+                    Model Year is invalid
                   </label>
                 </div>
               </div>
@@ -357,7 +357,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Year Installed is required
+                    Year Installed is invalid
                   </label>
                 </div>
               </div>
@@ -380,7 +380,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Floor Area Served is required
+                    Floor Area Served is invalid
                   </label>
                 </div>
               </div>
@@ -448,7 +448,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="heatingSystemItem.get('heatingSystemName')?.errors?.['required']"
                   >
-                    Heating System Name is required
+                    Heating System Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -465,7 +465,7 @@
                 <ng-select
                   [items]="distributionSystemOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Distribution System"
@@ -482,7 +482,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Distribution System is required
+                    Distribution System is invalid
                   </label>
                 </div>
               </div>
@@ -505,7 +505,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fraction Heat Load Served is required
+                    Fraction Heat Load Served is invalid
                   </label>
                 </div>
               </div>
@@ -528,7 +528,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heating Capacity is required
+                    Heating Capacity is invalid
                   </label>
                 </div>
               </div>
@@ -539,7 +539,7 @@
                 <ng-select
                   [items]="heatingSystemFuelOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Heating System Fuel"
@@ -556,7 +556,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heating System Fuel is required
+                    Heating System Fuel is invalid
                   </label>
                 </div>
               </div>
@@ -567,7 +567,7 @@
                 <ng-select
                   [items]="heatingSystemTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Heating System Type"
@@ -584,7 +584,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Heating System Type is required
+                    Heating System Type is invalid
                   </label>
                 </div>
               </div>
@@ -595,7 +595,7 @@
                 <ng-select
                   [items]="annualHeatingEfficiencyUnitsOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Annual Heating Efficiency Units"
@@ -615,7 +615,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Heating Efficiency Units is required
+                    Annual Heating Efficiency Units is invalid
                   </label>
                 </div>
               </div>
@@ -641,7 +641,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Heating Efficiency Value is required
+                    Annual Heating Efficiency Value is invalid
                   </label>
                 </div>
               </div>
@@ -664,7 +664,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Model Year is required
+                    Model Year is invalid
                   </label>
                 </div>
               </div>
@@ -687,7 +687,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Year Installed is required
+                    Year Installed is invalid
                   </label>
                 </div>
               </div>
@@ -710,7 +710,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Floor Area Served is required
+                    Floor Area Served is invalid
                   </label>
                 </div>
               </div>
@@ -778,7 +778,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="coolingSystemItem.get('coolingSystemName')?.errors?.['required']"
                   >
-                    Cooling System Name is required
+                    Cooling System Name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -795,7 +795,7 @@
                 <ng-select
                   [items]="distributionSystemOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Distribution System"
@@ -812,7 +812,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Distribution System is required
+                    Distribution System is invalid
                   </label>
                 </div>
               </div>
@@ -835,7 +835,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Fraction Cool Load Served is required
+                    Fraction Cool Load Served is invalid
                   </label>
                 </div>
               </div>
@@ -858,7 +858,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Cooling Capacity is required
+                    Cooling Capacity is invalid
                   </label>
                 </div>
               </div>
@@ -869,7 +869,7 @@
                 <ng-select
                   [items]="coolingSystemTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Cooling System Type"
@@ -886,7 +886,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Cooling System Type is required
+                    Cooling System Type is invalid
                   </label>
                 </div>
               </div>
@@ -898,7 +898,7 @@
                 <ng-select
                   [items]="annualCoolingEfficiencyUnitsOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Annual Cooling Efficiency Units"
@@ -918,7 +918,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Cooling Efficiency Units is required
+                    Annual Cooling Efficiency Units is invalid
                   </label>
                 </div>
               </div>
@@ -944,7 +944,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Annual Cooling Efficiency Value is required
+                    Annual Cooling Efficiency Value is invalid
                   </label>
                 </div>
               </div>
@@ -967,7 +967,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Model Year is required
+                    Model Year is invalid
                   </label>
                 </div>
               </div>
@@ -990,7 +990,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Year Installed is required
+                    Year Installed is invalid
                   </label>
                 </div>
               </div>
@@ -1013,7 +1013,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Floor Area Served is required
+                    Floor Area Served is invalid
                   </label>
                 </div>
               </div>
@@ -1028,8 +1028,8 @@
     <button
       class="bg-secondary btn-style"
       (click)="goNext()"
-      [disabled]="!enableNext"
-    >
+      >
+      <!-- [disabled]="!enableNext" -->
       Next
     </button>
   </div>

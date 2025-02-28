@@ -5,7 +5,7 @@ using EnergyScore.Domain.Entityies.ZoneWallModels;
 using System.ComponentModel.DataAnnotations;
 using EnergyScore.Domain.Entityies.DistributionSystemModels;
 using EnergyScore.Domain.Entityies.HVACPlantModels;
-using EnergyScore.Domain.Entityies.HeatingSystemModels;
+using EnergyScore.Domain.Entityies.WaterHeatingModels;
 using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
 
 namespace EnergyScore.Domain.Entityies.AddressModels

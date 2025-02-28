@@ -1,7 +1,7 @@
 ﻿
 using EnergyScore.Domain.Entityies.AddressModels;
 
-namespace EnergyScore.Domain.Entityies.HeatingSystemModels
+namespace EnergyScore.Domain.Entityies.WaterHeatingModels
 {
     public class WaterHeatingSystem
     {
@@ -12,6 +12,8 @@ namespace EnergyScore.Domain.Entityies.HeatingSystemModels
         public string FuelType { get; set; }
         public double EnergyFactor { get; set; }
         public double UniformEnergyFactor { get; set; }
+        public int ModelYear { get; set; }
+        public int YearInstalled { get; set; }
         public Building Building { get; set; }
         public Guid BuildingId { get; set; }
         public WaterHeating WaterHeating{ get; set; }

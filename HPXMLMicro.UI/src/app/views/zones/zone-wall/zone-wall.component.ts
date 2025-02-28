@@ -298,7 +298,7 @@ export class ZoneWallComponent {
   // for click event functions
   onSubmit() {
     if (this.wallForm.invalid) {
-      this.wallForm.markAllAsTouched();
+      this.wallForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let wall = this.wallForm.value;
