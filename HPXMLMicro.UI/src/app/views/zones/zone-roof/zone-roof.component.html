@@ -45,7 +45,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="atticItem.get('atticName')?.errors?.['required']"
                   >
-                    Attic name is required
+                    Attic name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -62,7 +62,7 @@
                 <ng-select
                   [items]="AtticTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Attic Type"
@@ -79,7 +79,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Attic is required
+                    Attic is invalid
                   </label>
                 </div>
               </div>
@@ -101,7 +101,7 @@
                       <ng-select
                         [items]="atticDynamic.get('options')?.value?.options"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         [placeholder]="
@@ -191,7 +191,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="roofItem.get('roofName')?.errors?.['required']"
                         >
-                          Roof Name is required
+                          Roof Name is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -208,7 +208,7 @@
                       <ng-select
                         [items]="RoofTypeOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder=" Roof Type "
@@ -227,7 +227,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Roof Type is required
+                          Roof Type is invalid
                         </label>
                       </div>
                     </div>
@@ -238,7 +238,7 @@
                       <ng-select
                         [items]="RoofColorOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder=" Roof Color "
@@ -257,7 +257,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Roof Color is required
+                          Roof Color is invalid
                         </label>
                       </div>
                     </div>
@@ -268,7 +268,7 @@
                       <ng-select
                         [items]="BooleanOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Radiant Barrier"
@@ -287,7 +287,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Radiant Barrier is required
+                          Radiant Barrier is invalid
                         </label>
                       </div>
                     </div>
@@ -312,7 +312,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -337,7 +337,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Solar Absorptance is required
+                          Solar Absorptance is invalid
                         </label>
                       </div>
                     </div>
@@ -407,7 +407,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -438,7 +438,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -507,7 +507,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Area is required
+                                Area is invalid
                               </label>
                             </div>
                           </div>
@@ -532,7 +532,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                UFactor is required
+                                UFactor is invalid
                               </label>
                             </div>
                           </div>
@@ -557,7 +557,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                SHGC is required
+                                SHGC is invalid
                               </label>
                             </div>
                           </div>
@@ -621,7 +621,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="wallItem.get('wallName')?.errors?.['required']"
                         >
-                          Wall Name is required
+                          Wall Name is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -638,7 +638,7 @@
                       <ng-select
                         [items]="atticWallTypeOptions"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         placeholder="Attic Wall Type"
@@ -657,7 +657,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Wall Type is required
+                          Wall Type is invalid
                         </label>
                       </div>
                     </div>
@@ -682,7 +682,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -765,7 +765,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -796,7 +796,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -865,7 +865,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="frameFloorItem.get('frameFloorName')?.errors?.['required']"
                         >
-                          Frame Floor is required
+                          Frame Floor is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -896,7 +896,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -974,7 +974,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -1005,7 +1005,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>

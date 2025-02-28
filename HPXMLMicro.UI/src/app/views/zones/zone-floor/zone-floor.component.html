@@ -48,7 +48,7 @@
                     class="text-danger fw-semibold position-absolute"
                     *ngIf="foundationItem.get('foundationName')?.errors?.['required']"
                   >
-                    Foundation name is required
+                    Foundation name is invalid
                   </label>
                   <label
                     class="text-danger fw-semibold position-absolute"
@@ -65,7 +65,7 @@
                 <ng-select
                   [items]="foundationTypeOptions"
                   bindLabel="name"
-                  [clearable]="false"
+                  [clearable]="true"
                   [closeOnSelect]="true"
                   bindValue="value"
                   placeholder="Foundation Type"
@@ -82,7 +82,7 @@
                   "
                 >
                   <label class="text-danger fw-semibold position-absolute">
-                    Foundation Type is required
+                    Foundation Type is invalid
                   </label>
                 </div>
               </div>
@@ -107,7 +107,7 @@
                       <ng-select
                         [items]="fndDynamic.get('options')?.value?.options"
                         bindLabel="name"
-                        [clearable]="false"
+                        [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
                         [placeholder]="
@@ -208,7 +208,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="foundationWallItem.get('foundationWallName')?.errors?.['required']"
                         >
-                          Foundation Wall Name is required
+                          Foundation Wall Name is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -239,7 +239,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -322,7 +322,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -353,7 +353,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -418,7 +418,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="slabItem.get('slabName')?.errors?.['required']"
                         >
-                          Slab Name is required
+                          Slab Name is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -449,7 +449,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Exposed Perimeter is required
+                          Exposed Perimeter is invalid
                         </label>
                       </div>
                     </div>
@@ -531,7 +531,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -562,7 +562,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -634,7 +634,7 @@
                           class="text-danger fw-semibold position-absolute"
                           *ngIf="frameFloorItem.get('frameFloorName')?.errors?.['required']"
                         >
-                          Frame Floor is required
+                          Frame Floor is invalid
                         </label>
                         <label
                           class="text-danger fw-semibold position-absolute"
@@ -665,7 +665,7 @@
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          Area is required
+                          Area is invalid
                         </label>
                       </div>
                     </div>
@@ -743,7 +743,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Nominal R-Value is required
+                                Nominal R-Value is invalid
                               </label>
                             </div>
                           </div>
@@ -774,7 +774,7 @@
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
-                                Assembly Effective R-Value is required
+                                Assembly Effective R-Value is invalid
                               </label>
                             </div>
                           </div>

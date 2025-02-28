@@ -1,4 +1,4 @@
-import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions, ExteriorAdjacentToOptions, InteriorAdjacentToOptions } from './../../../shared/lookups/about-lookups';
+import { InstallationTypeOptions, OrientationOptions, WallTypeOptions, InsulationMaterialOptions, GlassTypeOptions, GlassLayersOptions, GasFillOptions, FrameTypeOptions, SidingOptions, ExteriorAdjacentToOptions, InteriorAdjacentToOptions, sprayFoamOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -202,6 +202,19 @@ export class ZoneWallComponent {
           options: this.fb.control(optForRigid)
         })
         break;
+      case 'SprayFoam':
+        let optForSprayFoam = {
+          label: 'Spray Foam Type',
+          placeHolder: 'Spray Foam',
+          options: sprayFoamOptions,
+          name: "sprayFoam",
+          errorMsg: 'Spray Foam is required',
+        }
+        fg = this.fb.group({
+          sprayFoam: [null, Validators.required],
+          options: this.fb.control(optForSprayFoam)
+        })
+        break;
     }
     return fg;
   }
@@ -285,7 +298,7 @@ export class ZoneWallComponent {
   // for click event functions
   onSubmit() {
     if (this.wallForm.invalid) {
-      this.wallForm.markAllAsTouched();
+      this.wallForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let wall = this.wallForm.value;
@@ -309,7 +322,7 @@ export class ZoneWallComponent {
   }
 
   goNext() {
-    this.router.navigate(['wall'], {
+    this.router.navigate(['/systems/distribution-system'], {
       queryParams: { id: this.buildingId }
     })
   }

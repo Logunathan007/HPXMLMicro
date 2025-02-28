@@ -1,0 +1,1059 @@
+<div class="container">
+  <form [formGroup]="hvacPlantForm">
+    <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Heat Pumps &nbsp;&nbsp;
+      <button
+        class="ms-2 icon-btn"
+        (click)="this.addToFormArray(this.heatPumpsObj, this.heatPumpInputs())"
+      >
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <ng-container formArrayName="heatPumps">
+      <ng-container
+        *ngFor="
+          let heatPumpItem of heatPumpsObj?.controls;
+          let heatPumpIndex = index
+        "
+      >
+        <div
+          [formGroupName]="heatPumpIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Heat Pump ({{ heatPumpIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeFromFormArray(heatPumpsObj, heatPumpIndex)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Heat Pump Name </label>
+                <input
+                  formControlName="heatPumpName"
+                  type="text"
+                  id="heatPumpName"
+                  placeholder="Heat Pump Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('heatPumpName')?.touched ||
+                      heatPumpItem.get('heatPumpName')?.dirty) &&
+                    heatPumpItem.get('heatPumpName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="heatPumpItem.get('heatPumpName')?.errors?.['required']"
+                  >
+                    Heat Pump Name is invalid
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!heatPumpItem.get('heatPumpName')?.errors?.['required'] && heatPumpItem.get('heatPumpName')?.errors?.['nameSame']"
+                  >
+                    Heat Pump Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Fraction Heat Load Served </label>
+                <input
+                  formControlName="fractionHeatLoadServed"
+                  type="number"
+                  id="fractionHeatLoadServed"
+                  placeholder="Fraction Heat Load Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('fractionHeatLoadServed')?.touched ||
+                      heatPumpItem.get('fractionHeatLoadServed')?.dirty) &&
+                    heatPumpItem.get('fractionHeatLoadServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fraction Heat Load Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Heating Capacity 17F </label>
+                <input
+                  formControlName="heatingCapacity17F"
+                  type="number"
+                  id="heatingCapacity17F"
+                  placeholder="Heating Capacity 17F"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('heatingCapacity17F')?.touched ||
+                      heatPumpItem.get('heatingCapacity17F')?.dirty) &&
+                    heatPumpItem.get('heatingCapacity17F')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heating Capacity 17F is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Heating Capacity</label>
+                <input
+                  formControlName="heatingCapacity"
+                  type="number"
+                  id="heatingCapacity"
+                  placeholder="Heating Capacity"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('heatingCapacity')?.touched ||
+                      heatPumpItem.get('heatingCapacity')?.dirty) &&
+                    heatPumpItem.get('heatingCapacity')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heating Capacity is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Fraction Cool Load Served </label>
+                <input
+                  formControlName="fractionCoolLoadServed"
+                  type="number"
+                  id="fractionCoolLoadServed"
+                  placeholder="Fraction Cool Load Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('fractionCoolLoadServed')?.touched ||
+                      heatPumpItem.get('fractionCoolLoadServed')?.dirty) &&
+                    heatPumpItem.get('fractionCoolLoadServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fraction Cool Load Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Cooling Capacity </label>
+                <input
+                  formControlName="coolingCapacity"
+                  type="number"
+                  id="coolingCapacity"
+                  placeholder="Cooling Capacity"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('coolingCapacity')?.touched ||
+                      heatPumpItem.get('coolingCapacity')?.dirty) &&
+                    heatPumpItem.get('coolingCapacity')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Cooling Capacity is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Heat Pump Type </label>
+                <ng-select
+                  [items]="heatPumpTypeOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Heat Pump Type"
+                  id="heatPumpType"
+                  formControlName="heatPumpType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('heatPumpType')?.touched ||
+                      heatPumpItem.get('heatPumpType')?.dirty) &&
+                    heatPumpItem.get('heatPumpType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heat Pump Type is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Annual Heating Efficiency Units </label>
+                <ng-select
+                  [items]="annualHeatingEfficiencyUnitsOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Annual Heating Efficiency Units"
+                  id="annualHeatingEfficiencyUnits"
+                  formControlName="annualHeatingEfficiencyUnits"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('annualHeatingEfficiencyUnits')
+                      ?.touched ||
+                      heatPumpItem.get('annualHeatingEfficiencyUnits')
+                        ?.dirty) &&
+                    heatPumpItem.get('annualHeatingEfficiencyUnits')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Heating Efficiency Units is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Annual Heating Efficiency Value </label>
+                <input
+                  formControlName="annualHeatingEfficiencyValue"
+                  type="number"
+                  id="annualHeatingEfficiencyValue"
+                  placeholder="Annual Heating Efficiency Value"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('annualHeatingEfficiencyValue')
+                      ?.touched ||
+                      heatPumpItem.get('annualHeatingEfficiencyValue')
+                        ?.dirty) &&
+                    heatPumpItem.get('annualHeatingEfficiencyValue')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Heating Efficiency Value is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Annual Cooling Efficiency Units </label>
+                <ng-select
+                  [items]="annualHeatingEfficiencyUnitsOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Annual Cooling Efficiency Units"
+                  id="annualCoolingEfficiencyUnits"
+                  formControlName="annualCoolingEfficiencyUnits"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('annualCoolingEfficiencyUnits')
+                      ?.touched ||
+                      heatPumpItem.get('annualCoolingEfficiencyUnits')
+                        ?.dirty) &&
+                    heatPumpItem.get('annualCoolingEfficiencyUnits')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Cooling Efficiency Units is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Annual Cooling Efficiency Value </label>
+                <input
+                  formControlName="annualCoolingEfficiencyValue"
+                  type="number"
+                  id="annualCoolingEfficiencyValue"
+                  placeholder="Annual Cooling Efficiency Value"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('annualCoolingEfficiencyValue')
+                      ?.touched ||
+                      heatPumpItem.get('annualCoolingEfficiencyValue')
+                        ?.dirty) &&
+                    heatPumpItem.get('annualCoolingEfficiencyValue')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Cooling Efficiency Value is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Model Year </label>
+                <input
+                  formControlName="modelYear"
+                  type="number"
+                  id="modelYear"
+                  placeholder="Model Year"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('modelYear')?.touched ||
+                      heatPumpItem.get('modelYear')?.dirty) &&
+                    heatPumpItem.get('modelYear')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Model Year is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Year Installed </label>
+                <input
+                  formControlName="yearInstalled"
+                  type="number"
+                  id="yearInstalled"
+                  placeholder="Year Installed"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('yearInstalled')?.touched ||
+                      heatPumpItem.get('yearInstalled')?.dirty) &&
+                    heatPumpItem.get('yearInstalled')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Year Installed is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Floor Area Served </label>
+                <input
+                  formControlName="floorAreaServed"
+                  type="number"
+                  id="floorAreaServed"
+                  placeholder="Floor Area Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatPumpItem.get('floorAreaServed')?.touched ||
+                      heatPumpItem.get('floorAreaServed')?.dirty) &&
+                    heatPumpItem.get('floorAreaServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Floor Area Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Heating Systems &nbsp;&nbsp;
+      <button
+        class="ms-2 icon-btn"
+        (click)="
+          this.addToFormArray(
+            this.heatingSystemsObj,
+            this.heatingSystemsInputs()
+          )
+        "
+      >
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <ng-container formArrayName="heatingSystems">
+      <ng-container
+        *ngFor="
+          let heatingSystemItem of heatingSystemsObj?.controls;
+          let heatingSystemIndex = index
+        "
+      >
+        <div
+          [formGroupName]="heatingSystemIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Heating System ({{ heatingSystemIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="
+                removeFromFormArray(heatingSystemsObj, heatingSystemIndex)
+              "
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Heating System Name </label>
+                <input
+                  formControlName="heatingSystemName"
+                  type="text"
+                  id="heatingSystemName"
+                  placeholder="Heating System Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('heatingSystemName')?.touched ||
+                      heatingSystemItem.get('heatingSystemName')?.dirty) &&
+                    heatingSystemItem.get('heatingSystemName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="heatingSystemItem.get('heatingSystemName')?.errors?.['required']"
+                  >
+                    Heating System Name is invalid
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!heatingSystemItem.get('heatingSystemName')?.errors?.['required'] && heatingSystemItem.get('heatingSystemName')?.errors?.['nameSame']"
+                  >
+                    Heating System Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Distribution System </label>
+                <ng-select
+                  [items]="distributionSystemOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Distribution System"
+                  id="distributionSystemId"
+                  formControlName="distributionSystemId"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('distributionSystemId')?.touched ||
+                      heatingSystemItem.get('distributionSystemId')?.dirty) &&
+                    heatingSystemItem.get('distributionSystemId')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Distribution System is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Fraction Heat Load Served </label>
+                <input
+                  formControlName="fractionHeatLoadServed"
+                  type="number"
+                  id="fractionHeatLoadServed"
+                  placeholder="Fraction Heat Load Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('fractionHeatLoadServed')?.touched ||
+                      heatingSystemItem.get('fractionHeatLoadServed')?.dirty) &&
+                    heatingSystemItem.get('fractionHeatLoadServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fraction Heat Load Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Heating Capacity</label>
+                <input
+                  formControlName="heatingCapacity"
+                  type="number"
+                  id="heatingCapacity"
+                  placeholder="Heating Capacity"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('heatingCapacity')?.touched ||
+                      heatingSystemItem.get('heatingCapacity')?.dirty) &&
+                    heatingSystemItem.get('heatingCapacity')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heating Capacity is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Heating System Fuel </label>
+                <ng-select
+                  [items]="heatingSystemFuelOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Heating System Fuel"
+                  id="heatingSystemFuel"
+                  formControlName="heatingSystemFuel"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('heatingSystemFuel')?.touched ||
+                      heatingSystemItem.get('heatingSystemFuel')?.dirty) &&
+                    heatingSystemItem.get('heatingSystemFuel')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heating System Fuel is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Heating System Type </label>
+                <ng-select
+                  [items]="heatingSystemTypeOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Heating System Type"
+                  id="heatingSystemType"
+                  formControlName="heatingSystemType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('heatingSystemType')?.touched ||
+                      heatingSystemItem.get('heatingSystemType')?.dirty) &&
+                    heatingSystemItem.get('heatingSystemType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Heating System Type is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Annual Heating Efficiency Units </label>
+                <ng-select
+                  [items]="annualHeatingEfficiencyUnitsOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Annual Heating Efficiency Units"
+                  id="annualHeatingEfficiencyUnits"
+                  formControlName="annualHeatingEfficiencyUnits"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('annualHeatingEfficiencyUnits')
+                      ?.touched ||
+                      heatingSystemItem.get('annualHeatingEfficiencyUnits')
+                        ?.dirty) &&
+                    heatingSystemItem.get('annualHeatingEfficiencyUnits')
+                      ?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Heating Efficiency Units is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Annual Heating Efficiency Value </label>
+                <input
+                  formControlName="annualHeatingEfficiencyValue"
+                  type="number"
+                  id="annualHeatingEfficiencyValue"
+                  placeholder="Annual Heating Efficiency Value"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('annualHeatingEfficiencyValue')
+                      ?.touched ||
+                      heatingSystemItem.get('annualHeatingEfficiencyValue')
+                        ?.dirty) &&
+                    heatingSystemItem.get('annualHeatingEfficiencyValue')
+                      ?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Heating Efficiency Value is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Model Year </label>
+                <input
+                  formControlName="modelYear"
+                  type="number"
+                  id="modelYear"
+                  placeholder="Model Year"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('modelYear')?.touched ||
+                      heatingSystemItem.get('modelYear')?.dirty) &&
+                    heatingSystemItem.get('modelYear')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Model Year is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Year Installed </label>
+                <input
+                  formControlName="yearInstalled"
+                  type="number"
+                  id="yearInstalled"
+                  placeholder="Year Installed"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('yearInstalled')?.touched ||
+                      heatingSystemItem.get('yearInstalled')?.dirty) &&
+                    heatingSystemItem.get('yearInstalled')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Year Installed is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Floor Area Served </label>
+                <input
+                  formControlName="floorAreaServed"
+                  type="number"
+                  id="floorAreaServed"
+                  placeholder="Floor Area Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (heatingSystemItem.get('floorAreaServed')?.touched ||
+                      heatingSystemItem.get('floorAreaServed')?.dirty) &&
+                    heatingSystemItem.get('floorAreaServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Floor Area Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Cooling Systems &nbsp;&nbsp;
+      <button
+        class="ms-2 icon-btn"
+        (click)="
+          this.addToFormArray(
+            this.coolingSystemsObj,
+            this.coolingSystemInputs()
+          )
+        "
+      >
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <ng-container formArrayName="coolingSystems">
+      <ng-container
+        *ngFor="
+          let coolingSystemItem of coolingSystemsObj?.controls;
+          let coolingSystemIndex = index
+        "
+      >
+        <div
+          [formGroupName]="coolingSystemIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Cooling System ({{ coolingSystemIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="
+                removeFromFormArray(coolingSystemsObj, coolingSystemIndex)
+              "
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Cooling System Name </label>
+                <input
+                  formControlName="coolingSystemName"
+                  type="text"
+                  id="coolingSystemName"
+                  placeholder="Cooling System Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('coolingSystemName')?.touched ||
+                      coolingSystemItem.get('coolingSystemName')?.dirty) &&
+                    coolingSystemItem.get('coolingSystemName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="coolingSystemItem.get('coolingSystemName')?.errors?.['required']"
+                  >
+                    Cooling System Name is invalid
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!coolingSystemItem.get('coolingSystemName')?.errors?.['required'] && coolingSystemItem.get('coolingSystemName')?.errors?.['nameSame']"
+                  >
+                    Cooling System Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Distribution System </label>
+                <ng-select
+                  [items]="distributionSystemOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Distribution System"
+                  id="distributionSystemId"
+                  formControlName="distributionSystemId"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('distributionSystemId')?.touched ||
+                      coolingSystemItem.get('distributionSystemId')?.dirty) &&
+                    coolingSystemItem.get('distributionSystemId')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Distribution System is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Fraction Cool Load Served </label>
+                <input
+                  formControlName="fractionCoolLoadServed"
+                  type="number"
+                  id="fractionCoolLoadServed"
+                  placeholder="Fraction Cool Load Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('fractionCoolLoadServed')?.touched ||
+                      coolingSystemItem.get('fractionCoolLoadServed')?.dirty) &&
+                    coolingSystemItem.get('fractionCoolLoadServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Fraction Cool Load Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Cooling Capacity </label>
+                <input
+                  formControlName="coolingCapacity"
+                  type="number"
+                  id="coolingCapacity"
+                  placeholder="Cooling Capacity"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('coolingCapacity')?.touched ||
+                      coolingSystemItem.get('coolingCapacity')?.dirty) &&
+                    coolingSystemItem.get('coolingCapacity')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Cooling Capacity is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Cooling System Type </label>
+                <ng-select
+                  [items]="coolingSystemTypeOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Cooling System Type"
+                  id="coolingSystemType"
+                  formControlName="coolingSystemType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('coolingSystemType')?.touched ||
+                      coolingSystemItem.get('coolingSystemType')?.dirty) &&
+                    coolingSystemItem.get('coolingSystemType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Cooling System Type is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Annual Cooling Efficiency Units </label>
+                <ng-select
+                  [items]="annualCoolingEfficiencyUnitsOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Annual Cooling Efficiency Units"
+                  id="annualCoolingEfficiencyUnits"
+                  formControlName="annualCoolingEfficiencyUnits"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('annualCoolingEfficiencyUnits')
+                      ?.touched ||
+                      coolingSystemItem.get('annualCoolingEfficiencyUnits')
+                        ?.dirty) &&
+                    coolingSystemItem.get('annualCoolingEfficiencyUnits')
+                      ?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Cooling Efficiency Units is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Annual Cooling Efficiency Value </label>
+                <input
+                  formControlName="annualCoolingEfficiencyValue"
+                  type="number"
+                  id="annualCoolingEfficiencyValue"
+                  placeholder="Annual Cooling Efficiency Value"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('annualCoolingEfficiencyValue')
+                      ?.touched ||
+                      coolingSystemItem.get('annualCoolingEfficiencyValue')
+                        ?.dirty) &&
+                    coolingSystemItem.get('annualCoolingEfficiencyValue')
+                      ?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Annual Cooling Efficiency Value is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Model Year </label>
+                <input
+                  formControlName="modelYear"
+                  type="number"
+                  id="modelYear"
+                  placeholder="Model Year"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('modelYear')?.touched ||
+                      coolingSystemItem.get('modelYear')?.dirty) &&
+                    coolingSystemItem.get('modelYear')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Model Year is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Year Installed </label>
+                <input
+                  formControlName="yearInstalled"
+                  type="number"
+                  id="yearInstalled"
+                  placeholder="Year Installed"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('yearInstalled')?.touched ||
+                      coolingSystemItem.get('yearInstalled')?.dirty) &&
+                    coolingSystemItem.get('yearInstalled')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Year Installed is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Floor Area Served </label>
+                <input
+                  formControlName="floorAreaServed"
+                  type="number"
+                  id="floorAreaServed"
+                  placeholder="Floor Area Served"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (coolingSystemItem.get('floorAreaServed')?.touched ||
+                      coolingSystemItem.get('floorAreaServed')?.dirty) &&
+                    coolingSystemItem.get('floorAreaServed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Floor Area Served is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      >
+      <!-- [disabled]="!enableNext" -->
+      Next
+    </button>
+  </div>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div>
+</div>

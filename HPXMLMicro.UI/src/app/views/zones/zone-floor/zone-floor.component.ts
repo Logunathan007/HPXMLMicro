@@ -248,7 +248,7 @@ export class ZoneFloorComponent implements OnInit {
   // for click event functions
   onSubmit() {
     if (this.foundationForm.invalid) {
-      this.foundationForm.markAllAsTouched();
+      this.foundationForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let found = this.foundationForm.value;

@@ -18,7 +18,7 @@ namespace EnergyScore.Domain.Entityies.ZoneRoofModels
         public int? Azimuth { get; set; }
         public string? Orientation { get; set; }
         public ICollection<Insulation>? Insulations { get; set; }
-        public ICollection<Window>? Window { get; set; }
+        public ICollection<Window>? Windows { get; set; }
         public Guid? AtticId { get; set; }
         public Attic? Attics { get; set; }
         public Guid BuildingId { get; set; }

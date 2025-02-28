@@ -33,7 +33,7 @@ export class AddressComponent {
 
   onSubmit() {
     if (this.addressForm.invalid) {
-      this.addressForm.markAllAsTouched();
+      this.addressForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     this.commonService.sendAddress(this.addressForm.getRawValue()).subscribe(

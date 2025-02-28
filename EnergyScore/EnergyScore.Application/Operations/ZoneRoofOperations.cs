@@ -6,7 +6,6 @@ using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace EnergyScore.Application.Operations
 {

@@ -1,8 +1,11 @@
 ﻿
+using System.Xml.Serialization;
+
 namespace EnergyScore.Application.Templates.HPXMLs.ZoneWalls
 {
     public class Windows
     {
+        [XmlElement]
         public List<Window> Window { get; set; }    
     }
     public class Window
@@ -35,9 +38,6 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneWalls
     public class Fiberglass{}
     public class Vinyl{}
     public class Wood{}
-    public class Other 
-    {
-        public string Description { get; set; }
-    }
+
 }
 

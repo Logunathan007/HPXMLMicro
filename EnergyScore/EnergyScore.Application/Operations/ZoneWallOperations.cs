@@ -13,6 +13,7 @@ namespace EnergyScore.Application.Operations
     {
         public ResponseForZoneWall AddZoneWall(ZoneWallDTO zoneWallDTO, Guid buildingId);
         public IEnumerable<WallDTO> GetWallsByBuildingId(Guid buildingId);
+        public IEnumerable<WindowDTO> GetWindowByBuildingId(Guid buildingId);
     }
     public class ZoneWallOperations : IZoneWallOperations
     {
@@ -41,6 +42,12 @@ namespace EnergyScore.Application.Operations
                 .Include(obj => obj.WallTypeDynamicOptions)
                 .Where(x => x.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<WallDTO>>(walls);
+        }
+        public IEnumerable<WindowDTO> GetWindowByBuildingId(Guid buildingId)
+        {
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
+            IEnumerable<Window> windows = _dbConnect.Windows.Include(obj => obj.FrameTypeDynamicOptions).Where(obj=> obj.BuildingId == buildingId).ToList();
+            return _mapper.Map<IEnumerable<WindowDTO>>(windows);
         }
     }
 }

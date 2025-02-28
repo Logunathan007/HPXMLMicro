@@ -37,6 +37,34 @@ export class CommonService {
     return this.http.post(envVariable.API_URL + 'ZoneWall', req, { params })
   }
 
+  //for DistributionSystem
+  sendDistributionSystem(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'DistributionSystem', req, { params })
+  }
+  getDistributionSystemNamesByBuildingId(id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.get(envVariable.API_URL + 'DistributionSystem/GetNames', { params })
+  }
+
+  //for HVAC Systems
+  sendHAVCPlant(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'HVACPlant', req, { params })
+  }
+
+  //for WaterHeating Systems
+  sendWaterHeating(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'WaterHeating', req, { params })
+  }
+
+  //for Photovoltaic Systems
+  sendPhotovoltaic(req: any, id: string) {
+    const params = new HttpParams().set('buildingId', id)
+    return this.http.post(envVariable.API_URL + 'Photovoltaic', req, { params })
+  }
+
   //for HPXMLGeneration
   getHPXMLString(id: string) {
     const params = new HttpParams().set('buildingId', id)

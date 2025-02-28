@@ -268,3 +268,144 @@ export const FrameTypeOptions = [
   { name: "Wood", value: "Wood" },
   { name: "Other", value: "Other" },
 ]
+
+
+//for systems
+
+export const DuctTypeOptions = [
+  { name: "return", value: "return" },
+  { name: "supply", value: "supply" },
+]
+
+export const LeakinessObservedVisualInspectionOptions = [
+  { name: "catastrophic leaks", value: "catastrophic leaks" },
+  { name: "significant leaks", value: "significant leaks" },
+  { name: "some observable leaks", value: "some observable leaks" },
+  { name: "no observable leaks", value: "no observable leaks" },
+  { name: "connections sealed w mastic", value: "connections sealed w mastic" },
+]
+
+export const UnitsOptions = [
+  { name: "Percent", value: "Percent" },
+  { name: "CFM per Std 152", value: "CFM per Std 152" },
+  { name: "CFM25", value: "CFM25" },
+  { name: "CFM50", value: "CFM50" },
+]
+
+export const TotalOrToOutsideOptions = [
+  { name: "total", value: "total" },
+  { name: "to outside", value: "to outside" },
+]
+
+export const DuctLocationOptions = [
+  { name: 'living space', value: 'living space' },
+  { name: 'conditioned space', value: 'conditioned space' },
+  { name: 'unconditioned space', value: 'unconditioned space' },
+  { name: 'under slab', value: 'under slab' },
+  { name: 'basement', value: 'basement' },
+  { name: 'basement - unconditioned', value: 'basement - unconditioned' },
+  { name: 'basement - conditioned', value: 'basement - conditioned' },
+  { name: 'crawlspace - unvented', value: 'crawlspace - unvented' },
+  { name: 'crawlspace - vented', value: 'crawlspace - vented' },
+  { name: 'crawlspace - unconditioned', value: 'crawlspace - unconditioned' },
+  { name: 'crawlspace - conditioned', value: 'crawlspace - conditioned' },
+  { name: 'crawlspace', value: 'crawlspace' },
+  { name: 'exterior wall', value: 'exterior wall' },
+  { name: 'interstitial space', value: 'interstitial space' },
+  { name: 'garage - conditioned', value: 'garage - conditioned' },
+  { name: 'garage - unconditioned', value: 'garage - unconditioned' },
+  { name: 'garage', value: 'garage' },
+  { name: 'roof deck', value: 'roof deck' },
+  { name: 'outside', value: 'outside' },
+  { name: 'attic', value: 'attic' },
+  { name: 'attic - unconditioned', value: 'attic - unconditioned' },
+  { name: 'attic - conditioned', value: 'attic - conditioned' },
+  { name: 'attic - unvented', value: 'attic - unvented' },
+  { name: 'attic - vented', value: 'attic - vented' },
+]
+
+// for heating and cooling system
+
+export const HeatingSystemFuelOptions = [
+  { name: 'electricity', value: 'electricity' },
+  { name: 'renewable electricity', value: 'renewable electricity' },
+  { name: 'natural gas', value: 'natural gas' },
+  { name: 'renewable natural gas', value: 'renewable natural gas' },
+  { name: 'fuel oil', value: 'fuel oil' },
+  { name: 'fuel oil 1', value: 'fuel oil 1' },
+  { name: 'fuel oil 2', value: 'fuel oil 2' },
+  { name: 'fuel oil 4', value: 'fuel oil 4' },
+  { name: 'fuel oil 5/6', value: 'fuel oil 5/6' },
+  { name: 'propane', value: 'propane' },
+  { name: 'wood', value: 'wood' },
+  { name: 'wood pellets', value: 'wood pellets' },
+]
+
+export const HeatingSystemTypeOptions = [
+  { name: "Furnace", value: "Furnace" },
+  { name: "WallFurnace", value: "WallFurnace" },
+  { name: "FloorFurnace", value: "FloorFurnace" },
+  { name: "Boiler", value: "Boiler" },
+  { name: "ElectricResistance", value: "ElectricResistance" },
+  { name: "Stove", value: "Stove" },
+]
+
+export const AnnualHeatingEfficiencyUnitsOptions = [
+  { name: "Percent", value: "Percent" },
+  { name: "AFUE", value: "AFUE" },
+  { name: "COP", value: "COP" },
+  { name: "HSPF2", value: "HSPF2" },
+  { name: "HSPF", value: "HSPF" },
+]
+
+export const HeatPumpTypeOptions = [
+  { name: "ground-to-water", value: "ground-to-water" },
+  { name: "ground-to-air", value: "ground-to-air" },
+  { name: "mini-split", value: "mini-split" },
+  { name: "air-to-water", value: "air-to-water" },
+  { name: "air-to-air", value: "air-to-air" },
+  { name: "water-to-water", value: "water-to-water" },
+  { name: "water-to-air", value: "water-to-air" },
+]
+
+export const CoolingSystemTypeOptions = [
+  { name: "evaporative cooler", value: "evaporative cooler" },
+  { name: "room air conditioner", value: "room air conditioner" },
+  { name: "mini-split", value: "mini-split" },
+  { name: "central air conditioner", value: "central air conditioner" },
+]
+
+export const AnnualCoolingEfficiencyUnitsOptions = [
+  { name: "kW/ton", value: "kW/ton" },
+  { name: "COP", value: "COP" },
+  { name: "EER2", value: "EER2" },
+  { name: "EER", value: "EER" },
+  { name: "CEER", value: "CEER" },
+  { name: "SEER2", value: "SEER2" },
+  { name: "SEER", value: "SEER" },
+]
+
+// for waterHeatingSystem
+export const FuelTypeOptions = [
+  { name: 'electricity', value: 'electricity' },
+  { name: 'renewable electricity', value: 'renewable electricity' },
+  { name: 'natural gas', value: 'natural gas' },
+  { name: 'renewable natural gas', value: 'renewable natural gas' },
+  { name: 'fuel oil', value: 'fuel oil' },
+  { name: 'fuel oil 1', value: 'fuel oil 1' },
+  { name: 'fuel oil 2', value: 'fuel oil 2' },
+  { name: 'fuel oil 4', value: 'fuel oil 4' },
+  { name: 'fuel oil 5/6', value: 'fuel oil 5/6' },
+  { name: 'propane', value: 'propane' },
+  { name: 'wood', value: 'wood' },
+  { name: 'wood pellets', value: 'wood pellets' },
+]
+
+export const WaterHeaterTypeOptions = [
+  { name: "space-heating boiler with tankless coil", value: "space-heating boiler with tankless coil" },
+  { name: "space-heating boiler with storage tank", value: "space-heating boiler with storage tank" },
+  { name: "heat pump water heater", value: "heat pump water heater" },
+  { name: "instantaneous water heater", value: "instantaneous water heater" },
+  { name: "dedicated boiler with storage tank", value: "dedicated boiler with storage tank" },
+  { name: "storage water heater", value: "storage water heater" },
+]
