@@ -18,6 +18,6 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneRoofs
         public double SolarAbsorptance { get; set; }
         public bool RadiantBarrier { get; set; }
         [XmlElement("Insulation")]
-        public List<Insulation> Insulation { get; set; }
+        public Insulation Insulation { get; set; }
     }
 }

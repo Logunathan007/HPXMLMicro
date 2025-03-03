@@ -17,6 +17,6 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneFloors
         public SystemIdentifier SystemIdentifier { get; set; }
         public double Area { get; set; }
         [XmlElement("Insulation")]
-        public List<Insulation> Insulation { get; set; }
+        public Insulation Insulation { get; set; }
     }
 }

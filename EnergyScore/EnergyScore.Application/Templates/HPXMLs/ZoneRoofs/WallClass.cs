@@ -20,7 +20,7 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneRoofs
         public int Azimuth { get; set; }
         public string Siding { get; set; }
         [XmlElement("Insulation")]
-        public List<Insulation> Insulations { get; set; }
+        public Insulation Insulation { get; set; }
     }
     public class WallType
     {

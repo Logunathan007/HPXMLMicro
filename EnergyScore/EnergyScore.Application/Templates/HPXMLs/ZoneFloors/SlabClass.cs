@@ -13,13 +13,14 @@ namespace EnergyScore.Application.Templates.HPXMLs.ZoneFloors
         public SystemIdentifier SystemIdentifier { get; set; }
         public double ExposedPerimeter { get; set; }
         [XmlElement("PerimeterInsulation")]
-        public List<PerimeterInsulation> PerimeterInsulation { get; set; }
+        public PerimeterInsulation PerimeterInsulation { get; set; }
     }
     public class PerimeterInsulation
     {
         [XmlElement("SystemIdentifier")]
         public SystemIdentifier SystemIdentifier { get; set; }
-        public double AssemblyEffectiveRValue { get; set; }
-        public Layer Layer { get; set; }
+        public double? AssemblyEffectiveRValue { get; set; }
+        [XmlElement("Layer")]
+        public List<Layer>? Layer { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿
 using EnergyScore.Application.Mappers.DTOS.CommonDTOS;
 using EnergyScore.Application.Mappers.DTOS.ZoneWallDTOS;
-using EnergyScore.Domain.Entityies.ZoneWallModels;
 
 namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
 {
@@ -17,7 +16,7 @@ namespace EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS
         public string? Siding { get; set; }
         public int? Azimuth { get; set; }
         public string? Orientation { get; set; }
-        public ICollection<InsulationDTO>? Insulations { get; set; }
+        public InsulationDTO? Insulation { get; set; }
         public ICollection<WindowDTO>? Windows { get; set; }
         public Guid BuildingId { get; set; }
     }

@@ -206,7 +206,7 @@ namespace EnergyScore.Application.Operations
                     {
                         Id = _idConvertor.GuidToHPXMLIDConvertor(item.Id),
                     },
-                    FrameType = this.FrameTypeConvertor(item.FrameType,item.FrameTypeDynamicOptions),
+                    FrameType = this.FrameTypeConvertor(item.FrameType, item.FrameTypeDynamicOptions),
                     Area = item.Area,
                     SHGC = item.SHGC,
                     UFactor = item.UFactor,
@@ -217,20 +217,20 @@ namespace EnergyScore.Application.Operations
         public FrameType FrameTypeConvertor(string frameType, FrameTypeDynamicOptionsDTO options)
         {
             if (frameType == null || frameType == string.Empty || options == null) return null;
-            switch(frameType)
+            switch (frameType)
             {
                 case "Aluminum":
-                    return new FrameType() { Aluminum = new Aluminum() { ThermalBreak=options.ThermalBreak } };
+                    return new FrameType() { Aluminum = new Aluminum() { ThermalBreak = options.ThermalBreak } };
                 case "Composite":
                     return new FrameType() { Composite = new Composite() };
                 case "Fiberglass":
-                    return new FrameType() { Fiberglass = new Fiberglass() {}};
+                    return new FrameType() { Fiberglass = new Fiberglass() { } };
                 case "Metal":
-                    return new FrameType() { Metal = new Metal() { ThermalBreak = options.ThermalBreak  } };
+                    return new FrameType() { Metal = new Metal() { ThermalBreak = options.ThermalBreak } };
                 case "Vinyl":
-                    return new FrameType() { Vinyl = new Vinyl() {}};
+                    return new FrameType() { Vinyl = new Vinyl() { } };
                 case "Wood":
-                    return new FrameType() { Wood = new Wood() {}};
+                    return new FrameType() { Wood = new Wood() { } };
                 case "Other":
                     return new FrameType() { Other = new Other() };
                 default:
@@ -475,21 +475,22 @@ namespace EnergyScore.Application.Operations
                     },
                     AtticWallType = wall.AtticWallType,
                     Area = wall.Area,
-                    Insulations = wall.Insulations.Select(obj => new Insulation
+                    Insulation = (wall.Insulation == null) ? null : new Insulation()
                     {
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(wall.Insulation.Id)
                         },
-                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                        Layer = new Layer
-                        {
-                            NominalRValue = obj.NominalRValue,
-                            InstallationType = obj.InstallationType,
-                            InsulationMaterial = InsulationMaterialDynamicOpionsConvertor(obj.InsulationMaterial, obj.InsulationMaterialDynamicOptions)
-
-                        }
-                    }).ToList()
+                        AssemblyEffectiveRValue = wall.Insulation.AssemblyEffectiveRValue,
+                        Layer = wall.Insulation.Layers.Count() == 0 ? null : wall.Insulation.Layers.Select
+                        (obj =>
+                            new Layer
+                            {
+                                NominalRValue = obj.NominalRValue,
+                                InstallationType = obj.InstallationType,
+                                InsulationMaterial = InsulationMaterialDynamicOpionsConvertor(obj.InsulationMaterial, obj.InsulationMaterialDynamicOptions)
+                            }).ToList()
+                    }
                 });
             }
             return walls;
@@ -552,7 +553,7 @@ namespace EnergyScore.Application.Operations
                 case "LooseFill":
                     return new InsulationMaterial() { LooseFill = options.LooseFill };
                 case "Rigid":
-                    return new InsulationMaterial() { Rigid = options.Rigit };
+                    return new InsulationMaterial() { Rigid = options.Rigid };
                 case "SprayFoam":
                     return new InsulationMaterial() { SprayFoam = options.SprayFoam };
                 case "Other":
@@ -661,18 +662,20 @@ namespace EnergyScore.Application.Operations
                         Id = _idConvertor.GuidToHPXMLIDConvertor(foundationWall.Id)
                     },
                     Area = foundationWall.Area,
-                    Insulation = foundationWall.Insulations.Select(obj => new Insulation
+                    Insulation = (foundationWall.Insulation==null)? null : new Insulation()
                     {
+                        AssemblyEffectiveRValue = foundationWall.Insulation.AssemblyEffectiveRValue,
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(foundationWall.Insulation.Id)
                         },
-                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                        Layer = new Layer
+                        Layer = foundationWall.Insulation.Layers.Count() == 0 ? null : foundationWall.Insulation.Layers.Where(obj => obj.InstallationType == "Exterior" || obj.InstallationType == "Interior") .Select(obj => new Layer
                         {
-                            NominalRValue = obj.NominalRValue
-                        }
-                    }).ToList()
+                            NominalRValue = obj.NominalRValue,
+                            InstallationType = obj.InstallationType,
+                            InsulationMaterial = InsulationMaterialDynamicOpionsConvertor(obj.InsulationMaterial, obj.InsulationMaterialDynamicOptions)
+                        }).ToList()
+                    } 
                 });
             }
             return foundationWalls;
@@ -689,18 +692,20 @@ namespace EnergyScore.Application.Operations
                         Id = _idConvertor.GuidToHPXMLIDConvertor(floor.Id)
                     },
                     Area = floor.Area,
-                    Insulation = floor.Insulations.Select(obj => new Insulation
+                    Insulation = (floor.Insulation == null) ? null : new Insulation
                     {
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(floor.Insulation.Id)
                         },
-                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                        Layer = new Layer
+                        AssemblyEffectiveRValue = floor.Insulation.AssemblyEffectiveRValue,
+                        Layer = floor.Insulation.Layers.Select(obj => new Layer
                         {
-                            NominalRValue = obj.NominalRValue,
-                        }
-                    }).ToList()
+                            InstallationType = obj.InstallationType,
+                            InsulationMaterial = InsulationMaterialDynamicOpionsConvertor(obj.InsulationMaterial, obj.InsulationMaterialDynamicOptions),
+                            NominalRValue = obj.NominalRValue
+                        }).ToList()
+                    }
                 });
             }
             return floors;
@@ -718,18 +723,20 @@ namespace EnergyScore.Application.Operations
                         Id = _idConvertor.GuidToHPXMLIDConvertor(slab.Id)
                     },
                     ExposedPerimeter = slab.ExposedPerimeter,
-                    PerimeterInsulation = slab.PerimeterInsulations.Select(obj => new PerimeterInsulation
+                    PerimeterInsulation = (slab.PerimeterInsulation == null) ? null : new PerimeterInsulation
                     {
                         SystemIdentifier = new SystemIdentifier
                         {
-                            Id = _idConvertor.GuidToHPXMLIDConvertor(obj.Id)
+                            Id = _idConvertor.GuidToHPXMLIDConvertor(slab.PerimeterInsulation.Id)
                         },
-                        AssemblyEffectiveRValue = obj.AssemblyEffectiveRValue,
-                        Layer = new Layer
+                        AssemblyEffectiveRValue = slab.PerimeterInsulation.AssemblyEffectiveRValue,
+                        Layer = slab.PerimeterInsulation.Layers.Select(obj => new Layer
                         {
-                            NominalRValue = obj.AssemblyEffectiveRValue
-                        }
-                    }).ToList()
+                            InstallationType = obj.InstallationType,
+                            InsulationMaterial = InsulationMaterialDynamicOpionsConvertor(obj.InsulationMaterial, obj.InsulationMaterialDynamicOptions),
+                            NominalRValue = obj.NominalRValue
+                        }).ToList()
+                    }
                 });
             }
             return slabs;

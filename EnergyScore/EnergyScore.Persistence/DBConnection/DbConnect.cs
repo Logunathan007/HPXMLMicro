@@ -29,7 +29,7 @@ namespace EnergyScore.Persistence.DBConnection
         public DbSet<FrameFloor> FrameFloors { get; set; }
         public DbSet<Slab> Slabs { get; set; }
         public DbSet<Insulation> Insulations{ get; set; }
-        public DbSet<PerimeterInsulation> PerimeterInsulations{ get; set; }
+        public DbSet<Layer> Layers{ get; set; }
         public DbSet<ZoneFloor> ZoneFloors { get; set; }
         public DbSet<Attic> Attics { get; set; }
         public DbSet<Roof> Roofs { get; set; }

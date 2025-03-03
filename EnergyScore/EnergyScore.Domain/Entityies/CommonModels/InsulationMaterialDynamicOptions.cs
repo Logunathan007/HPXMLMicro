@@ -9,9 +9,9 @@ namespace EnergyScore.Domain.Entityies.CommonModels
         public Guid Id { get; set; }
         public string? Batt {  get; set; }
         public string? LooseFill { get; set; }
-        public string? Rigit { get; set; }
+        public string? Rigid { get; set; }
         public string? SprayFoam { get; set; }
-        public Insulation? Insulation { get; set; }
-        public Guid? InsulationId { get; set; }
+        public Layer? Layer { get; set; }
+        public Guid? LayerId { get; set; }
     }
 }

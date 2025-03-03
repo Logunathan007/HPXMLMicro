@@ -149,13 +149,14 @@ namespace EnergyScore.Application.Templates.HPXMLs
     {
         public SystemIdentifier SystemIdentifier { get; set; }
         public double AssemblyEffectiveRValue { get; set; }
-        public Layer Layer { get; set; }
+        [XmlElement("Layer")]
+        public List<Layer> Layer { get; set; }
     }
     public class Layer
     {
         public string? InstallationType { get; set; }
         public InsulationMaterial? InsulationMaterial {  get; set; }
-        public double NominalRValue { get; set; }
+        public double? NominalRValue { get; set; }
     }
     public class InsulationMaterial
     {

@@ -38,7 +38,7 @@ namespace EnergyScore.Application.Operations
         {
             if (buildingId == null || buildingId == Guid.Empty) { return null; }
             var walls = _dbConnect.Walls
-                .Include(obj => obj.Insulations)
+                .Include(obj => obj.Insulation).ThenInclude(obj => obj.Layers).ThenInclude(obj => obj.InsulationMaterialDynamicOptions)
                 .Include(obj => obj.WallTypeDynamicOptions)
                 .Where(x => x.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<WallDTO>>(walls);

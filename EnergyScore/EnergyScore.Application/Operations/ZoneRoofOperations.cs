@@ -47,12 +47,12 @@ namespace EnergyScore.Application.Operations
                     .ThenInclude(obj => obj.AtticTypeDynamicOptions)
                 .Include(obj => obj.Attics)
                     .ThenInclude(obj => obj.FrameFloors)
-                    .ThenInclude(obj => obj.Insulations)
+                    .ThenInclude(obj => obj.Insulation)
                 .Include(obj => obj.Attics)
                     .ThenInclude(obj => obj.Walls)
                 .Include(obj => obj.Attics)
                     .ThenInclude(obj => obj.Roofs)
-                    .ThenInclude(obj => obj.Insulations)
+                    .ThenInclude(obj => obj.Insulation)
                 .FirstOrDefault(obj => obj.Id == zoneRoofId);
             if (roof == null) { return null; }
             ZoneRoofDTO zoneRoofDTO = _mapper.Map<ZoneRoofDTO>(roof);
@@ -73,7 +73,7 @@ namespace EnergyScore.Application.Operations
         {
             if (buildingId == null || buildingId == Guid.Empty) { return null; }
             IEnumerable<Roof> roofs = _dbConnect.Roofs
-                .Include(obj => obj.Insulations)
+                .Include(obj => obj.Insulation).ThenInclude(obj => obj.Layers).ThenInclude(obj => obj.InsulationMaterialDynamicOptions)
                 .Include(obj => obj.Skylights)
                 .Where(obj => obj.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<RoofDTO>>(roofs);

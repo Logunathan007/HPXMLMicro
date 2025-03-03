@@ -35,7 +35,7 @@ namespace EnergyScore.Application.Mappers
             CreateMap<FoundationWall, FoundationWallDTO>().ReverseMap();
             CreateMap<FrameFloor, FrameFloorDTO>().ReverseMap();
             CreateMap<Insulation, InsulationDTO>().ReverseMap();
-            CreateMap<PerimeterInsulation, PerimeterInsulationDTO>().ReverseMap();
+            CreateMap<Layer, LayerDTO>().ReverseMap();
             CreateMap<Slab, SlabDTO>().ReverseMap();
             CreateMap<ZoneFloor, ZoneFloorDTO>().ReverseMap();
             CreateMap<ZoneRoof, ZoneRoofDTO>().ReverseMap();

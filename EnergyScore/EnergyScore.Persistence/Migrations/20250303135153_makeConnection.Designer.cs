@@ -3,6 +3,7 @@ using System;
 using EnergyScore.Persistence.DBConnection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EnergyScore.Persistence.Migrations
 {
     [DbContext(typeof(DbConnect))]
-    partial class DbConnectModelSnapshot : ModelSnapshot
+    [Migration("20250303135153_makeConnection")]
+    partial class makeConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +216,7 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<string>("LooseFill")
                         .HasColumnType("text");
 
-                    b.Property<string>("Rigid")
+                    b.Property<string>("Rigit")
                         .HasColumnType("text");
 
                     b.Property<string>("SprayFoam")

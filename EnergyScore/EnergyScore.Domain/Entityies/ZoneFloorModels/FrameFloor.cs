@@ -11,7 +11,7 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public Guid Id { get; set; }
         public string FrameFloorName { get; set; }
         public double Area { get; set; }
-        public ICollection<Insulation> Insulations { get; set; }
+        public Insulation Insulation { get; set; }
         public Guid? FoundationId { get; set; } = null;
         public Foundation? Foundations { get; set; } = null;
         public Guid? AtticId { get; set; } = null;

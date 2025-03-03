@@ -10,7 +10,7 @@ namespace EnergyScore.Domain.Entityies.ZoneFloorModels
         public Guid Id { get; set; }
         public string SlabName { get; set; }
         public double ExposedPerimeter { get; set; }
-        public ICollection<PerimeterInsulation> PerimeterInsulations { get; set; }
+        public Insulation PerimeterInsulation { get; set; }
         public Guid? FoundationId { get; set; }
         public Foundation Foundations { get; set; }
         public Guid BuildingId { get; set; }

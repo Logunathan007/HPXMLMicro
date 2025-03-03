@@ -45,13 +45,13 @@ namespace EnergyScore.Application.Operations
                     .ThenInclude(obj => obj.FoundationTypeDynamicOptions)
                 .Include(obj => obj.Foundations)
                     .ThenInclude(obj => obj.FoundationWalls)
-                    .ThenInclude(obj => obj.Insulations)
+                    .ThenInclude(obj => obj.Insulation)
                 .Include(obj => obj.Foundations)
                     .ThenInclude(obj => obj.FrameFloors)
-                    .ThenInclude(obj => obj.Insulations)
+                    .ThenInclude(obj => obj.Insulation)
                 .Include(obj => obj.Foundations)
                     .ThenInclude(obj => obj.Slabs)
-                    .ThenInclude(obj => obj.PerimeterInsulations)
+                    .ThenInclude(obj => obj.PerimeterInsulation)
                 .Include(obj => obj.Foundations)
                 .FirstOrDefault(obj => obj.Id == zoneFloorId);
 
@@ -77,7 +77,7 @@ namespace EnergyScore.Application.Operations
         public IEnumerable<FoundationWallDTO> GetFoundationWallsByBuildingId(Guid BuildingId) {
             if(BuildingId == Guid.Empty || BuildingId == null) { return null; }
             IEnumerable<FoundationWall> foundWall = _dbConnect.FoundationWalls
-                .Include(obj => obj.Insulations)
+                .Include(obj => obj.Insulation).ThenInclude(obj => obj.Layers).ThenInclude(obj => obj.InsulationMaterialDynamicOptions)
                 .Where(obj => obj.BuildingId == BuildingId).ToList();
             return _mapper.Map<IEnumerable<FoundationWallDTO>>(foundWall);
         }
@@ -85,7 +85,7 @@ namespace EnergyScore.Application.Operations
         {
             if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
             IEnumerable<FrameFloor> frameFloor = _dbConnect.FrameFloors
-                .Include(obj => obj.Insulations)
+                .Include(obj => obj.Insulation).ThenInclude(obj=>obj.Layers).ThenInclude(obj=>obj.InsulationMaterialDynamicOptions)
                 .Where(obj => obj.BuildingId == BuildingId).ToList();
             return _mapper.Map<IEnumerable<FrameFloorDTO>>(frameFloor);
         }
@@ -93,7 +93,7 @@ namespace EnergyScore.Application.Operations
         {
             if (BuildingId == Guid.Empty || BuildingId == null) { return null; }
             IEnumerable<Slab> slabs = _dbConnect.Slabs
-                .Include(obj => obj.PerimeterInsulations)
+                .Include(obj => obj.PerimeterInsulation).ThenInclude(obj => obj.Layers).ThenInclude(obj => obj.InsulationMaterialDynamicOptions)
                 .Where(obj => obj.BuildingId == BuildingId).ToList();
             return _mapper.Map<IEnumerable<SlabDTO>>(slabs);
         }
