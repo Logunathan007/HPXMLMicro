@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
+using EnergyScore.Application.Templates.HPXMLs;
 using EnergyScore.Application.Templates.Responses;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Persistence.DBConnection;
@@ -13,8 +14,8 @@ namespace EnergyScore.Application.Operations
         public ResponseForZoneRoof AddZoneRoof(ZoneRoofDTO zoneRoofDTO, Guid buildingId);
         public ZoneRoofDTO GetZoneRoofById(Guid? zoneRoofId);
         public IEnumerable<RoofDTO> GetRoofsByBuildingId(Guid? buildingId);
-        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid? buildingId);
         public IEnumerable<AtticDTO> GetAtticsByBuildingId(Guid? buildingId);
+        public IEnumerable<SkylightDTO> GetSkylightsByBuildingId(Guid BuildingId);
     }
     public class ZoneRoofOperations : IZoneRoofOperations
     {
@@ -27,7 +28,7 @@ namespace EnergyScore.Application.Operations
             _mapper = mapper;
             _buildingOperations = buildingOperations;
         }
-        public ResponseForZoneRoof AddZoneRoof(ZoneRoofDTO zoneRoofDTO,Guid buildingId)
+        public ResponseForZoneRoof AddZoneRoof(ZoneRoofDTO zoneRoofDTO, Guid buildingId)
         {
             ZoneRoof zoneRoof = _mapper.Map<ZoneRoof>(zoneRoofDTO);
             _dbConnect.ZoneRoofs.Add(zoneRoof);
@@ -59,7 +60,7 @@ namespace EnergyScore.Application.Operations
         }
         public IEnumerable<AtticDTO> GetAtticsByBuildingId(Guid? buildingId)
         {
-            if(buildingId == null || buildingId == Guid.Empty) { return null; }
+            if (buildingId == null || buildingId == Guid.Empty) { return null; }
             IEnumerable<Attic> attics = _dbConnect.Attics
                 .Include(obj => obj.AtticTypeDynamicOptions)
                 .Include(obj => obj.Roofs)
@@ -68,19 +69,20 @@ namespace EnergyScore.Application.Operations
                 .Where(obj => obj.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<AtticDTO>>(attics);
         }
-        public IEnumerable<WallDTO> GetWallsByBuildingId(Guid? buildingId)
-        {
-            if (buildingId == null || buildingId == Guid.Empty) { return null; }
-            IEnumerable<Wall> walls = _dbConnect.Walls.Where(obj => obj.BuildingId == buildingId).ToList();
-            return _mapper.Map<IEnumerable<WallDTO>>(walls);
-        }
         public IEnumerable<RoofDTO> GetRoofsByBuildingId(Guid? buildingId)
         {
             if (buildingId == null || buildingId == Guid.Empty) { return null; }
             IEnumerable<Roof> roofs = _dbConnect.Roofs
                 .Include(obj => obj.Insulations)
+                .Include(obj => obj.Skylights)
                 .Where(obj => obj.BuildingId == buildingId).ToList();
             return _mapper.Map<IEnumerable<RoofDTO>>(roofs);
+        }
+        public IEnumerable<SkylightDTO> GetSkylightsByBuildingId(Guid BuildingId)
+        {
+            if (BuildingId == null || BuildingId == Guid.Empty) { return null; }
+            IEnumerable<Skylight>? skylights = _dbConnect.Skylights.Include(obj => obj.Roof).Where(obj => obj.BuildingId == BuildingId).ToList();
+            return _mapper.Map<IEnumerable<SkylightDTO>>(skylights);
         }
     }
 }

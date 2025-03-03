@@ -8,8 +8,6 @@ using System.Xml;
 using System.Text;
 using EnergyScore.Application.Mappers.DTOS.AddressDTOS;
 using EnergyScore.Application.Mappers.DTOS.AboutDTOS;
-using EnergyScore.Application.Mappers.DTOS.ZoneFloorDTOS;
-using EnergyScore.Domain.Entityies.AddressModels;
 
 namespace EnergyScore.Application.Operations
 {
@@ -19,12 +17,10 @@ namespace EnergyScore.Application.Operations
         public string GenerateHPXMLString(HPXML hpxml);
         public string GenerateHPXMLStringBase64Encode(HPXML hpxml);
     }
-
     public class Utf8StringWriter : StringWriter
     {
         public override Encoding Encoding => Encoding.UTF8;
     }
-
     public class HPXMLGenerationOperations : IHPXMLGenerationOperations
     {
         private readonly DbConnect _dbConnect;
@@ -41,7 +37,8 @@ namespace EnergyScore.Application.Operations
             IAddressOperations addressOperations,
             IAboutOperations aboutOperations,
             IHPXMLOperations hpxmlOperations,
-            IZoneFloorOperatoins zoneFloorOperatoins)
+            IZoneFloorOperatoins zoneFloorOperatoins
+            )
         {
             _dbConnect = dbConnect;
             _mapper = mapper;
@@ -51,7 +48,6 @@ namespace EnergyScore.Application.Operations
             _hpxmlOperations = hpxmlOperations;
             _zoneFloorOperatoins = zoneFloorOperatoins;
         }
-
         public HPXMLGenerationResponse GenerateHpxml(Guid BuildingId)
         {
             // Check if building exists
@@ -79,7 +75,6 @@ namespace EnergyScore.Application.Operations
 
             return new HPXMLGenerationResponse { Failed = false, Message = "About not Found for your Building" , hPXML = hpxml }; ;
         }
-
         public string GenerateHPXMLString(HPXML hpxml)
         {
             var serializer = new XmlSerializer(typeof(HPXML));

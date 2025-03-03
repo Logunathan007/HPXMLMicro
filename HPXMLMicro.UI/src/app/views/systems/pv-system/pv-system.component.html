@@ -1,0 +1,292 @@
+<div class="container">
+  <form [formGroup]="photovoltaicForm">
+    <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+      Photo Voltaic Systems &nbsp;&nbsp;
+      <button
+        class="ms-2 icon-btn"
+        (click)="this.addToFormArray(this.pVSystemsObj, this.pVSystemInputs())"
+      >
+        <img src="/assets/icons/plus.svg" width="30px" alt="" />
+      </button>
+    </h3>
+    <ng-container formArrayName="pVSystems">
+      <ng-container
+        *ngFor="
+          let pVSystemItem of pVSystemsObj?.controls;
+          let pVSystemIndex = index
+        "
+      >
+        <div
+          [formGroupName]="pVSystemIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">Photo Voltaic System ({{ pVSystemIndex + 1 }})</h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="removeFromFormArray(pVSystemsObj, pVSystemIndex)"
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Photo Voltaic System Name </label>
+                <input
+                  formControlName="pVSystemName"
+                  type="text"
+                  id="pVSystemName"
+                  placeholder="Photo Voltaic System Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('pVSystemName')?.touched ||
+                      pVSystemItem.get('pVSystemName')?.dirty) &&
+                    pVSystemItem.get('pVSystemName')?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="pVSystemItem.get('pVSystemName')?.errors?.['required']"
+                  >
+                    Photo Voltaic System Name is invalid
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!pVSystemItem.get('pVSystemName')?.errors?.['required'] && pVSystemItem.get('pVSystemName')?.errors?.['nameSame']"
+                  >
+                    Photo Voltaic System Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Max Power Output </label>
+                <input
+                  formControlName="maxPowerOutput"
+                  type="number"
+                  id="maxPowerOutput"
+                  placeholder="Max Power Output"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('maxPowerOutput')?.touched ||
+                      pVSystemItem.get('maxPowerOutput')?.dirty) &&
+                    pVSystemItem.get('maxPowerOutput')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Max Power Output is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Collector Area </label>
+                <input
+                  formControlName="collectorArea"
+                  type="number"
+                  id="collectorArea"
+                  placeholder="Collector Area"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('collectorArea')?.touched ||
+                      pVSystemItem.get('collectorArea')?.dirty) &&
+                    pVSystemItem.get('collectorArea')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Collector Area is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Number Of Panels </label>
+                <input
+                  formControlName="numberOfPanels"
+                  type="number"
+                  id="numberOfPanels"
+                  placeholder="Number Of Panels"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('numberOfPanels')?.touched ||
+                      pVSystemItem.get('numberOfPanels')?.dirty) &&
+                    pVSystemItem.get('numberOfPanels')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Number Of Panels is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Year of Inverter Manufactured </label>
+                <input
+                  formControlName="yearInverterManufactured"
+                  type="number"
+                  id="yearInverterManufactured"
+                  placeholder="Year Inverter Manufactured"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('yearInverterManufactured')?.touched ||
+                      pVSystemItem.get('yearInverterManufactured')?.dirty) &&
+                    pVSystemItem.get('yearInverterManufactured')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Year Inverter Manufactured is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Year of Modules Manufactured </label>
+                <input
+                  formControlName="yearModulesManufactured"
+                  type="number"
+                  id="yearModulesManufactured"
+                  placeholder="Year Modules Manufactured"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('yearModulesManufactured')?.touched ||
+                      pVSystemItem.get('yearModulesManufactured')?.dirty) &&
+                    pVSystemItem.get('yearModulesManufactured')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Year Modules Manufactured is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Array Azimuth </label>
+                <input
+                  formControlName="arrayAzimuth"
+                  type="number"
+                  id="arrayAzimuth"
+                  placeholder="Array Azimuth"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('arrayAzimuth')?.touched ||
+                      pVSystemItem.get('arrayAzimuth')?.dirty) &&
+                    pVSystemItem.get('arrayAzimuth')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Array Azimuth is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Array Orientation </label>
+                <ng-select
+                  [items]="orientationOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Array Orientation"
+                  id="arrayOrientation"
+                  formControlName="arrayOrientation"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('arrayOrientation')?.touched ||
+                      pVSystemItem.get('arrayOrientation')?.dirty) &&
+                    pVSystemItem.get('arrayOrientation')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Array Orientation is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Array Tilt </label>
+                <input
+                  formControlName="arrayTilt"
+                  type="number"
+                  id="arrayTilt"
+                  placeholder="Array Tilt"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (pVSystemItem.get('arrayTilt')?.touched ||
+                      pVSystemItem.get('arrayTilt')?.dirty) &&
+                    pVSystemItem.get('arrayTilt')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Array Tilt is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <!-- <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      >
+      [disabled]="!enableNext"
+      Next
+    </button> -->
+  </div>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div>
+</div>

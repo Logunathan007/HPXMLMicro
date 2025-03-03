@@ -16,7 +16,7 @@ export class ZoneRoofComponent {
   //variable initialization
   atticForm!: FormGroup;
   enableNext: boolean = false;
-  buildingId: string = ""
+  buildingId!: string ;
   hpxmlString!: string;
   validationMsg!: any;
   atticWallTypeOptions = atticWallTypeOptions;
@@ -47,6 +47,11 @@ export class ZoneRoofComponent {
     return this.roofsObj(pIndex).at(cIndex).get('insulations') as FormArray;
   }
 
+  skylightsObj(pIndex: number, cIndex: number): FormArray {
+    return this.roofsObj(pIndex).at(cIndex).get('skylights') as FormArray;
+  }
+
+
   frameFloorInsulationsObj(pindex: number, index: number): FormArray {
     return this.frameFloorsObj(pindex)?.at(index).get('insulations') as FormArray;
   }
@@ -55,8 +60,7 @@ export class ZoneRoofComponent {
     return this.atticsObj?.at(index).get('atticTypeDynamicOptions') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) {
-  }
+  constructor(private fb: FormBuilder, private router: Router, private commonService: CommonService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getBuildingId();
@@ -71,7 +75,7 @@ export class ZoneRoofComponent {
     this.addNewAttics()
   }
 
-  getBuildingId(){
+  getBuildingId() {
     this.route.queryParamMap.subscribe(params => {
       this.buildingId = params.get('id') ?? ""
     })
@@ -86,20 +90,21 @@ export class ZoneRoofComponent {
       roofs: this.fb.array([]),
       walls: this.fb.array([]),
       frameFloors: this.fb.array([]),
-      buildingId:[this.buildingId]
+      buildingId: [this.buildingId]
     })
   }
 
   roofInputs() {
     return this.fb.group({
       roofName: [null, [Validators.required], [nameValidator('roofName')]],
-      area: [null, [Validators.required]],
-      solarAbsorptance: [null, [Validators.required, Validators.min(0.1), Validators.max(1)]],
+      area: [null, [Validators.required],Validators.min(0)],
+      solarAbsorptance: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
       roofColor: [null, [Validators.required]],
       roofType: [null, [Validators.required]],
       radiantBarrier: [null, [Validators.required]],
-      buildingId:[this.buildingId] ,
-      insulations: this.fb.array([this.insulationInputs()])
+      buildingId: [this.buildingId],
+      insulations: this.fb.array([this.insulationInputs()]),
+      skylights:this.fb.array([])
     })
   }
 
@@ -107,7 +112,7 @@ export class ZoneRoofComponent {
     return this.fb.group({
       wallName: [null, [Validators.required], [nameValidator('wallName')]],
       atticWallType: [null, [Validators.required]],
-      buildingId:[this.buildingId] ,
+      buildingId: [this.buildingId],
       area: [null, [Validators.required]],
     })
   }
@@ -115,7 +120,7 @@ export class ZoneRoofComponent {
   frameFloorInput() {
     return this.fb.group({
       frameFloorName: [null, [Validators.required], [nameValidator('frameFloorName')]],
-      buildingId:[this.buildingId] ,
+      buildingId: [this.buildingId],
       area: [null, [Validators.required]],
       insulations: this.fb.array([this.insulationInputs()])
     })
@@ -123,8 +128,17 @@ export class ZoneRoofComponent {
 
   insulationInputs() {
     return this.fb.group({
-      nominalRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]],
-      assemblyEffectiveRValue: [null, [Validators.required, Validators.max(1), Validators.min(0.1)]]
+      nominalRValue: [null, [Validators.required, Validators.min(0)]],
+      assemblyEffectiveRValue: [null, [ Validators.min(0)]]
+    })
+  }
+
+  skylightInputs(){
+    return this.fb.group({
+      buildingId:[this.buildingId],
+      area:[null,[Validators.required,Validators.min(0)]],
+      uFactor : [null, [Validators.required,Validators.min(0)]],
+      sHGC : [null, [Validators.required, Validators.max(1), Validators.min(0)]]
     })
   }
 
@@ -192,12 +206,12 @@ export class ZoneRoofComponent {
   // for click event functions
   onSubmit() {
     if (this.atticForm.invalid) {
-      this.atticForm.markAllAsTouched();
+      this.atticForm.markAllAsTouched();window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     let attic = this.atticForm.value;
     for (let ele of attic.attics) {
-      if(!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
+      if (!Array.isArray(ele?.atticTypeDynamicOptions)) continue;
       let opt = [...ele.atticTypeDynamicOptions];
       if (ele && ele.atticTypeDynamicOptions) {
         delete ele.atticTypeDynamicOptions;
@@ -211,16 +225,40 @@ export class ZoneRoofComponent {
         }
       }
     }
-    this.commonService.sendZoneRoof(attic,this.buildingId).subscribe({
-      next:(res)=>{
+    this.commonService.sendZoneRoof(attic, this.buildingId).subscribe({
+      next: (res) => {
         console.log(res);
       },
-      error:(err)=>{
+      error: (err) => {
         console.log("Error occured");
       }
     })
   }
   goNext() {
-
+    this.router.navigate(['zones/wall'], {
+      queryParams: { id: this.buildingId }
+    })
+  }
+  generateHPXML() {
+    this.commonService.getHPXMLString(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.hpxmlString = val?.hpxmlString
+        }
+      }
+    )
+  }
+  validateHPXML() {
+    this.commonService.getHPXMLBase64(this.buildingId).subscribe(
+      (val: any) => {
+        if (!val?.failed) {
+          this.commonService.validateHpxml(val).subscribe(
+            (res: any) => {
+              this.validationMsg = res
+            }
+          )
+        }
+      }
+    )
   }
 }

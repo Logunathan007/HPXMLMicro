@@ -28,6 +28,11 @@ builder.Services.AddScoped<IHPXMLGenerationOperations, HPXMLGenerationOperations
 builder.Services.AddScoped<IIdConversionOpertaions, IdConversionOpertaions>();
 builder.Services.AddScoped<IZoneFloorOperatoins, ZoneFloorOperations>();
 builder.Services.AddScoped<IZoneRoofOperations, ZoneRoofOperations>();
+builder.Services.AddScoped<IZoneWallOperations, ZoneWallOperations>();
+builder.Services.AddScoped<IDistributionSystemOperations, DistributionSystemOperations>();
+builder.Services.AddScoped<IHVACPlantOperations, HVACPlantOperations>();
+builder.Services.AddScoped<IWaterHeatingOperations, WaterHeatingOperations>();
+builder.Services.AddScoped<IPhotovoltaicsOperations, PhotovoltaicsOperations>();
 
 //CORS Policy
 builder.Services.AddCors(option =>

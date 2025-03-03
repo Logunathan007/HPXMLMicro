@@ -28,16 +28,19 @@ namespace EnergyScore.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<double>("AverageCeilingHeight")
+                    b.Property<double?>("AverageCeilingHeight")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("AzimuthOfFrontOfHome")
+                    b.Property<int?>("AzimuthOfFrontOfHome")
                         .HasColumnType("integer");
 
-                    b.Property<double>("ConditionedBuildingVolume")
+                    b.Property<string>("Comments")
+                        .HasColumnType("text");
+
+                    b.Property<double?>("ConditionedBuildingVolume")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("ConditionedFloorArea")
+                    b.Property<double?>("ConditionedFloorArea")
                         .HasColumnType("double precision");
 
                     b.Property<string>("ManufacturedHomeSections")
@@ -50,7 +53,6 @@ namespace EnergyScore.Persistence.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("OrientationOfFrontOfHome")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ResidentialFacilityType")
@@ -74,18 +76,19 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid>("AboutId")
                         .HasColumnType("uuid");
 
-                    b.Property<double>("AirLeakage")
+                    b.Property<double?>("AirLeakage")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("HousePressure")
+                    b.Property<bool?>("AirSealing")
+                        .HasColumnType("boolean");
+
+                    b.Property<double?>("HousePressure")
                         .HasColumnType("double precision");
 
                     b.Property<string>("LeakinessDescription")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UnitofMeasure")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -137,10 +140,25 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("DistributionSystemsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("HVACPlantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("PhotovoltaicsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("WaterHeatingId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("ZoneFloorId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("ZoneRoofId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ZoneWallId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -149,9 +167,19 @@ namespace EnergyScore.Persistence.Migrations
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("DistributionSystemsId");
+
+                    b.HasIndex("HVACPlantId");
+
+                    b.HasIndex("PhotovoltaicsId");
+
+                    b.HasIndex("WaterHeatingId");
+
                     b.HasIndex("ZoneFloorId");
 
                     b.HasIndex("ZoneRoofId");
+
+                    b.HasIndex("ZoneWallId");
 
                     b.ToTable("Buildings");
                 });
@@ -171,10 +199,19 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<Guid?>("FrameFloorId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("InstallationType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("InsulationMaterial")
+                        .HasColumnType("text");
+
                     b.Property<double>("NominalRValue")
                         .HasColumnType("double precision");
 
                     b.Property<Guid?>("RoofId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("WallId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -185,7 +222,38 @@ namespace EnergyScore.Persistence.Migrations
 
                     b.HasIndex("RoofId");
 
+                    b.HasIndex("WallId");
+
                     b.ToTable("Insulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Batt")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("InsulationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LooseFill")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Rigit")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SprayFoam")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InsulationId")
+                        .IsUnique();
+
+                    b.ToTable("InsulationMaterialDynamicOptions");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.PerimeterInsulation", b =>
@@ -208,6 +276,415 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasIndex("SlabId");
 
                     b.ToTable("PerimeterInsulations");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DistributionSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("DistributionSystemsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("DuctSystemSealed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("DuctType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LeakinessObservedVisualInspection")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TotalOrToOutside")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Units")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("DistributionSystemsId");
+
+                    b.ToTable("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystems", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DistributionSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.Duct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DistributionSystemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DuctInsulationMaterial")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("DuctInsulationMaterialDynamicOptionsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("DuctInsulationRValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("DuctInsulationThickness")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("DuctLocation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("FractionDuctArea")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DistributionSystemId");
+
+                    b.HasIndex("DuctInsulationMaterialDynamicOptionsId");
+
+                    b.ToTable("Ducts");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.CoolingSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AnnualCoolingEfficiencyUnits")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("AnnualCoolingEfficiencyValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("CoolingCapacity")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("CoolingSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CoolingSystemType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("DistributionSystemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("FloorAreaServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FractionCoolLoadServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid?>("HVACPlantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YearInstalled")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("DistributionSystemId");
+
+                    b.HasIndex("HVACPlantId");
+
+                    b.ToTable("CoolingSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HVACPlants");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HeatPump", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AnnualCoolingEfficiencyUnits")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("AnnualCoolingEfficiencyValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("AnnualHeatingEfficiencyUnits")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("AnnualHeatingEfficiencyValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("CoolingCapacity")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FloorAreaServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FractionCoolLoadServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FractionHeatLoadServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("HVACPlantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("HeatPumpName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeatPumpType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("HeatingCapacity")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("HeatingCapacity17F")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YearInstalled")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("HVACPlantId");
+
+                    b.ToTable("HeatPumps");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HeatingSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AnnualHeatingEfficiencyUnits")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("AnnualHeatingEfficiencyValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DistributionSystemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("FloorAreaServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FractionHeatLoadServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid?>("HVACPlantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("HeatingCapacity")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("HeatingSystemFuel")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeatingSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeatingSystemType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YearInstalled")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("DistributionSystemId");
+
+                    b.HasIndex("HVACPlantId");
+
+                    b.ToTable("HeatingSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.PhotovoltaicsModels.PVSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("ArrayAzimuth")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("ArrayOrientation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("ArrayTilt")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("CollectorArea")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MaxPowerOutput")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("NumberOfPanels")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PVSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PhotovoltaicsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("YearInverterManufactured")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YearModulesManufactured")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("PhotovoltaicsId");
+
+                    b.ToTable("PVSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.PhotovoltaicsModels.Photovoltaics", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Photovoltaics");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeating", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WaterHeatings");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeatingSystem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("EnergyFactor")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("FractionDHWLoadServed")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("FuelType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeatingSystemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("UniformEnergyFactor")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("WaterHeaterType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("WaterHeatingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("YearInstalled")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("WaterHeatingId");
+
+                    b.ToTable("WaterHeatingSystems");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
@@ -462,6 +939,36 @@ namespace EnergyScore.Persistence.Migrations
                     b.ToTable("Roofs");
                 });
 
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Skylight", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("RoofId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("SHGC")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("UFactor")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("RoofId");
+
+                    b.ToTable("Skylights");
+                });
+
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", b =>
                 {
                     b.Property<Guid>("Id")
@@ -471,25 +978,44 @@ namespace EnergyScore.Persistence.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("double precision");
 
-                    b.Property<Guid>("AtticId")
+                    b.Property<Guid?>("AtticId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("AtticWallType")
-                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("Azimuth")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("BuildingId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ExteriorAdjacentTo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Orientation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Siding")
+                        .HasColumnType("text");
+
                     b.Property<string>("WallName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("WallType")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ZoneWallId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AtticId");
 
                     b.HasIndex("BuildingId");
+
+                    b.HasIndex("ZoneWallId");
 
                     b.ToTable("Walls");
                 });
@@ -503,6 +1029,119 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ZoneRoofs");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.FrameTypeDynamicOptions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool?>("ThermalBreak")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("WindowId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WindowId")
+                        .IsUnique();
+
+                    b.ToTable("FrameTypeDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.WallTypeDynamicOptions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool?>("ExpandedPolystyreneSheathing")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FramingType")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("OptimumValueEngineering")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("Staggered")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("WallId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WallId")
+                        .IsUnique();
+
+                    b.ToTable("WallsTypeDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.Window", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Azimuth")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("BuildingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FrameType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GasFill")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GlassLayers")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GlassType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Orientation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("SHGC")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("UFactor")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("WallId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("WallId");
+
+                    b.ToTable("Windows");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.ZoneWall", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZoneWalls");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.AirInfiltrationMeasurement", b =>
@@ -528,6 +1167,22 @@ namespace EnergyScore.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystems", "DistributionSystems")
+                        .WithMany()
+                        .HasForeignKey("DistributionSystemsId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", "HVACPlant")
+                        .WithMany()
+                        .HasForeignKey("HVACPlantId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.PhotovoltaicsModels.Photovoltaics", "Photovoltaics")
+                        .WithMany()
+                        .HasForeignKey("PhotovoltaicsId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeating", "WaterHeating")
+                        .WithMany()
+                        .HasForeignKey("WaterHeatingId");
+
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.ZoneFloor", "ZoneFloors")
                         .WithMany()
                         .HasForeignKey("ZoneFloorId");
@@ -536,13 +1191,27 @@ namespace EnergyScore.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ZoneRoofId");
 
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneWallModels.ZoneWall", "ZoneWall")
+                        .WithMany()
+                        .HasForeignKey("ZoneWallId");
+
                     b.Navigation("Abouts");
 
                     b.Navigation("Address");
 
+                    b.Navigation("DistributionSystems");
+
+                    b.Navigation("HVACPlant");
+
+                    b.Navigation("Photovoltaics");
+
+                    b.Navigation("WaterHeating");
+
                     b.Navigation("ZoneFloors");
 
                     b.Navigation("ZoneRoofs");
+
+                    b.Navigation("ZoneWall");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.Insulation", b =>
@@ -558,6 +1227,19 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Roof", null)
                         .WithMany("Insulations")
                         .HasForeignKey("RoofId");
+
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", null)
+                        .WithMany("Insulations")
+                        .HasForeignKey("WallId");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.CommonModels.Insulation", "Insulation")
+                        .WithOne("InsulationMaterialDynamicOptions")
+                        .HasForeignKey("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", "InsulationId");
+
+                    b.Navigation("Insulation");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.PerimeterInsulation", b =>
@@ -565,6 +1247,147 @@ namespace EnergyScore.Persistence.Migrations
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneFloorModels.Slab", null)
                         .WithMany("PerimeterInsulations")
                         .HasForeignKey("SlabId");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("DistributionSystem")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystems", "DistributionSystems")
+                        .WithMany("DistributionSystem")
+                        .HasForeignKey("DistributionSystemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("DistributionSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.Duct", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", "DistributionSystem")
+                        .WithMany("Ducts")
+                        .HasForeignKey("DistributionSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.CommonModels.InsulationMaterialDynamicOptions", "DuctInsulationMaterialDynamicOptions")
+                        .WithMany()
+                        .HasForeignKey("DuctInsulationMaterialDynamicOptionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DistributionSystem");
+
+                    b.Navigation("DuctInsulationMaterialDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.CoolingSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("CoolingSystems")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", "DistributionSystem")
+                        .WithMany()
+                        .HasForeignKey("DistributionSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", null)
+                        .WithMany("CoolingSystems")
+                        .HasForeignKey("HVACPlantId");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HeatPump", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("HeatPumps")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", "HVACPlant")
+                        .WithMany("HeatPumps")
+                        .HasForeignKey("HVACPlantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("HVACPlant");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HeatingSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("HeatingSystems")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", "DistributionSystem")
+                        .WithMany()
+                        .HasForeignKey("DistributionSystemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", null)
+                        .WithMany("HeatingSystems")
+                        .HasForeignKey("HVACPlantId");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.PhotovoltaicsModels.PVSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("PVSystems")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.PhotovoltaicsModels.Photovoltaics", "Photovoltaics")
+                        .WithMany("PVSystems")
+                        .HasForeignKey("PhotovoltaicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Photovoltaics");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeatingSystem", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("WaterHeatingSystems")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeating", "WaterHeating")
+                        .WithMany("WaterHeatingSystems")
+                        .HasForeignKey("WaterHeatingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("WaterHeating");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
@@ -705,13 +1528,28 @@ namespace EnergyScore.Persistence.Migrations
                     b.Navigation("Building");
                 });
 
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Skylight", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Skylights")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Roof", "Roof")
+                        .WithMany("Skylights")
+                        .HasForeignKey("RoofId");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Roof");
+                });
+
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", b =>
                 {
                     b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Attic", "Attics")
                         .WithMany("Walls")
-                        .HasForeignKey("AtticId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AtticId");
 
                     b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
                         .WithMany("Wall")
@@ -719,9 +1557,54 @@ namespace EnergyScore.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneWallModels.ZoneWall", null)
+                        .WithMany("Walls")
+                        .HasForeignKey("ZoneWallId");
+
                     b.Navigation("Attics");
 
                     b.Navigation("Building");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.FrameTypeDynamicOptions", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneWallModels.Window", "Window")
+                        .WithOne("FrameTypeDynamicOptions")
+                        .HasForeignKey("EnergyScore.Domain.Entityies.ZoneWallModels.FrameTypeDynamicOptions", "WindowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Window");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.WallTypeDynamicOptions", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", "Wall")
+                        .WithOne("WallTypeDynamicOptions")
+                        .HasForeignKey("EnergyScore.Domain.Entityies.ZoneWallModels.WallTypeDynamicOptions", "WallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wall");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.Window", b =>
+                {
+                    b.HasOne("EnergyScore.Domain.Entityies.AddressModels.Building", "Building")
+                        .WithMany("Windows")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", "Wall")
+                        .WithMany("Windows")
+                        .HasForeignKey("WallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Wall");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.AboutModels.About", b =>
@@ -733,17 +1616,67 @@ namespace EnergyScore.Persistence.Migrations
                 {
                     b.Navigation("Attic");
 
+                    b.Navigation("CoolingSystems");
+
+                    b.Navigation("DistributionSystem");
+
                     b.Navigation("Foundation");
 
                     b.Navigation("FoundationWall");
 
                     b.Navigation("FrameFloor");
 
+                    b.Navigation("HeatPumps");
+
+                    b.Navigation("HeatingSystems");
+
+                    b.Navigation("PVSystems");
+
                     b.Navigation("Roof");
+
+                    b.Navigation("Skylights");
 
                     b.Navigation("Slab");
 
                     b.Navigation("Wall");
+
+                    b.Navigation("WaterHeatingSystems");
+
+                    b.Navigation("Windows");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.CommonModels.Insulation", b =>
+                {
+                    b.Navigation("InsulationMaterialDynamicOptions");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystem", b =>
+                {
+                    b.Navigation("Ducts");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.DistributionSystemModels.DistributionSystems", b =>
+                {
+                    b.Navigation("DistributionSystem");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.HVACPlantModels.HVACPlant", b =>
+                {
+                    b.Navigation("CoolingSystems");
+
+                    b.Navigation("HeatPumps");
+
+                    b.Navigation("HeatingSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.PhotovoltaicsModels.Photovoltaics", b =>
+                {
+                    b.Navigation("PVSystems");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.WaterHeatingModels.WaterHeating", b =>
+                {
+                    b.Navigation("WaterHeatingSystems");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneFloorModels.Foundation", b =>
@@ -793,11 +1726,33 @@ namespace EnergyScore.Persistence.Migrations
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Roof", b =>
                 {
                     b.Navigation("Insulations");
+
+                    b.Navigation("Skylights");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.Wall", b =>
+                {
+                    b.Navigation("Insulations");
+
+                    b.Navigation("WallTypeDynamicOptions");
+
+                    b.Navigation("Windows");
                 });
 
             modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneRoofModels.ZoneRoof", b =>
                 {
                     b.Navigation("Attics");
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.Window", b =>
+                {
+                    b.Navigation("FrameTypeDynamicOptions")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EnergyScore.Domain.Entityies.ZoneWallModels.ZoneWall", b =>
+                {
+                    b.Navigation("Walls");
                 });
 #pragma warning restore 612, 618
         }

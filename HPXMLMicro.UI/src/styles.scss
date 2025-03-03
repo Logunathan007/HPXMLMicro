@@ -12,7 +12,7 @@
     font-weight: 500;
     margin-bottom: 5px;
   }
-  input {
+  input,textarea {
     width: 100%;
     height: 36px;
     background: #fff;
@@ -23,6 +23,10 @@
     &:focus-visible {
       outline: none;
     }
+  }
+  textarea{
+    padding-top: 10px;
+    height: 100px;
   }
 }
 
@@ -64,6 +68,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.error-box{
+  position: relative;
+  overflow: hidden;
+  ::after{
+    position: absolute;
+    left: 0px;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgba(255, 0, 0, 0.05);
+  }
+}
+
+label{
+  &.required{
+    position: relative;
+    &::after{
+      position: absolute;
+      content: "*";
+      top: 0px;
+      font-size: 20px;
+      color: red;
+      padding-left: 3px;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

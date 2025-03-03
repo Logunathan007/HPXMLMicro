@@ -15,6 +15,7 @@ namespace EnergyScore.Domain.Entityies.ZoneRoofModels
         public bool RadiantBarrier { get; set; }
         public double SolarAbsorptance { get; set; }
         public ICollection<Insulation> Insulations { get; set; }
+        public ICollection<Skylight> Skylights { get; set; }
         public Guid AtticId { get; set; }
         public Attic Attics { get; set; }
         public Guid BuildingId { get; set; }

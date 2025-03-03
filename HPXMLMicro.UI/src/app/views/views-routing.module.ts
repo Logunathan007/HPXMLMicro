@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       {
         path:'systems',
-        component:SystemsComponent
+        loadChildren: ()=> import('./systems/systems.module').then(obj=> obj.SystemsModule)
       }
     ]
   },

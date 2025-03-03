@@ -1,0 +1,614 @@
+<div class="container">
+  <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
+    Distribution Systems &nbsp;&nbsp;
+    <button
+      class="ms-2 icon-btn"
+      (click)="
+        this.addToFormArray(
+          this.distributionSystemsObj,
+          this.distributionSystemInputs()
+        )
+      "
+    >
+      <img src="/assets/icons/plus.svg" width="30px" alt="" />
+    </button>
+  </h3>
+  <form [formGroup]="distributedSystemForm">
+    <ng-container formArrayName="distributionSystem">
+      <ng-container
+        *ngFor="
+          let distributionSystemItem of distributionSystemsObj?.controls;
+          let distributionSystemIndex = index
+        "
+      >
+        <div
+          [formGroupName]="distributionSystemIndex"
+          class="row px-0 mx-0 mb-2 border px-1 pt-3 rounded-3 mb-3"
+        >
+          <div class="col-12 d-flex">
+            <h5 class="mb-0">
+              Distribution System ({{ distributionSystemIndex + 1 }})
+            </h5>
+            <button
+              class="ms-2 icon-btn"
+              (click)="
+                removeFromFormArray(
+                  distributionSystemsObj,
+                  distributionSystemIndex
+                )
+              "
+            >
+              <img src="/assets/icons/delete.svg" alt="" />
+            </button>
+          </div>
+          <div class="row px-0 mx-0">
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Distribution System name </label>
+                <input
+                  formControlName="distributionSystemName"
+                  type="text"
+                  id="distributionSystemName"
+                  placeholder="Distribution System Name"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('distributionSystemName')
+                      ?.touched ||
+                      distributionSystemItem.get('distributionSystemName')
+                        ?.dirty) &&
+                    distributionSystemItem.get('distributionSystemName')
+                      ?.invalid
+                  "
+                >
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="distributionSystemItem.get('distributionSystemName')?.errors?.['required']"
+                  >
+                    Distribution System Name is invalid
+                  </label>
+                  <label
+                    class="text-danger fw-semibold position-absolute"
+                    *ngIf="!distributionSystemItem.get('distributionSystemName')?.errors?.['required'] && distributionSystemItem.get('distributionSystemName')?.errors?.['nameSame']"
+                  >
+                    Distribution System Name must be unique.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Leakiness Observed Visual Inspection </label>
+                <ng-select
+                  [items]="leakinessObservedVisualInspectionOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Leakiness Observed Visual Inspection"
+                  id="leakinessObservedVisualInspection"
+                  formControlName="leakinessObservedVisualInspection"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get(
+                      'leakinessObservedVisualInspection'
+                    )?.touched ||
+                      distributionSystemItem.get(
+                        'leakinessObservedVisualInspection'
+                      )?.dirty) &&
+                    distributionSystemItem.get(
+                      'leakinessObservedVisualInspection'
+                    )?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Leakiness Observed Visual Inspection is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Duct System Sealed </label>
+                <ng-select
+                  [items]="booleanOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Duct System Sealed or not"
+                  id="ductSystemSealed"
+                  formControlName="ductSystemSealed"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('ductSystemSealed')?.touched ||
+                      distributionSystemItem.get('ductSystemSealed')?.dirty) &&
+                    distributionSystemItem.get('ductSystemSealed')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Duct System Sealed to is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Duct Type </label>
+                <ng-select
+                  [items]="ductTypeOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Duct Type"
+                  id="ductType"
+                  formControlName="ductType"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('ductType')?.touched ||
+                      distributionSystemItem.get('ductType')?.dirty) &&
+                    distributionSystemItem.get('ductType')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Duct Type is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Units </label>
+                <ng-select
+                  [items]="unitsOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Units"
+                  id="units"
+                  formControlName="units"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('units')?.touched ||
+                      distributionSystemItem.get('units')?.dirty) &&
+                    distributionSystemItem.get('units')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Units is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-box">
+                <label> Value </label>
+                <input
+                  formControlName="value"
+                  type="number"
+                  id="value"
+                  placeholder="Value"
+                />
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('value')?.touched ||
+                      distributionSystemItem.get('value')?.dirty) &&
+                    distributionSystemItem.get('value')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Value is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="select-box">
+                <label> Total Or To Outside </label>
+                <ng-select
+                  [items]="totalOrToOutsideOptions"
+                  bindLabel="name"
+                  [clearable]="true"
+                  [closeOnSelect]="true"
+                  bindValue="value"
+                  placeholder="Total Or To Outside"
+                  id="totalOrToOutside"
+                  formControlName="totalOrToOutside"
+                >
+                </ng-select>
+                <div
+                  class="errormsg"
+                  *ngIf="
+                    (distributionSystemItem.get('totalOrToOutside')?.touched ||
+                      distributionSystemItem.get('totalOrToOutside')?.dirty) &&
+                    distributionSystemItem.get('totalOrToOutside')?.invalid
+                  "
+                >
+                  <label class="text-danger fw-semibold position-absolute">
+                    Total Or To Outside is invalid
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- <ng-container formArrayName="ducts">
+              <ng-container
+                *ngFor="
+                  let leakinessObservedVisualInspectionDynamic of leakinessObservedVisualInspectionDynamicOptionsObj(
+                    distributionSystemIndex
+                  )?.controls;
+                  let leakinessObservedVisualInspectionDynamicOptionsIndex = index
+                "
+              >
+                <ng-container
+                  [formGroupName]="
+                    leakinessObservedVisualInspectionDynamicOptionsIndex
+                  "
+                >
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label>
+                        {{
+                          leakinessObservedVisualInspectionDynamic.get(
+                            "options"
+                          )?.value?.label
+                        }}
+                      </label>
+                      <ng-select
+                        [items]="
+                          leakinessObservedVisualInspectionDynamic.get(
+                            'options'
+                          )?.value?.options
+                        "
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        [placeholder]="
+                          leakinessObservedVisualInspectionDynamic.get(
+                            'options'
+                          )?.value?.placeHolder
+                        "
+                        id="radiantBarrier"
+                        [formControlName]="
+                          leakinessObservedVisualInspectionDynamic.get(
+                            'options'
+                          )?.value?.name
+                        "
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (leakinessObservedVisualInspectionDynamic.get(
+                            leakinessObservedVisualInspectionDynamic.get(
+                              'options'
+                            )?.value?.name
+                          )?.touched ||
+                            leakinessObservedVisualInspectionDynamic.get(
+                              leakinessObservedVisualInspectionDynamic.get(
+                                'options'
+                              )?.value?.name
+                            )?.dirty) &&
+                          leakinessObservedVisualInspectionDynamic.get(
+                            leakinessObservedVisualInspectionDynamic.get(
+                              'options'
+                            )?.value?.name
+                          )?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          {{
+                            leakinessObservedVisualInspectionDynamic.get(
+                              "options"
+                            )?.value?.errorMsg
+                          }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container> -->
+            <ng-container formArrayName="ducts">
+              <div class="col-12 d-flex my-3">
+                <h5 class="mb-0">Ducts</h5>
+                <button
+                  class="ms-2 icon-btn"
+                  (click)="
+                    addToFormArray(
+                      ductsObj(distributionSystemIndex),
+                      ductInputs()
+                    )
+                  "
+                >
+                  <img src="/assets/icons/plus.svg" width="20px" alt="" />
+                </button>
+              </div>
+              <div
+                *ngFor="
+                  let ductItem of ductsObj(distributionSystemIndex)?.controls;
+                  let ductIndex = index
+                "
+                class="border rounded-2 row mx-0 px-0 py-3 mb-2"
+              >
+                <div class="col-12 d-flex">
+                  <h5 class="mb-0">Duct ({{ ductIndex + 1 }})</h5>
+                  <button
+                    class="ms-2 icon-btn"
+                    (click)="
+                      removeFromFormArray(ductsObj(ductIndex), ductIndex)
+                    "
+                  >
+                    <img src="/assets/icons/delete.svg" alt="" />
+                  </button>
+                </div>
+                <ng-container [formGroupName]="ductIndex">
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Duct Insulation R-Value </label>
+                      <input
+                        formControlName="ductInsulationRValue"
+                        type="number"
+                        id="ductInsulationRValue"
+                        placeholder="Duct Insulation R-Value"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (ductItem.get('ductInsulationRValue')?.touched ||
+                            ductItem.get('ductInsulationRValue')?.dirty) &&
+                          ductItem.get('ductInsulationRValue')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Duct Insulation R-Value is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Duct Insulation Thickness </label>
+                      <input
+                        formControlName="ductInsulationThickness"
+                        type="number"
+                        id="ductInsulationThickness"
+                        placeholder="Duct Insulation Thickness"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (ductItem.get('ductInsulationThickness')?.touched ||
+                            ductItem.get('ductInsulationThickness')?.dirty) &&
+                          ductItem.get('ductInsulationThickness')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Duct Insulation Thickness is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Duct Insulation Material </label>
+                      <ng-select
+                        [items]="ductInsulationMaterialOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="DuctInsulation Material"
+                        id="ductInsulationMaterial"
+                        formControlName="ductInsulationMaterial"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (ductItem.get('ductInsulationMaterial')?.touched ||
+                            ductItem.get('ductInsulationMaterial')?.dirty) &&
+                          ductItem.get('ductInsulationMaterial')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          DuctInsulation Material is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container
+                    formArrayName="ductInsulationMaterialDynamicOptions"
+                  >
+                    <ng-container
+                      *ngFor="
+                        let insulationMaterialDynamic of ductInsulationMaterialDynamicOptionsObj(
+                          distributionSystemIndex,
+                          ductIndex
+                        )?.controls;
+                        let ductInsulationMaterialDynamicIndex = index
+                      "
+                    >
+                      <ng-container
+                        [formGroupName]="ductInsulationMaterialDynamicIndex"
+                      >
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label>
+                              {{
+                                insulationMaterialDynamic.get("options")?.value
+                                  ?.label
+                              }}
+                            </label>
+                            <ng-select
+                              [items]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.options
+                              "
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              [placeholder]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.placeHolder
+                              "
+                              id="radiantBarrier"
+                              [formControlName]="
+                                insulationMaterialDynamic.get('options')?.value
+                                  ?.name
+                              "
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.touched ||
+                                  insulationMaterialDynamic.get(
+                                    insulationMaterialDynamic.get('options')
+                                      ?.value?.name
+                                  )?.dirty) &&
+                                insulationMaterialDynamic.get(
+                                  insulationMaterialDynamic.get('options')
+                                    ?.value?.name
+                                )?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                {{
+                                  insulationMaterialDynamic.get("options")
+                                    ?.value?.errorMsg
+                                }}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Duct Location </label>
+                      <ng-select
+                        [items]="ductLocationOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Duct Location"
+                        id="ductLocation"
+                        formControlName="ductLocation"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (ductItem.get('ductLocation')?.touched ||
+                            ductItem.get('ductLocation')?.dirty) &&
+                          ductItem.get('ductLocation')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Duct Location is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-box">
+                      <label> Fraction Duct Area </label>
+                      <input
+                        formControlName="fractionDuctArea"
+                        type="number"
+                        id="fractionDuctArea"
+                        placeholder="Fraction Duct Area"
+                      />
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (ductItem.get('fractionDuctArea')?.touched ||
+                            ductItem.get('fractionDuctArea')?.dirty) &&
+                          ductItem.get('fractionDuctArea')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Fraction Duct Area is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </form>
+  <div class="d-flex justify-content-end gap-3 my-5">
+    <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
+    <button
+      class="bg-secondary btn-style"
+      (click)="goNext()"
+      >
+      <!-- [disabled]="!enableNext" -->
+      Next
+    </button>
+  </div>
+  <div class="generate-section">
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      (click)="generateHPXML()"
+    >
+      Generate HPXML
+    </button>
+    <p class="overflow-x-auto">{{ hpxmlString }}</p>
+    <button
+      class="d-block btn-style mx-auto bg-success my-5"
+      *ngIf="hpxmlString"
+      (click)="validateHPXML()"
+    >
+      Validate HPXML
+    </button>
+    <div
+      class="overflow-x-auto border rounded-xl-4 rounded-md-3 rounded-2 p-xl-5 p-lg-4 p-md-3 p-2 mb-4"
+      *ngIf="validationMsg"
+      style="background-color: rgba(0, 0, 0, 0.089)"
+    >
+      <ngx-json-viewer [json]="validationMsg"></ngx-json-viewer>
+    </div>
+  </div>
+</div>

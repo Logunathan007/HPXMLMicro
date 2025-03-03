@@ -1,15 +1,24 @@
 <section class="about-section">
+  <div
+    class="rounded-3 border-danger px-lg-4 px-md-3 py-3 p-2 my-lg-5 my-md-3 my-2 error-box"
+    *ngIf="errorList.length != 0"
+  >
+    <h5
+      class="text-danger my-lg-3 my-2"
+      *ngFor="let errorMsg of errorList; let i = index"
+    >
+      {{ i + 1 + ")   " + errorMsg }}
+    </h5>
+  </div>
   <form [formGroup]="aboutForm">
     <div class="row">
       <div class="col-md-6">
         <div class="select-box">
-          <label >
-            Residential Facility Type
-          </label>
+          <label class="required"> Residential Facility Type </label>
           <ng-select
             [items]="residentialFacilityTypeOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Residential Facility Type"
@@ -25,18 +34,15 @@
               aboutFormControl['residentialFacilityType']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Residential Facility Type is required
+            <label class="text-danger fw-semibold position-absolute">
+              Residential Facility Type is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label > Year of Build </label>
+          <label class="required"> Year of Build </label>
           <input
             formControlName="yearBuilt"
             type="number"
@@ -52,14 +58,12 @@
             "
           >
             <label
-
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['yearBuilt']?.errors?.['required']"
             >
-              Year of Build is required
+              Year of Build is invalid
             </label>
             <label
-
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['yearBuilt']?.errors?.['min'] || aboutFormControl['yearBuilt']?.errors?.['max']"
             >
@@ -70,7 +74,7 @@
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label > Number of Bedrooms </label>
+          <label class="required"> Number of Bedrooms </label>
           <input
             formControlName="numberofBedrooms"
             type="number"
@@ -85,20 +89,15 @@
               aboutFormControl['numberofBedrooms']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Number of Bedrooms is required
+            <label class="text-danger fw-semibold position-absolute">
+              Number of Bedrooms is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="input-box">
-          <label >
-            Number of Conditioned Floors Above Grade
-          </label>
+        <div class="input-box" >
+          <label class="required"> Number of Conditioned Floors Above Grade </label>
           <input
             formControlName="numberofConditionedFloorsAboveGrade"
             type="number"
@@ -115,18 +114,15 @@
               aboutFormControl['numberofConditionedFloorsAboveGrade']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Number of Conditioned Floors Above Grade is required
+            <label class="text-danger fw-semibold position-absolute">
+              Number of Conditioned Floors Above Grade is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label >Average Ceiling Height </label>
+          <label>Average Ceiling Height </label>
           <input
             formControlName="averageCeilingHeight"
             type="number"
@@ -141,20 +137,15 @@
               aboutFormControl['averageCeilingHeight']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Average Ceiling Height is required
+            <label class="text-danger fw-semibold position-absolute">
+              Average Ceiling Height is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label
-            >Conditioned Building Volume</label
-          >
+          <label>Conditioned Building Volume</label>
           <input
             formControlName="conditionedBuildingVolume"
             type="number"
@@ -169,18 +160,15 @@
               aboutFormControl['conditionedBuildingVolume']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Conditioned Building Volume is required
+            <label class="text-danger fw-semibold position-absolute">
+              Conditioned Building Volume is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label >Conditioned Floor Area</label>
+          <label>Conditioned Floor Area</label>
           <input
             formControlName="conditionedFloorArea"
             type="number"
@@ -195,18 +183,15 @@
               aboutFormControl['conditionedFloorArea']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Conditioned Floor Area is required
+            <label class="text-danger fw-semibold position-absolute">
+              Conditioned Floor Area is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-box">
-          <label >Azimuth Of Front Of Home</label>
+          <label>Azimuth Of Front Of Home</label>
           <input
             formControlName="azimuthOfFrontOfHome"
             type="number"
@@ -222,14 +207,12 @@
             "
           >
             <label
-
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['azimuthOfFrontOfHome']?.errors?.['required']"
             >
-              Azimuth Of Front Of Home is required
+              Azimuth Of Front Of Home is invalid
             </label>
             <label
-
               class="text-danger fw-semibold position-absolute"
               *ngIf="aboutFormControl['azimuthOfFrontOfHome']?.errors?.['min'] || aboutFormControl['azimuthOfFrontOfHome']?.errors?.['max']"
             >
@@ -240,13 +223,11 @@
       </div>
       <div class="col-md-6">
         <div class="select-box">
-          <label >
-            Orientation Of Front Of Home
-          </label>
+          <label> Orientation Of Front Of Home </label>
           <ng-select
             [items]="orientationOfFrontOfHomeOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Orientation Of Front Of Home"
@@ -262,24 +243,19 @@
               aboutFormControl['orientationOfFrontOfHome']?.invalid
             "
           >
-            <label
-
-              class="text-danger fw-semibold position-absolute"
-            >
-              Orientation Of Front Of Home is required
+            <label class="text-danger fw-semibold position-absolute">
+              Orientation Of Front Of Home is invalid
             </label>
           </div>
         </div>
       </div>
       <div class="col-md-6" *ngIf="enableManufacturedHome">
         <div class="select-box">
-          <label >
-            Manufactured Home Sections
-          </label>
+          <label> Manufactured Home Sections </label>
           <ng-select
             [items]="manufacturedHomeSectionsOptions"
             bindLabel="name"
-            [clearable]="false"
+            [clearable]="true"
             [closeOnSelect]="true"
             bindValue="value"
             placeholder="Manufactured Home Sections"
@@ -295,11 +271,34 @@
               aboutFormControl['manufacturedHomeSections']?.invalid
             "
           >
+            <label class="text-danger fw-semibold position-absolute">
+              Manufactured Home Sections is invalid
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="input-box">
+          <label> Comments </label>
+          <textarea
+            formControlName="comments"
+            type="text"
+            id="comments"
+            placeholder="Comments"
+          ></textarea>
+          <div
+            class="errormsg"
+            *ngIf="
+              (aboutFormControl['comments']?.touched ||
+                aboutFormControl['comments']?.dirty) &&
+              aboutFormControl['comments']?.invalid
+            "
+          >
             <label
-
               class="text-danger fw-semibold position-absolute"
+              *ngIf="aboutFormControl['comments']?.errors?.['required']"
             >
-              Manufactured Home Sections is required
+              Comments is invalid
             </label>
           </div>
         </div>
@@ -308,7 +307,11 @@
 
     <h3 class="mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
       Air Infiltration Measurements &nbsp;&nbsp;
-      <button class="ms-2 icon-btn" (click)="addAirInfiltrationInput()">
+      <button
+        class="ms-2 icon-btn"
+        [disabled]=""
+        (click)="addAirInfiltrationInput()"
+      >
         <img src="/assets/icons/plus.svg" width="30px" alt="" />
       </button>
     </h3>
@@ -322,7 +325,7 @@
       >
         <div class="row" [formGroupName]="i">
           <div class="col-12 d-flex">
-            <h5 class="mb-0">Air Infiltration Test ({{ i + 1 }})</h5>
+            <h5 class="mb-0">Air Infiltration ({{ i + 1 }})</h5>
             <button
               class="ms-2 icon-btn"
               (click)="removeAirInfiltrationInput(i)"
@@ -332,11 +335,11 @@
           </div>
           <div class="col-md-6">
             <div class="select-box">
-              <label > House Pressure </label>
+              <label> House Pressure </label>
               <ng-select
                 [items]="housePressureOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="House Pressure"
@@ -352,22 +355,19 @@
                   infiltration.get('housePressure')?.invalid
                 "
               >
-                <label
-
-                  class="text-danger fw-semibold position-absolute"
-                >
-                  House Pressure is required
+                <label class="text-danger fw-semibold position-absolute">
+                  House Pressure is invalid
                 </label>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="select-box">
-              <label > Unit of Measure </label>
+              <label> Unit of Measure </label>
               <ng-select
                 [items]="unitofMeasureOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="Unit of Measure"
@@ -383,18 +383,43 @@
                   infiltration.get('unitofMeasure')?.invalid
                 "
               >
-                <label
-
-                  class="text-danger fw-semibold position-absolute"
-                >
-                  Unit of Measure is required
+                <label class="text-danger fw-semibold position-absolute">
+                  Unit of Measure is invalid
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="select-box">
+              <label> Air Sealing </label>
+              <ng-select
+                [items]="booleanOptions"
+                bindLabel="name"
+                [clearable]="true"
+                [closeOnSelect]="true"
+                bindValue="value"
+                placeholder="Air Sealing"
+                id="airSealing"
+                formControlName="airSealing"
+              >
+              </ng-select>
+              <div
+                class="errormsg"
+                *ngIf="
+                  (infiltration.get('airSealing')?.touched ||
+                    infiltration.get('airSealing')?.dirty) &&
+                  infiltration.get('airSealing')?.invalid
+                "
+              >
+                <label class="text-danger fw-semibold position-absolute">
+                  Air Sealing is invalid
                 </label>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="input-box">
-              <label > Air Leakage </label>
+              <label> Air Leakage </label>
               <input
                 formControlName="airLeakage"
                 type="number"
@@ -409,22 +434,19 @@
                   infiltration.get('airLeakage')?.invalid
                 "
               >
-                <label
-
-                  class="text-danger fw-semibold position-absolute"
-                >
-                  Air Leakage is required
+                <label class="text-danger fw-semibold position-absolute">
+                  Air Leakage is invalid
                 </label>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="select-box">
-              <label > Leakiness Description </label>
+              <label> Leakiness Description </label>
               <ng-select
                 [items]="leakinessDescriptionOptions"
                 bindLabel="name"
-                [clearable]="false"
+                [clearable]="true"
                 [closeOnSelect]="true"
                 bindValue="value"
                 placeholder="Leakiness Description"
@@ -440,11 +462,8 @@
                   infiltration.get('leakinessDescription')?.invalid
                 "
               >
-                <label
-
-                  class="text-danger fw-semibold position-absolute"
-                >
-                  Leakiness Description is required
+                <label class="text-danger fw-semibold position-absolute">
+                  Leakiness Description is invalid
                 </label>
               </div>
             </div>
@@ -454,11 +473,8 @@
     </div>
     <div class="d-flex justify-content-end gap-3">
       <button class="bg-primary btn-style" (click)="onSubmit()">Submit</button>
-      <button
-        class="bg-secondary btn-style"
-        [disabled]="!enableNext"
-        (click)="goNext()"
-      >
+      <button type="button" class="bg-secondary btn-style" (click)="goNext()">
+        <!-- [disabled]="!enableNext" -->
         Next
       </button>
     </div>

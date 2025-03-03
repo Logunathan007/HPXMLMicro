@@ -43,4 +43,34 @@ namespace EnergyScore.Application.Templates.Responses
     {
         public Guid ZoneRoofId { get; set; }
     }
+    public class ResponseForZoneWall : Response
+    {
+        public Guid ZoneWallId { get; set; }
+    }
+    public class ResponseForDistributionSystem : Response
+    {
+        public Guid DistributionSystemID { get; set; }
+    }
+
+    public class NameWithIds : Response
+    {
+        public IEnumerable<NameWithId>? NamesAndIds { get; set; }
+    }
+    public class NameWithId
+    {
+        public string Name { get; set; }
+        public Guid Id { get; set; }
+    }
+    public class ResponseForHVACPlant : Response
+    {
+        public Guid HVACPlantID { get; set; }
+    }
+    public class ResponseForWaterHeating : Response
+    {
+        public Guid WaterHeatingId { get; set; }
+    }
+    public class ResponseForPhotovoltaic : Response
+    {
+        public Guid PhotovoltaicsID { get; set; }
+    }
 }

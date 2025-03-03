@@ -1,1 +1,13 @@
-<p>systems works!</p>
+<div class="d-flex justify-content-around pb-3 border-bottom mb-3">
+  <h6 class="cursor-pointer text-center" [routerLink]="['distribution-system']">
+    Distribution System
+  </h6>
+  <h6 class="cursor-pointer text-center" [routerLink]="['hvac-heat-cool']">
+    HAVC Heating&Cooling System
+  </h6>
+  <h6 class="cursor-pointer text-center" [routerLink]="['water-heating-system']">
+    Water Heating System
+  </h6>
+  <h6 class="cursor-pointer text-center" [routerLink]="['pv-system']">PV System</h6>
+</div>
+<router-outlet></router-outlet>

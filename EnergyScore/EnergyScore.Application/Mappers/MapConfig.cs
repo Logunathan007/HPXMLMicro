@@ -9,6 +9,16 @@ using EnergyScore.Domain.Entityies.CommonModels;
 using EnergyScore.Domain.Entityies.AddressModels;
 using EnergyScore.Domain.Entityies.ZoneRoofModels;
 using EnergyScore.Application.Mappers.DTOS.ZoneRoofDTOS;
+using EnergyScore.Domain.Entityies.ZoneWallModels;
+using EnergyScore.Application.Mappers.DTOS.ZoneWallDTOS;
+using EnergyScore.Application.Mappers.DTOS.DistributionSystemDTOS;
+using EnergyScore.Domain.Entityies.DistributionSystemModels;
+using EnergyScore.Domain.Entityies.HVACPlantModels;
+using EnergyScore.Application.Mappers.DTOS.HVACPlantDTOS;
+using EnergyScore.Domain.Entityies.WaterHeatingModels;
+using EnergyScore.Application.Mappers.DTOS.WaterHeating;
+using EnergyScore.Domain.Entityies.PhotovoltaicsModels;
+using EnergyScore.Application.Mappers.DTOS.PhotovoltaicsDTOS;
 
 namespace EnergyScore.Application.Mappers
 {
@@ -33,6 +43,23 @@ namespace EnergyScore.Application.Mappers
             CreateMap<Roof, RoofDTO>().ReverseMap();
             CreateMap<Wall, WallDTO>().ReverseMap();
             CreateMap<AtticTypeDynamicOption,AtticTypeDynamicOptionDTO>().ReverseMap();
+            CreateMap<Skylight, SkylightDTO>().ReverseMap();
+            CreateMap<FrameTypeDynamicOptions, FrameTypeDynamicOptionsDTO>().ReverseMap();
+            CreateMap<WallTypeDynamicOptions, WallTypeDynamicOptionsDTO>().ReverseMap();    
+            CreateMap<Window, WindowDTO>().ReverseMap();
+            CreateMap<ZoneWall, ZoneWallDTO>().ReverseMap();
+            CreateMap<InsulationMaterialDynamicOptionsDTO, InsulationMaterialDynamicOptions>().ReverseMap();
+            CreateMap<DistributionSystem, DistributionSystemDTO>().ReverseMap();
+            CreateMap<Duct, DuctDTO>().ReverseMap();
+            CreateMap<DistributionSystems, DistributionSystemsDTO>().ReverseMap();
+            CreateMap<HeatingSystem, HeatingSystemDTO>().ReverseMap();
+            CreateMap<CoolingSystem, CoolingSystemDTO>().ReverseMap();
+            CreateMap<HeatPump, HeatPumpDTO>().ReverseMap();
+            CreateMap<HVACPlant, HVACPlantDTO>().ReverseMap();
+            CreateMap<WaterHeating, WaterHeatingDTO>().ReverseMap();
+            CreateMap<WaterHeatingSystem, WaterHeatingSystemDTO>().ReverseMap();
+            CreateMap<Photovoltaics, PhotovoltaicsDTO>().ReverseMap();
+            CreateMap<PVSystem, PVSystemDTO>().ReverseMap();
         }
     }
 }
