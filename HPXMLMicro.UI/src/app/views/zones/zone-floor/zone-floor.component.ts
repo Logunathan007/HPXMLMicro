@@ -22,6 +22,9 @@ export class ZoneFloorComponent implements OnInit {
   foundationTypeOptions = FoundationTypeOptions;
   installationTypeOptions = InstallationTypeOptions;
   insulationMaterialOptions = InsulationMaterialOptions;
+  errorList: string[] = []
+  tracker: any;
+
   get foundationsObj(): FormArray {
     return this.foundationForm.get('foundations') as FormArray;
   }
@@ -88,6 +91,14 @@ export class ZoneFloorComponent implements OnInit {
 
   //variable declaration
   variableDeclaration() {
+    this.tracker = {
+      minimumFoundationWall: 0,
+      maximumFoundationWall: 0,
+      minimumFrameFloor: 0,
+      maximumFrameFloor: 0,
+      minimumSlab: 0,
+      maximumSlab: 0,
+    }
     this.foundationForm = this.fb.group({
       foundations: this.fb.array([])
     })
@@ -97,8 +108,8 @@ export class ZoneFloorComponent implements OnInit {
   //Input Field methods
   foundationInputs() {
     let found = this.fb.group({
-      foundationName: [null, [], [nameValidator('foundationName')]],
-      foundationType: [null,],
+      foundationName: [null, [Validators.required], [nameValidator('foundationName')]],
+      foundationType: [null, [Validators.required]],
       foundationTypeDynamicOptions: this.fb.array([
         //dynamic inputs will be added for foundation Type
       ]),
@@ -106,26 +117,80 @@ export class ZoneFloorComponent implements OnInit {
       slabs: this.fb.array([]),
       frameFloors: this.fb.array([]),
       buildingId: [this.buildingId],
+      tracker: this.fb.control(this.tracker)
     })
     found.get('foundationType')?.valueChanges.subscribe(
       (val: any) => {
         let arr = found.get('foundationTypeDynamicOptions') as FormArray;
-        let fndWall = (found.get('foundationWalls') as FormArray);
+        let fndWalls = (found.get('foundationWalls') as FormArray);
         let slabs = (found.get('slabs') as FormArray);
+        let frameFloors = (found.get('frameFloors') as FormArray);
         arr.clear();
+        fndWalls.clear();slabs.clear();frameFloors.clear();
         if (val == 'Basement') {
           this.basementInputs().forEach(group => arr.push(group));
-        } else if (val == 'Crawlspace') {
+          this.tracker = {
+            minimumFoundationWall: 1,
+            maximumFoundationWall: 100,
+            minimumFrameFloor: 1,
+            maximumFrameFloor: 100,
+            minimumSlab: 0,
+            maximumSlab: 100,
+          }
+          fndWalls.push(this.foundationWallInputs())
+          frameFloors.push(this.frameFloorInput())
+          found.get('tracker')?.setValue(this.tracker);
+        }
+        else if (val == 'Crawlspace') {
           this.crawlspaceInputs().forEach(group => arr.push(group));
-        } else if (val == 'Garage') {
+          this.tracker = {
+            minimumFoundationWall: 1,
+            maximumFoundationWall: 100,
+            minimumFrameFloor: 1,
+            maximumFrameFloor: 100,
+            minimumSlab: 0,
+            maximumSlab: 100,
+          }
+          fndWalls.push(this.foundationWallInputs())
+          frameFloors.push(this.frameFloorInput())
+          found.get('tracker')?.setValue(this.tracker);
+        }
+        else if (val == 'SlabOnGrade') {
+          this.tracker = {
+            minimumFoundationWall: 0,
+            maximumFoundationWall: 0,
+            minimumFrameFloor: 0,
+            maximumFrameFloor: 100,
+            minimumSlab: 1,
+            maximumSlab: 100,
+          }
+          slabs.push(this.slabInputs())
+          found.get('tracker')?.setValue(this.tracker);
+        }
+        else if (val == 'Garage') {
+          this.tracker = {
+            minimumFoundationWall: 1,
+            maximumFoundationWall: 100,
+            minimumFrameFloor: 1,
+            maximumFrameFloor: 100,
+            minimumSlab: 0,
+            maximumSlab: 100,
+          }
+          fndWalls.push(this.foundationWallInputs())
+          frameFloors.push(this.frameFloorInput())
+          found.get('tracker')?.setValue(this.tracker);
           arr.push(this.garageInputs())
         }
-        slabs.clear();
-        fndWall.clear();
-        if (val == 'SlabOnGrade') {
-          slabs.push(this.slabInputs())
-        } else {
-          fndWall.push(this.foundationWallInputs())
+        else if (val == 'AboveApartment') {
+          this.tracker = {
+            minimumFoundationWall: 0,
+            maximumFoundationWall: 0,
+            minimumFrameFloor: 0,
+            maximumFrameFloor: 100,
+            minimumSlab: 0,
+            maximumSlab: 100,
+          }
+          found.get('tracker')?.setValue(this.tracker);
         }
       }
     )
@@ -135,33 +200,35 @@ export class ZoneFloorComponent implements OnInit {
   foundationWallInputs() {
     return this.fb.group({
       buildingId: [this.buildingId],
-      foundationWallName: [null, [], [nameValidator('foundationWallName')]],
+      foundationWallName: [null, [Validators.required], [nameValidator('foundationWallName')]],
       area: [null, [Validators.min(0)]],
       insulation: this.insulationInputs()
     })
   }
+
   frameFloorInput() {
     return this.fb.group({
       buildingId: [this.buildingId],
-      frameFloorName: [null, [], [nameValidator('frameFloorName')]],
+      frameFloorName: [null, [Validators.required], [nameValidator('frameFloorName')]],
       area: [null, [Validators.min(0)]],
       insulation: this.insulationInputs()
     })
   }
+
   slabInputs() {
     return this.fb.group({
       buildingId: [this.buildingId],
-      slabName: [null, [], [nameValidator('slabName')]],
+      slabName: [null, [Validators.required], [nameValidator('slabName')]],
       area: [null, [Validators.min(0)]],
       exposedPerimeter: [null, [Validators.min(0)]],
       perimeterInsulation: this.insulationInputs()
     })
   }
 
-  insulationInputs(): FormGroup {
+  insulationInputs(frameFloor: boolean = false): FormGroup {
     let insulation = this.fb.group({
       assemblyEffectiveRValue: [null, [Validators.min(0)]],
-      layers: this.fb.array([ this.layerInputs() ])
+      layers: this.fb.array([this.layerInputs()])
     })
     return insulation;
   }
@@ -169,8 +236,8 @@ export class ZoneFloorComponent implements OnInit {
   layerInputs(): FormGroup {
     let layer = this.fb.group({
       nominalRValue: [null, [Validators.required, Validators.min(0)]],
-      installationType: [null, [Validators.required]],
-      insulationMaterial: [null, [Validators.required]],
+      installationType: [null, []],
+      insulationMaterial: [null, []],
       insulationMaterialDynamicOptions: this.fb.array([])
     })
     layer.get('insulationMaterial')?.valueChanges.subscribe((val: any) => {
@@ -194,7 +261,7 @@ export class ZoneFloorComponent implements OnInit {
           errorMsg: 'Batt is required',
         }
         fg = this.fb.group({
-          batt: [null, Validators.required],
+          batt: [null,],
           options: this.fb.control(optForBatt)
         })
         break;
@@ -207,7 +274,7 @@ export class ZoneFloorComponent implements OnInit {
           errorMsg: 'Loose Fill is required',
         }
         fg = this.fb.group({
-          looseFill: [null, [Validators.required]],
+          looseFill: [null,],
           options: this.fb.control(optForLooseFill)
         })
         break;
@@ -220,7 +287,7 @@ export class ZoneFloorComponent implements OnInit {
           errorMsg: 'Rigid is required',
         }
         fg = this.fb.group({
-          rigid: [null, Validators.required],
+          rigid: [null,],
           options: this.fb.control(optForRigid)
         })
         break;
@@ -233,7 +300,7 @@ export class ZoneFloorComponent implements OnInit {
           errorMsg: 'Spray Foam is required',
         }
         fg = this.fb.group({
-          sprayFoam: [null, Validators.required],
+          sprayFoam: [null,],
           options: this.fb.control(optForSprayFoam)
         })
         break;
@@ -243,18 +310,18 @@ export class ZoneFloorComponent implements OnInit {
 
   basementInputs(): FormGroup[] {
     let optForFinished = {
-      label: 'Basement Status for Finished',
+      label: 'Basement tracker for Finished',
       placeHolder: 'Finished or not',
       options: BooleanOptions,
       name: 'finished',
-      errorMsg: 'Finished status is required',
+      errorMsg: 'Finished tracker is required',
     }
     let optForConditioned = {
-      label: 'Basement Status for Conditioned',
+      label: 'Basement tracker for Conditioned',
       placeHolder: 'Conditioned or not',
       options: BooleanOptions,
       name: "conditioned",
-      errorMsg: 'Conditioned status is required',
+      errorMsg: 'Conditioned tracker is required',
     }
     return [
       this.fb.group(
@@ -274,18 +341,18 @@ export class ZoneFloorComponent implements OnInit {
 
   crawlspaceInputs(): FormGroup[] {
     let optForVented = {
-      label: 'Crawlspace Status for Vented',
+      label: 'Crawlspace tracker for Vented',
       placeHolder: 'Vented or not',
       options: BooleanOptions,
       name: 'vented',
-      errorMsg: 'Finished status is required',
+      errorMsg: 'Finished tracker is required',
     }
     let optForConditioned = {
-      label: 'Crawlspace Status for Conditioned',
+      label: 'Crawlspace tracker for Conditioned',
       placeHolder: 'Conditioned or not',
       options: BooleanOptions,
       name: "conditioned",
-      errorMsg: 'Crawlspace status is required',
+      errorMsg: 'Crawlspace tracker is required',
     }
     return [
       this.fb.group(
@@ -302,14 +369,13 @@ export class ZoneFloorComponent implements OnInit {
       ),
     ]
   }
-
   garageInputs() {
     let optForConditioned = {
-      label: 'Garage Status for Conditioned',
+      label: 'Garage tracker for Conditioned',
       placeHolder: 'Conditioned or not',
       options: BooleanOptions,
       name: "conditioned",
-      errorMsg: 'Crawlspace status is required',
+      errorMsg: 'Crawlspace tracker is required',
     }
     return this.fb.group(
       {
@@ -320,35 +386,139 @@ export class ZoneFloorComponent implements OnInit {
   }
 
   // for add and remove a dynamic form
-  addToFormArray(array: FormArray, formToBeAdded: FormGroup) {
+  addToFormArray(array: FormArray, formToBeAdded: FormGroup, max: number = 100) {
+    if (array.invalid) {
+      array.markAllAsTouched();
+      return
+    }
+    if (array.length == max) {
+      return;
+    }
     array?.push(formToBeAdded);
   }
-  removeFromFormArray(array: FormArray, index: number) {
+  removeFromFormArray(array: FormArray, index: number, min: number = 0) {
+    if (min == array.length) {
+      if (array.length == 1) return;
+    }
     array.removeAt(index);
+  }
+
+  //Validations
+  foundationValidation() {
+    let len = this.foundationsObj.length
+    if (len == 0) {
+      this.errorList.push("There are no Foundation elements in this building.");
+    }
+    else if (len == 1) {
+      this.foundationWallValidation(0);
+      this.slabValidation(0);
+      this.frameFloorValidation(0);
+    }
+    else {
+      var foundationIndex = 0;
+      for (var element of this.foundationsObj.controls) {
+        const frameFloors = this.frameFloorsObj(foundationIndex);
+        const foundationWall = this.foundationWallsObj(foundationIndex);
+        const slabs = this.slabsObj(foundationIndex);
+        if (slabs.controls.length == 0 && frameFloors.controls.length == 0) {
+          this.errorList.push(`If there is more than one foundation, each needs an area specified on either "Slab" or "FrameFloor" attached.`);
+          return;
+        }
+        else {
+          frameFloors.controls.some(floor => {
+            if (floor.get('area')?.value == null) {
+              this.errorList.push(`Foundation ${foundationIndex + 1} -> FrameFloors: ` + `If there is more than one foundation, each needs an area specified on either "Slab" or "FrameFloor" attached.`);
+              return true;
+            }
+            return false;
+          })
+          slabs.controls.some(slab => {
+            if (slab.get('area')?.value == null) {
+              this.errorList.push(`Foundation ${foundationIndex + 1} -> Slabs: ` + `If there is more than one foundation, each needs an area specified on either "Slab" or "FrameFloor" attached.`);
+              return true;
+            }
+            return false;
+          })
+        }
+        this.foundationWallValidation(foundationIndex);
+        this.slabValidation(foundationIndex);
+        this.frameFloorValidation(foundationIndex);
+        foundationIndex++;
+      };
+    }
+  }
+  foundationWallValidation(foundationIndex: number) {
+    var foundationWalls = this.foundationWallsObj(foundationIndex);
+    if (foundationWalls.length > 1) {
+      foundationWalls.controls.some(element => {
+        if (element.get('area')?.value == null) {
+          this.errorList.push(`Foundation ${foundationIndex + 1} -> Foundationwalls: ` + "If there is more than one FoundationWall, an area is required for each.")
+          return true;
+        }
+        return false;
+      })
+    }
+  }
+  slabValidation(foundationIndex: number) {
+    var slabs = this.slabsObj(foundationIndex);
+    if (slabs.length > 1) {
+      slabs.controls.some(element => {
+        if (element.get('exposedPerimeter')?.value == null) {
+          this.errorList.push(`Foundation ${foundationIndex} -> Slabs: ` + "If there is more than one Slab, an ExposedPerimeter is required for each.")
+          return true;
+        }
+        return false;
+      })
+    }
+  }
+  frameFloorValidation(foundationIndex: number) {
+    var frameFloors = this.frameFloorsObj(foundationIndex);
+    if (frameFloors.length == 0) {
+
+    } else if (frameFloors.length == 1) {
+
+    }
+    else {
+      for (var element of frameFloors.controls) {
+        if (element.get('area')?.value == null) {
+          this.errorList.push(`Foundation ${foundationIndex + 1} -> FrameFloors: ` + "If there is more than one FrameFloor, an Area is required for each.")
+          break;
+        }
+      }
+    }
+  }
+
+  // On submit Validation
+  onSubmitValidation() {
+    this.errorList.length = 0
+    this.foundationValidation();
   }
 
   // for click event functions
   onSubmit() {
-    if (this.foundationForm.invalid) {
+    this.onSubmitValidation()
+    if (this.foundationForm.invalid || this.errorList.length != 0) {
       this.foundationForm.markAllAsTouched(); window.scrollTo({ top: 0, behavior: 'smooth' });
+      // setTimeout(() => {
+      //   this.errorList.length = 0;
+      // }, 10000)
       return;
     }
     let found = this.foundationForm.value;
-
     for (let ele of found.foundations) {
-      arrayToObjectTransformer(ele,'foundationTypeDynamicOptions');
-      for(let item of ele?.foundationWalls){
-        for(let layer of item?.insulation?.layers){
+      arrayToObjectTransformer(ele, 'foundationTypeDynamicOptions');
+      for (let item of ele?.foundationWalls) {
+        for (let layer of item?.insulation?.layers) {
           arrayToObjectTransformer(layer, 'insulationMaterialDynamicOptions');
         }
       }
-      for(let item of ele?.slabs){
-        for(let layer of item?.perimeterInsulation?.layers){
+      for (let item of ele?.slabs) {
+        for (let layer of item?.perimeterInsulation?.layers) {
           arrayToObjectTransformer(layer, 'insulationMaterialDynamicOptions');
         }
       }
-      for(let item of ele?.frameFloors){
-        for(let layer of item?.insulation?.layers){
+      for (let item of ele?.frameFloors) {
+        for (let layer of item?.insulation?.layers) {
           arrayToObjectTransformer(layer, 'insulationMaterialDynamicOptions');
         }
       }

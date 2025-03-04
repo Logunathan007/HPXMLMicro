@@ -1,4 +1,15 @@
 <div class="container">
+  <div
+    class="rounded-3 border-danger px-lg-4 px-md-3 py-3 p-2 my-lg-5 my-md-3 my-2 error-box"
+    *ngIf="errorList.length != 0"
+  >
+    <h5
+      class="text-danger my-lg-3 my-2"
+      *ngFor="let errorMsg of errorList; let i = index"
+    >
+      {{ i + 1 + ")   " + errorMsg }}
+    </h5>
+  </div>
   <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
     Foundations &nbsp;&nbsp;
     <button
@@ -24,7 +35,7 @@
             <h5 class="mb-0">Foundation ({{ foundationIndex + 1 }})</h5>
             <button
               class="ms-2 icon-btn"
-              (click)="removeFromFormArray(foundationsObj, foundationIndex)"
+              (click)="removeFromFormArray(foundationsObj, foundationIndex, 1)"
             >
               <img src="/assets/icons/delete.svg" alt="" />
             </button>
@@ -32,7 +43,7 @@
           <div class="row px-0 mx-0">
             <div class="col-md-6">
               <div class="input-box">
-                <label> Foundation name </label>
+                <label class="required"> Foundation name </label>
                 <input
                   formControlName="foundationName"
                   type="text"
@@ -64,7 +75,7 @@
             </div>
             <div class="col-md-6">
               <div class="select-box">
-                <label> Foundation Type </label>
+                <label class="required"> Foundation Type </label>
                 <ng-select
                   [items]="foundationTypeOptions"
                   bindLabel="name"
@@ -147,7 +158,7 @@
               </ng-container>
             </ng-container>
             <h5
-              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between" [ngClass]="{'disable':foundationItem?.get('tracker')?.value['maximumFoundationWall'] == 0 }"
             >
               Attached Foundation Walls &nbsp;&nbsp;
               <button
@@ -155,7 +166,8 @@
                 (click)="
                   addToFormArray(
                     foundationWallsObj(foundationIndex),
-                    foundationWallInputs()
+                    foundationWallInputs(),
+                    foundationItem?.get('tracker')?.value['maximumFoundationWall']
                   )
                 "
               >
@@ -180,7 +192,8 @@
                     (click)="
                       removeFromFormArray(
                         foundationWallsObj(foundationIndex),
-                        foundationWallIndex
+                        foundationWallIndex,
+                        foundationItem?.get('tracker')?.value['minimumFoundationWall']
                       )
                     "
                   >
@@ -190,7 +203,7 @@
                 <ng-container [formGroupName]="foundationWallIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Foundation Wall Name </label>
+                      <label class="required"> Foundation Wall Name </label>
                       <input
                         formControlName="foundationWallName"
                         type="text"
@@ -332,7 +345,8 @@
                                   foundationIndex,
                                   foundationWallIndex
                                 ),
-                                foundationWallInsulationLayerIndex
+                                foundationWallInsulationLayerIndex,
+                                1
                               )
                             "
                           >
@@ -344,7 +358,7 @@
                         >
                           <div class="col-md-6">
                             <div class="input-box">
-                              <label> Nominal R-Value </label>
+                              <label class="required"> Nominal R-Value </label>
                               <input
                                 formControlName="nominalRValue"
                                 type="number"
@@ -533,12 +547,14 @@
             </ng-container>
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              [ngClass]="{'disable':foundationItem?.get('tracker')?.value['maximumSlab'] == 0 }"
             >
               Attached Slabs &nbsp;&nbsp;
               <button
                 class="ms-2 icon-btn"
                 (click)="
-                  addToFormArray(slabsObj(foundationIndex), slabInputs())
+                  addToFormArray(slabsObj(foundationIndex), slabInputs(),
+                    foundationItem?.get('tracker')?.value['maximumSlab'])
                 "
               >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
@@ -557,7 +573,8 @@
                   <button
                     class="ms-2 icon-btn"
                     (click)="
-                      removeFromFormArray(slabsObj(foundationIndex), slabIndex)
+                      removeFromFormArray(slabsObj(foundationIndex), slabIndex,
+                        foundationItem?.get('tracker')?.value['minimumSlab'])
                     "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
@@ -566,7 +583,7 @@
                 <ng-container [formGroupName]="slabIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Slab Name </label>
+                      <label class="required"> Slab Name </label>
                       <input
                         formControlName="slabName"
                         type="text"
@@ -728,7 +745,8 @@
                                   foundationIndex,
                                   slabIndex
                                 ),
-                                slabInsulationLayerIndex
+                                slabInsulationLayerIndex,
+                                1
                               )
                             "
                           >
@@ -740,7 +758,7 @@
                         >
                           <div class="col-md-6">
                             <div class="input-box">
-                              <label> Nominal R-Value </label>
+                              <label class="required"> Nominal R-Value </label>
                               <input
                                 formControlName="nominalRValue"
                                 type="number"
@@ -926,6 +944,7 @@
             </ng-container>
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              [ngClass]="{'disable':foundationItem?.get('tracker')?.value['maximumFrameFloor'] == 0 }"
             >
               Attached Frame Floors &nbsp;&nbsp;
               <button
@@ -933,7 +952,8 @@
                 (click)="
                   addToFormArray(
                     frameFloorsObj(foundationIndex),
-                    frameFloorInput()
+                    frameFloorInput(),
+                    foundationItem?.get('tracker')?.value['maximumFrameFloor']
                   )
                 "
               >
@@ -956,7 +976,8 @@
                     (click)="
                       removeFromFormArray(
                         frameFloorsObj(foundationIndex),
-                        frameFloorIndex
+                        frameFloorIndex,
+                        foundationItem?.get('tracker')?.value['minimumFrameFloor']
                       )
                     "
                   >
@@ -966,7 +987,7 @@
                 <ng-container [formGroupName]="frameFloorIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Frame Floor Name </label>
+                      <label class="required"> Frame Floor Name </label>
                       <input
                         formControlName="frameFloorName"
                         type="text"
@@ -1106,7 +1127,8 @@
                                   foundationIndex,
                                   frameFloorIndex
                                 ),
-                                frameFloorInsulationLayerIndex
+                                frameFloorInsulationLayerIndex,
+                                1
                               )
                             "
                           >
@@ -1118,7 +1140,7 @@
                         >
                           <div class="col-md-6">
                             <div class="input-box">
-                              <label> Nominal R-Value </label>
+                              <label class="required"> Nominal R-Value </label>
                               <input
                                 formControlName="nominalRValue"
                                 type="number"
