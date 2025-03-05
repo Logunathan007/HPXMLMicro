@@ -125,9 +125,7 @@ export const RoofColorOptions = [
 ]
 
 export const atticWallTypeOptions = [
-  { name: "other", value: 'other' },
   { name: "knee wall", value: 'knee wall' },
-  { name: "gable", value: 'gable' },
 ]
 
 // for zone-wall

@@ -1,9 +1,20 @@
 <div class="container">
+  <div
+    class="rounded-3 border-danger px-lg-4 px-md-3 py-3 p-2 my-lg-5 my-md-3 my-2 error-box"
+    *ngIf="errorList.length != 0"
+  >
+    <h5
+      class="text-danger my-lg-3 my-2"
+      *ngFor="let errorMsg of errorList; let i = index"
+    >
+      {{ i + 1 + ")   " + errorMsg }}
+    </h5>
+  </div>
   <h3 class="col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between">
     Attics &nbsp;&nbsp;
     <button
       class="ms-2 icon-btn"
-      (click)="addToFormArray(this.atticsObj, this.atticInputs())"
+      (click)="addToFormArray(this.atticsObj, this.atticInputs(), 100)"
     >
       <img src="/assets/icons/plus.svg" width="30px" alt="" />
     </button>
@@ -21,7 +32,7 @@
             <h5 class="mb-0">Attic ({{ atticIndex + 1 }})</h5>
             <button
               class="ms-2 icon-btn"
-              (click)="removeFromFormArray(atticsObj, atticIndex)"
+              (click)="removeFromFormArray(atticsObj, atticIndex, 1)"
             >
               <img src="/assets/icons/delete.svg" alt="" />
             </button>
@@ -29,7 +40,7 @@
           <div class="row px-0 mx-0">
             <div class="col-md-6">
               <div class="input-box">
-                <label> Attic name </label>
+                <label class="required"> Attic name </label>
                 <input
                   formControlName="atticName"
                   type="text"
@@ -61,7 +72,7 @@
             </div>
             <div class="col-md-6">
               <div class="select-box">
-                <label> Attic Type </label>
+                <label class="required"> Attic Type </label>
                 <ng-select
                   [items]="AtticTypeOptions"
                   bindLabel="name"
@@ -98,42 +109,90 @@
                 <ng-container [formGroupName]="atticTypeDynamicOptionsIndex">
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label>
-                        {{ atticDynamic.get("options")?.value?.label }}
-                      </label>
+                      <label> Attic Status for Vented </label>
                       <ng-select
-                        [items]="atticDynamic.get('options')?.value?.options"
+                        [items]="BooleanOptions"
                         bindLabel="name"
                         [clearable]="true"
                         [closeOnSelect]="true"
                         bindValue="value"
-                        [placeholder]="
-                          atticDynamic.get('options')?.value?.placeHolder
-                        "
+                        placeholder="Vented or not"
                         id="radiantBarrier"
-                        [formControlName]="
-                          atticDynamic.get('options')?.value?.name
-                        "
+                        formControlName="vented"
                       >
                       </ng-select>
                       <div
                         class="errormsg"
                         *ngIf="
-                          (atticDynamic.get(
-                            atticDynamic.get('options')?.value?.name
-                          )?.touched ||
-                            atticDynamic.get(
-                              atticDynamic.get('options')?.value?.name
-                            )?.dirty) &&
-                          atticDynamic.get(
-                            atticDynamic.get('options')?.value?.name
-                          )?.invalid
+                          (atticDynamic.get('vented')?.touched ||
+                            atticDynamic.get('vented')?.dirty) &&
+                          atticDynamic.get('vented')?.invalid
                         "
                       >
                         <label
                           class="text-danger fw-semibold position-absolute"
                         >
-                          {{ atticDynamic.get("options")?.value?.errorMsg }}
+                          Vented status is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Attic Status for Conditioned </label>
+                      <ng-select
+                        [items]="BooleanOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Conditioned or not"
+                        id="conditioned"
+                        formControlName="conditioned"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (atticDynamic.get('conditioned')?.touched ||
+                            atticDynamic.get('conditioned')?.dirty) &&
+                          atticDynamic.get('conditioned')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Conditioned status is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label> Attic Status for CapeCod </label>
+                      <ng-select
+                        [items]="BooleanOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="CapeCod or not"
+                        id="radiantBarrier"
+                        formControlName="capeCod"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (atticDynamic.get('capeCod')?.touched ||
+                            atticDynamic.get('capeCod')?.dirty) &&
+                          atticDynamic.get('capeCod')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          CapeCod status is invalid
                         </label>
                       </div>
                     </div>
@@ -144,11 +203,20 @@
 
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              [ngClass]="{
+                disable: atticItem?.get('tracker')?.value['maximumRoof'] == 0
+              }"
             >
-              Roofs &nbsp;&nbsp;
+              Attached Roofs &nbsp;&nbsp;
               <button
                 class="ms-2 icon-btn"
-                (click)="addToFormArray(roofsObj(atticIndex), roofInputs())"
+                (click)="
+                  addToFormArray(
+                    roofsObj(atticIndex),
+                    roofInputs(),
+                    atticItem?.get('tracker')?.value['maximumRoof']
+                  )
+                "
               >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
               </button>
@@ -166,7 +234,11 @@
                   <button
                     class="ms-2 icon-btn"
                     (click)="
-                      removeFromFormArray(roofsObj(atticIndex), roofIndex)
+                      removeFromFormArray(
+                        roofsObj(atticIndex),
+                        roofIndex,
+                        atticItem?.get('tracker')?.value['minimumRoof']
+                      )
                     "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
@@ -175,7 +247,7 @@
                 <ng-container [formGroupName]="roofIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Roof Name </label>
+                      <label class="required"> Roof Name </label>
                       <input
                         formControlName="roofName"
                         type="text"
@@ -207,7 +279,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label> Roof Type </label>
+                      <label class="required"> Roof Type </label>
                       <ng-select
                         [items]="RoofTypeOptions"
                         bindLabel="name"
@@ -297,7 +369,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Area </label>
+                      <label class="required"> Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -740,11 +812,20 @@
 
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              [ngClass]="{
+                disable: atticItem?.get('tracker')?.value['maximumWall'] == 0
+              }"
             >
-              Walls &nbsp;&nbsp;
+              Attached Walls &nbsp;&nbsp;
               <button
                 class="ms-2 icon-btn"
-                (click)="addToFormArray(wallsObj(atticIndex), wallInputs())"
+                (click)="
+                  addToFormArray(
+                    wallsObj(atticIndex),
+                    wallInputs(),
+                    atticItem?.get('tracker')?.value['maximumWall']
+                  )
+                "
               >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
               </button>
@@ -762,7 +843,11 @@
                   <button
                     class="ms-2 icon-btn"
                     (click)="
-                      removeFromFormArray(wallsObj(wallIndex), wallIndex)
+                      removeFromFormArray(
+                        wallsObj(wallIndex),
+                        wallIndex,
+                        atticItem?.get('tracker')?.value['minimumWall']
+                      )
                     "
                   >
                     <img src="/assets/icons/delete.svg" alt="" />
@@ -771,7 +856,7 @@
                 <ng-container [formGroupName]="wallIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Wall Name </label>
+                      <label class="required"> Wall Name </label>
                       <input
                         formControlName="wallName"
                         type="text"
@@ -803,7 +888,67 @@
                   </div>
                   <div class="col-md-6">
                     <div class="select-box">
-                      <label> Wall Type </label>
+                      <label class="required"> Exterior Adjacent To </label>
+                      <ng-select
+                        [items]="ExteriorAdjacentToOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Exterior Adjacent to"
+                        id="exteriorAdjacentTo"
+                        formControlName="exteriorAdjacentTo"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallItem.get('exteriorAdjacentTo')?.touched ||
+                            wallItem.get('exteriorAdjacentTo')?.dirty) &&
+                          wallItem.get('exteriorAdjacentTo')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Exterior Adjacent to is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label class="required"> Interior Adjacent To </label>
+                      <ng-select
+                        [items]="interiorAdjacentToOptions"
+                        bindLabel="name"
+                        [clearable]="true"
+                        [closeOnSelect]="true"
+                        bindValue="value"
+                        placeholder="Interior Adjacent to"
+                        id="interiorAdjacentTo"
+                        formControlName="interiorAdjacentTo"
+                      >
+                      </ng-select>
+                      <div
+                        class="errormsg"
+                        *ngIf="
+                          (wallItem.get('interiorAdjacentTo')?.touched ||
+                            wallItem.get('interiorAdjacentTo')?.dirty) &&
+                          wallItem.get('interiorAdjacentTo')?.invalid
+                        "
+                      >
+                        <label
+                          class="text-danger fw-semibold position-absolute"
+                        >
+                          Interior Adjacent to is invalid
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="select-box">
+                      <label class="required"> Wall Type </label>
                       <ng-select
                         [items]="atticWallTypeOptions"
                         bindLabel="name"
@@ -833,7 +978,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Area </label>
+                      <label class="required"> Area </label>
                       <input
                         formControlName="area"
                         type="number"
@@ -856,135 +1001,295 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <ng-container formArrayName="insulations">
-                    <div class="col-12 d-flex my-3">
-                      <h5 class="mb-0">Foundation Wall Insulations</h5>
-                      <button
-                        class="ms-2 icon-btn"
-                        (click)="
-                          addToFormArray(
-                            foundationWallInsulationsObj(
-                              atticIndex,
-                              foundationWallIndex
-                            ),
-                            insulationInputs()
-                          )
-                        "
-                      >
-                        <img src="/assets/icons/plus.svg" width="20px" alt="" />
-                      </button>
+                  <div
+                    formGroupName="insulation"
+                    class="border rounded-2 row mx-0 px-1 py-3 mb-2"
+                  >
+                    <div class="col-12 d-flex mt-2 mb-1">
+                      <h5 class="mb-0">Wall Insulation</h5>
                     </div>
-                    <div
-                      *ngFor="
-                        let foundationWallInsulationItem of foundationWallInsulationsObj(
-                          atticIndex,
-                          foundationWallIndex
-                        )?.controls;
-                        let foundationWallInsulationIndex = index
-                      "
-                      class="border rounded-2 row mx-0 px-0 py-3 mb-2"
-                    >
-                      <div class="col-12 d-flex">
-                        <h5 class="mb-0">
-                          Foundation Wall Insulation({{
-                            foundationWallInsulationIndex + 1
-                          }})
-                        </h5>
+                    <div class="col-md-6">
+                      <div class="input-box">
+                        <label>Assembly Effective R-Value </label>
+                        <input
+                          formControlName="assemblyEffectiveRValue"
+                          type="number"
+                          id="assemblyEffectiveRValue"
+                          placeholder="Assembly Effective R-Value"
+                        />
+                        <div
+                          class="errormsg"
+                          *ngIf="
+                            (wallInsulationObj(atticIndex, wallIndex).get(
+                              'assemblyEffectiveRValue'
+                            )?.touched ||
+                              wallInsulationObj(atticIndex, wallIndex).get(
+                                'assemblyEffectiveRValue'
+                              )?.dirty) &&
+                            wallInsulationObj(atticIndex, wallIndex).get(
+                              'assemblyEffectiveRValue'
+                            )?.invalid
+                          "
+                        >
+                          <label
+                            class="text-danger fw-semibold position-absolute"
+                          >
+                            Assembly Effective R-Value is invalid
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container formArrayName="layers">
+                      <div class="col-12 d-flex my-3">
+                        <h5 class="mb-0">Layers</h5>
                         <button
                           class="ms-2 icon-btn"
                           (click)="
-                            removeFromFormArray(
-                              foundationWallInsulationsObj(
-                                atticIndex,
-                                foundationWallIndex
-                              ),
-                              foundationWallInsulationIndex
+                            addToFormArray(
+                              wallInsulationLayersObj(atticIndex, wallIndex),
+                              layerInputs()
                             )
                           "
                         >
-                          <img src="/assets/icons/delete.svg" alt="" />
+                          <img
+                            src="/assets/icons/plus.svg"
+                            width="20px"
+                            alt=""
+                          />
                         </button>
                       </div>
-                      <ng-container
-                        [formGroupName]="foundationWallInsulationIndex"
+                      <div
+                        *ngFor="
+                          let wallInsulationLayerItem of wallInsulationLayersObj(
+                            atticIndex,
+                            wallIndex
+                          )?.controls;
+                          let wallInsulationLayerIndex = index
+                        "
+                        class="border rounded-2 row mx-0 px-0 py-3 mb-2"
                       >
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <label> Nominal R-Value </label>
-                            <input
-                              formControlName="nominalRValue"
-                              type="number"
-                              id="nominalRValue"
-                              placeholder="Nominal R-Value"
-                            />
-                            <div
-                              class="errormsg"
-                              *ngIf="
-                                (foundationWallInsulationItem.get(
-                                  'nominalRValue'
-                                )?.touched ||
-                                  foundationWallInsulationItem.get(
-                                    'nominalRValue'
-                                  )?.dirty) &&
-                                foundationWallInsulationItem.get(
-                                  'nominalRValue'
-                                )?.invalid
-                              "
-                            >
-                              <label
-                                class="text-danger fw-semibold position-absolute"
+                        <div class="col-12 d-flex">
+                          <h5 class="mb-0">
+                            Layer ({{ wallInsulationLayerIndex + 1 }})
+                          </h5>
+                          <button
+                            class="ms-2 icon-btn"
+                            (click)="
+                              removeFromFormArray(
+                                wallInsulationLayersObj(atticIndex, wallIndex),
+                                wallInsulationLayerIndex
+                              )
+                            "
+                          >
+                            <img src="/assets/icons/delete.svg" alt="" />
+                          </button>
+                        </div>
+                        <ng-container
+                          [formGroupName]="wallInsulationLayerIndex"
+                        >
+                          <div class="col-md-6">
+                            <div class="input-box">
+                              <label> Nominal R-Value </label>
+                              <input
+                                formControlName="nominalRValue"
+                                type="number"
+                                id="nominalRValue"
+                                placeholder="Nominal R-Value"
+                              />
+                              <div
+                                class="errormsg"
+                                *ngIf="
+                                  (wallInsulationLayerItem.get('nominalRValue')
+                                    ?.touched ||
+                                    wallInsulationLayerItem.get('nominalRValue')
+                                      ?.dirty) &&
+                                  wallInsulationLayerItem.get('nominalRValue')
+                                    ?.invalid
+                                "
                               >
-                                Nominal R-Value is invalid
-                              </label>
+                                <label
+                                  class="text-danger fw-semibold position-absolute"
+                                >
+                                  Nominal R-Value is invalid
+                                </label>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <label>Assembly Effective R-Value </label>
-                            <input
-                              formControlName="assemblyEffectiveRValue"
-                              type="number"
-                              id="assemblyEffectiveRValue"
-                              placeholder="Assembly Effective R-Value"
-                            />
-                            <div
-                              class="errormsg"
-                              *ngIf="
-                                (foundationWallInsulationItem.get(
-                                  'assemblyEffectiveRValue'
-                                )?.touched ||
-                                  foundationWallInsulationItem.get(
-                                    'assemblyEffectiveRValue'
-                                  )?.dirty) &&
-                                foundationWallInsulationItem.get(
-                                  'assemblyEffectiveRValue'
-                                )?.invalid
-                              "
-                            >
-                              <label
-                                class="text-danger fw-semibold position-absolute"
+                          <div class="col-md-6">
+                            <div class="select-box">
+                              <label> Installation Type </label>
+                              <ng-select
+                                [items]="installationTypeOptions"
+                                bindLabel="name"
+                                [clearable]="true"
+                                [closeOnSelect]="true"
+                                bindValue="value"
+                                placeholder="Installation Type"
+                                id="installationType"
+                                formControlName="installationType"
                               >
-                                Assembly Effective R-Value is invalid
-                              </label>
+                              </ng-select>
+                              <div
+                                class="errormsg"
+                                *ngIf="
+                                  (wallInsulationLayerItem.get(
+                                    'installationType'
+                                  )?.touched ||
+                                    wallInsulationLayerItem.get(
+                                      'installationType'
+                                    )?.dirty) &&
+                                  wallInsulationLayerItem.get(
+                                    'installationType'
+                                  )?.invalid
+                                "
+                              >
+                                <label
+                                  class="text-danger fw-semibold position-absolute"
+                                >
+                                  Installation Type is invalid
+                                </label>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </ng-container>
-                    </div>
-                  </ng-container> -->
+                          <div class="col-md-6">
+                            <div class="select-box">
+                              <label> Insulation Material </label>
+                              <ng-select
+                                [items]="insulationMaterialOptions"
+                                bindLabel="name"
+                                [clearable]="true"
+                                [closeOnSelect]="true"
+                                bindValue="value"
+                                placeholder="Insulation Material"
+                                id="insulationMaterial"
+                                formControlName="insulationMaterial"
+                              >
+                              </ng-select>
+                              <div
+                                class="errormsg"
+                                *ngIf="
+                                  (wallInsulationLayerItem.get(
+                                    'insulationMaterial'
+                                  )?.touched ||
+                                    wallInsulationLayerItem.get(
+                                      'insulationMaterial'
+                                    )?.dirty) &&
+                                  wallInsulationLayerItem.get(
+                                    'insulationMaterial'
+                                  )?.invalid
+                                "
+                              >
+                                <label
+                                  class="text-danger fw-semibold position-absolute"
+                                >
+                                  Insulation Material is invalid
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <ng-container
+                            formArrayName="insulationMaterialDynamicOptions"
+                          >
+                            <ng-container
+                              *ngFor="
+                                let insulationMaterialDynamic of wallInsulationMaterialDynamicOptionsObj(
+                                  atticIndex,
+                                  wallIndex,
+                                  wallInsulationLayerIndex
+                                )?.controls;
+                                let insulationMaterialDynamicIndex = index
+                              "
+                            >
+                              <ng-container
+                                [formGroupName]="insulationMaterialDynamicIndex"
+                              >
+                                <div class="col-md-6">
+                                  <div class="select-box">
+                                    <label>
+                                      {{
+                                        insulationMaterialDynamic.get("options")
+                                          ?.value?.label
+                                      }}
+                                    </label>
+                                    <ng-select
+                                      [items]="
+                                        insulationMaterialDynamic.get('options')
+                                          ?.value?.options
+                                      "
+                                      bindLabel="name"
+                                      [clearable]="true"
+                                      [closeOnSelect]="true"
+                                      bindValue="value"
+                                      [placeholder]="
+                                        insulationMaterialDynamic.get('options')
+                                          ?.value?.placeHolder
+                                      "
+                                      id="radiantBarrier"
+                                      [formControlName]="
+                                        insulationMaterialDynamic.get('options')
+                                          ?.value?.name
+                                      "
+                                    >
+                                    </ng-select>
+                                    <div
+                                      class="errormsg"
+                                      *ngIf="
+                                        (insulationMaterialDynamic.get(
+                                          insulationMaterialDynamic.get(
+                                            'options'
+                                          )?.value?.name
+                                        )?.touched ||
+                                          insulationMaterialDynamic.get(
+                                            insulationMaterialDynamic.get(
+                                              'options'
+                                            )?.value?.name
+                                          )?.dirty) &&
+                                        insulationMaterialDynamic.get(
+                                          insulationMaterialDynamic.get(
+                                            'options'
+                                          )?.value?.name
+                                        )?.invalid
+                                      "
+                                    >
+                                      <label
+                                        class="text-danger fw-semibold position-absolute"
+                                      >
+                                        {{
+                                          insulationMaterialDynamic.get(
+                                            "options"
+                                          )?.value?.errorMsg
+                                        }}
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
                 </ng-container>
               </div>
             </ng-container>
 
             <h5
               class="fw-medium col-12 mt-4 mb-lg-4 mb-md-2 d-flex justify-content-between"
+              [ngClass]="{
+                disable:
+                  atticItem?.get('tracker')?.value['maximumFrameFloor'] == 0
+              }"
             >
               Attached Frame Floors &nbsp;&nbsp;
               <button
                 class="ms-2 icon-btn"
                 (click)="
-                  addToFormArray(frameFloorsObj(atticIndex), frameFloorInput())
+                  addToFormArray(
+                    frameFloorsObj(atticIndex),
+                    frameFloorInput(),
+                    atticItem?.get('tracker')?.value['maximumFrameFloor']
+                  )
                 "
               >
                 <img src="/assets/icons/plus.svg" width="30px" alt="" />
@@ -1005,7 +1310,8 @@
                     (click)="
                       removeFromFormArray(
                         frameFloorsObj(atticIndex),
-                        frameFloorIndex
+                        frameFloorIndex,
+                        atticItem?.get('tracker')?.value['minimumFrameFloor']
                       )
                     "
                   >
@@ -1015,7 +1321,7 @@
                 <ng-container [formGroupName]="frameFloorIndex">
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Frame Floor Name </label>
+                      <label class="required"> Frame Floor Name </label>
                       <input
                         formControlName="frameFloorName"
                         type="text"
@@ -1047,7 +1353,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="input-box">
-                      <label> Area </label>
+                      <label class="required"> Area </label>
                       <input
                         formControlName="area"
                         type="number"

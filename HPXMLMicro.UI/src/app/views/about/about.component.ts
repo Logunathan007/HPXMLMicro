@@ -127,7 +127,7 @@ export class AboutComponent implements OnInit {
       this.errorList.push('Either AverageCeilingHeight or both ConditionedBuildingVolume and ConditionedFloorArea are required.')
     }
     if (!orientationOfFrontOfHome && !azimuthOfFrontOfHome) {
-      this.errorList.push("Either AzimuthOfFrontOfHome or OrientationOfFrontOfHome is required.")
+      this.errorList.push("Either AzimuthOfFrontOfHome or OrientationOfFrontOfHome is invalid.")
     }
   }
   airInfiltrationValidation(index: number) {

@@ -100,7 +100,7 @@ export class DistributedSystemComponent {
           placeHolder: 'Batt Type',
           options: BattOptions,
           name: "batt",
-          errorMsg: 'Batt is required',
+          errorMsg: 'Batt is invalid',
         }
         fg = this.fb.group({
           batt: [null, Validators.required],
@@ -113,7 +113,7 @@ export class DistributedSystemComponent {
           placeHolder: 'Loose Fill Type',
           options: LooseFillOptions,
           name: "looseFill",
-          errorMsg: 'Loose Fill is required',
+          errorMsg: 'Loose Fill is invalid',
         }
         fg = this.fb.group({
           looseFill: [null, [Validators.required]],
@@ -126,7 +126,7 @@ export class DistributedSystemComponent {
           placeHolder: 'Rigid Type',
           options: RigidOptions,
           name: "looseFill",
-          errorMsg: 'Loose Fill is required',
+          errorMsg: 'Loose Fill is invalid',
         }
         fg = this.fb.group({
           looseFill: [null, Validators.required],
@@ -139,7 +139,7 @@ export class DistributedSystemComponent {
           placeHolder: 'Spray Foam',
           options: sprayFoamOptions,
           name: "sprayFoam",
-          errorMsg: 'Spray Foam is required',
+          errorMsg: 'Spray Foam is invalid',
         }
         fg = this.fb.group({
           sprayFoam: [null, Validators.required],

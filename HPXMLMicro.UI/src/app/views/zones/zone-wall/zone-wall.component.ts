@@ -103,21 +103,21 @@ export class ZoneWallComponent {
       placeHolder: 'Expanded Polystyrene Sheathing',
       options: BooleanOptions,
       name: 'expandedPolystyreneSheathing',
-      errorMsg: 'Expanded Polystyrene Sheathing status is required',
+      errorMsg: 'Expanded Polystyrene Sheathing status is invalid',
     }
     let optForOptimumValueEngineering = {
       label: 'Optimum Value Engineering',
       placeHolder: 'Optimum Value Engineering',
       options: BooleanOptions,
       name: "optimumValueEngineering",
-      errorMsg: 'Optimum Value Engineering status is required',
+      errorMsg: 'Optimum Value Engineering status is invalid',
     }
     let optForFramingType = {
       label: 'Framing Type',
       placeHolder: 'Framing Type',
       options: FramingTypeOptions,
       name: "framingType",
-      errorMsg: 'Framing Type is required',
+      errorMsg: 'Framing Type is invalid',
     }
     return [
       this.fb.group({
@@ -141,7 +141,7 @@ export class ZoneWallComponent {
       placeHolder: 'Staggered or not',
       options: BooleanOptions,
       name: "staggered",
-      errorMsg: 'Staggered is required',
+      errorMsg: 'Staggered is invalid',
     }
     return this.fb.group({
       staggered: [null, Validators.required],
@@ -182,7 +182,7 @@ export class ZoneWallComponent {
           placeHolder: 'Batt Type',
           options: BattOptions,
           name: "batt",
-          errorMsg: 'Batt is required',
+          errorMsg: 'Batt is invalid',
         }
         fg = this.fb.group({
           batt: [null, Validators.required],
@@ -195,7 +195,7 @@ export class ZoneWallComponent {
           placeHolder: 'Loose Fill Type',
           options: LooseFillOptions,
           name: "looseFill",
-          errorMsg: 'Loose Fill is required',
+          errorMsg: 'Loose Fill is invalid',
         }
         fg = this.fb.group({
           looseFill: [null, [Validators.required]],
@@ -208,7 +208,7 @@ export class ZoneWallComponent {
           placeHolder: 'Rigid Type',
           options: RigidOptions,
           name: "rigid",
-          errorMsg: 'Rigid is required',
+          errorMsg: 'Rigid is invalid',
         }
         fg = this.fb.group({
           rigid: [null, Validators.required],
@@ -221,7 +221,7 @@ export class ZoneWallComponent {
           placeHolder: 'Spray Foam',
           options: sprayFoamOptions,
           name: "sprayFoam",
-          errorMsg: 'Spray Foam is required',
+          errorMsg: 'Spray Foam is invalid',
         }
         fg = this.fb.group({
           sprayFoam: [null, Validators.required],
@@ -238,7 +238,7 @@ export class ZoneWallComponent {
       placeHolder: 'Thermal Break',
       options: BooleanOptions,
       name: "thermalBreak",
-      errorMsg: 'Thermal Break is required',
+      errorMsg: 'Thermal Break is invalid',
     }
     return this.fb.group({
       thermalBreak: [null, Validators.required],
