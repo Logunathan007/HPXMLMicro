@@ -705,32 +705,30 @@
                   <ng-container formArrayName="skylights">
                     <div
                       *ngFor="
-                        let skylightsItem of skylightsObj(atticIndex, roofIndex)
+                        let skylightItem of skylightsObj(atticIndex, roofIndex)
                           ?.controls;
-                        let skylightsIndex = index
+                        let skylightIndex = index
                       "
                       class="border rounded-2 row mx-0 px-0 py-3 mb-2"
                     >
                       <div class="col-12 d-flex">
-                        <h5 class="mb-0">
-                          Skylight ({{ skylightsIndex + 1 }})
-                        </h5>
+                        <h5 class="mb-0">Skylight ({{ skylightIndex + 1 }})</h5>
                         <button
                           class="ms-2 icon-btn"
                           (click)="
                             removeFromFormArray(
                               skylightsObj(atticIndex, roofIndex),
-                              skylightsIndex
+                              skylightIndex
                             )
                           "
                         >
                           <img src="/assets/icons/delete.svg" alt="" />
                         </button>
                       </div>
-                      <ng-container [formGroupName]="skylightsIndex">
+                      <ng-container [formGroupName]="skylightIndex">
                         <div class="col-md-6">
                           <div class="input-box">
-                            <label> Area </label>
+                            <label class="required"> Area </label>
                             <input
                               formControlName="area"
                               type="number"
@@ -740,9 +738,9 @@
                             <div
                               class="errormsg"
                               *ngIf="
-                                (skylightsItem.get('area')?.touched ||
-                                  skylightsItem.get('area')?.dirty) &&
-                                skylightsItem.get('area')?.invalid
+                                (skylightItem.get('area')?.touched ||
+                                  skylightItem.get('area')?.dirty) &&
+                                skylightItem.get('area')?.invalid
                               "
                             >
                               <label
@@ -765,9 +763,9 @@
                             <div
                               class="errormsg"
                               *ngIf="
-                                (skylightsItem.get('uFactor')?.touched ||
-                                  skylightsItem.get('uFactor')?.dirty) &&
-                                skylightsItem.get('uFactor')?.invalid
+                                (skylightItem.get('uFactor')?.touched ||
+                                  skylightItem.get('uFactor')?.dirty) &&
+                                skylightItem.get('uFactor')?.invalid
                               "
                             >
                               <label
@@ -790,15 +788,307 @@
                             <div
                               class="errormsg"
                               *ngIf="
-                                (skylightsItem.get('sHGC')?.touched ||
-                                  skylightsItem.get('sHGC')?.dirty) &&
-                                skylightsItem.get('sHGC')?.invalid
+                                (skylightItem.get('sHGC')?.touched ||
+                                  skylightItem.get('sHGC')?.dirty) &&
+                                skylightItem.get('sHGC')?.invalid
                               "
                             >
                               <label
                                 class="text-danger fw-semibold position-absolute"
                               >
                                 SHGC is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Frame Type </label>
+                            <ng-select
+                              [items]="frameTypeOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Frame Type"
+                              id="frameType"
+                              formControlName="frameType"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('frameType')?.touched ||
+                                  skylightItem.get('frameType')?.dirty) &&
+                                skylightItem.get('frameType')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Frame Type is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-container formArrayName="frameTypeDynamicOptions">
+                          <ng-container
+                            *ngFor="
+                              let frameTypeDynamic of frameTypeDynamicOptionsObj(
+                                atticIndex,
+                                roofIndex,
+                                skylightIndex
+                              )?.controls;
+                              let frameTypeDynamicOptionsIndex = index
+                            "
+                          >
+                            <ng-container
+                              [formGroupName]="frameTypeDynamicOptionsIndex"
+                            >
+                              <div class="col-md-6">
+                                <div class="select-box">
+                                  <label>
+                                    {{
+                                      frameTypeDynamic.get("options")?.value
+                                        ?.label
+                                    }}
+                                  </label>
+                                  <ng-select
+                                    [items]="
+                                      frameTypeDynamic.get('options')?.value
+                                        ?.options
+                                    "
+                                    bindLabel="name"
+                                    [clearable]="true"
+                                    [closeOnSelect]="true"
+                                    bindValue="value"
+                                    [placeholder]="
+                                      frameTypeDynamic.get('options')?.value
+                                        ?.placeHolder
+                                    "
+                                    id="radiantBarrier"
+                                    [formControlName]="
+                                      frameTypeDynamic.get('options')?.value
+                                        ?.name
+                                    "
+                                  >
+                                  </ng-select>
+                                  <div
+                                    class="errormsg"
+                                    *ngIf="
+                                      (frameTypeDynamic.get(
+                                        frameTypeDynamic.get('options')?.value
+                                          ?.name
+                                      )?.touched ||
+                                        frameTypeDynamic.get(
+                                          frameTypeDynamic.get('options')?.value
+                                            ?.name
+                                        )?.dirty) &&
+                                      frameTypeDynamic.get(
+                                        frameTypeDynamic.get('options')?.value
+                                          ?.name
+                                      )?.invalid
+                                    "
+                                  >
+                                    <label
+                                      class="text-danger fw-semibold position-absolute"
+                                    >
+                                      {{
+                                        frameTypeDynamic.get("options")?.value
+                                          ?.errorMsg
+                                      }}
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Glass Type </label>
+                            <ng-select
+                              [items]="glassTypeOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Glass Type"
+                              id="glassType"
+                              formControlName="glassType"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('glassType')?.touched ||
+                                  skylightItem.get('glassType')?.dirty) &&
+                                skylightItem.get('glassType')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Glass Type is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Gas Fill </label>
+                            <ng-select
+                              [items]="gasFillOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Gas Fill"
+                              id="gasFill"
+                              formControlName="gasFill"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('gasFill')?.touched ||
+                                  skylightItem.get('gasFill')?.dirty) &&
+                                skylightItem.get('gasFill')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Gas Fill is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Glass Layers </label>
+                            <ng-select
+                              [items]="glassLayersOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Glass Layers"
+                              id="glassLayers"
+                              formControlName="glassLayers"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('glassLayers')?.touched ||
+                                  skylightItem.get('glassLayers')?.dirty) &&
+                                skylightItem.get('glassLayers')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Glass Layers is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Exterior Shading Type </label>
+                            <ng-select
+                              [items]="exteriorShadingTypeOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Exterior Shading Type"
+                              id="exteriorShadingTypeOptions"
+                              formControlName="exteriorShadingType"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('exteriorShadingTypeOptions')
+                                  ?.touched ||
+                                  skylightItem.get('exteriorShadingTypeOptions')
+                                    ?.dirty) &&
+                                skylightItem.get('exteriorShadingTypeOptions')
+                                  ?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Exterior Shading Type is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="select-box">
+                            <label> Storm Window </label>
+                            <ng-select
+                              [items]="BooleanOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Storm Window or not"
+                              id="stormWindow"
+                              formControlName="stormWindow"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('stormWindow')?.touched ||
+                                  skylightItem.get('stormWindow')?.dirty) &&
+                                skylightItem.get('stormWindow')?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Storm Window Type is invalid
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="col-md-6"
+                          *ngIf="skylightItem.get('stormWindow')?.value"
+                        >
+                          <div class="select-box">
+                            <label> Storm Window Glass Type </label>
+                            <ng-select
+                              [items]="BooleanOptions"
+                              bindLabel="name"
+                              [clearable]="true"
+                              [closeOnSelect]="true"
+                              bindValue="value"
+                              placeholder="Storm Window Glass Type "
+                              id="stormWindowGlassType"
+                              formControlName="stormWindowGlassType"
+                            >
+                            </ng-select>
+                            <div
+                              class="errormsg"
+                              *ngIf="
+                                (skylightItem.get('stormWindowGlassType')
+                                  ?.touched ||
+                                  skylightItem.get('stormWindowGlassType')
+                                    ?.dirty) &&
+                                skylightItem.get('stormWindowGlassType')
+                                  ?.invalid
+                              "
+                            >
+                              <label
+                                class="text-danger fw-semibold position-absolute"
+                              >
+                                Storm Window Glass Type is invalid
                               </label>
                             </div>
                           </div>

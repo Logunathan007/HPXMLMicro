@@ -116,6 +116,18 @@ export const RoofTypeOptions = [
   { name: "shingles", value: "shingles" },
 ]
 
+export const ExteriorShadingTypeOptions = [
+  { name: "none", value: "none" },
+  { name: "other", value: "other" },
+  { name: "building", value: "building" },
+  { name: "evergreen tree", value: "evergreen tree" },
+  { name: "deciduous tree", value: "deciduous tree" },
+  { name: "solar film", value: "solar film" },
+  { name: "solar screens", value: "solar screens" },
+  { name: "awnings", value: "awnings" },
+  { name: "external overhangs", value: "external overhangs" },
+]
+
 export const RoofColorOptions = [
   { name: "reflective", value: "reflective" },
   { name: "dark", value: "dark" },
@@ -240,7 +252,6 @@ export const GlassTypeOptions = [
 ]
 
 export const GlassLayersOptions = [
-  { name: "other", value: "other" },
   { name: "glass block", value: "glass block" },
   { name: "multi-layered", value: "multi-layered" },
   { name: "triple-pane", value: "triple-pane" },
@@ -264,7 +275,6 @@ export const FrameTypeOptions = [
   { name: "Metal", value: "Metal" },
   { name: "Vinyl", value: "Vinyl" },
   { name: "Wood", value: "Wood" },
-  { name: "Other", value: "Other" },
 ]
 
 

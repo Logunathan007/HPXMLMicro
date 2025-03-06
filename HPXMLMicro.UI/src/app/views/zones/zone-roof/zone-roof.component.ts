@@ -1,4 +1,4 @@
-import { RoofColorOptions, BooleanOptions, AtticTypeOptions, sprayFoamOptions, RigidOptions, LooseFillOptions, BattOptions, InstallationTypeOptions, InsulationMaterialOptions, ExteriorAdjacentToOptions, InteriorAdjacentToOptions } from './../../../shared/lookups/about-lookups';
+import { RoofColorOptions, BooleanOptions, AtticTypeOptions, sprayFoamOptions, RigidOptions, LooseFillOptions, BattOptions, InstallationTypeOptions, InsulationMaterialOptions, ExteriorAdjacentToOptions, InteriorAdjacentToOptions, FrameTypeOptions, GlassTypeOptions, GasFillOptions, GlassLayersOptions, ExteriorShadingTypeOptions } from './../../../shared/lookups/about-lookups';
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +30,11 @@ export class ZoneRoofComponent {
   insulationMaterialOptions = InsulationMaterialOptions;
   ExteriorAdjacentToOptions = ExteriorAdjacentToOptions
   interiorAdjacentToOptions = InteriorAdjacentToOptions;
+  frameTypeOptions = FrameTypeOptions;
+  glassTypeOptions = GlassTypeOptions;
+  gasFillOptions = GasFillOptions;
+  glassLayersOptions = GlassLayersOptions;
+  exteriorShadingTypeOptions = ExteriorShadingTypeOptions;
   tracker: any;
   errorList: string[] = []
 
@@ -70,6 +75,9 @@ export class ZoneRoofComponent {
   }
   frameFloorInsulationLayersObj(pindex: number, cindex: number): FormArray {
     return this.frameFloorInsulationObj(pindex, cindex)?.get('layers') as FormArray;
+  }
+  frameTypeDynamicOptionsObj(pindex: number, cindex: number, gcindex: number) {
+    return this.skylightsObj(pindex, cindex).at(gcindex).get('frameTypeDynamicOptions') as FormArray
   }
   wallInsulationObj(pindex: number, cindex: number): FormGroup {
     return this.wallsObj(pindex)?.at(cindex)?.get('insulation') as FormGroup;
@@ -175,8 +183,7 @@ export class ZoneRoofComponent {
           }
         }
         attic.get('tracker')?.setValue(this.tracker);
-      }
-    )
+      })
     return attic;
   }
   atticTypeInputs(roofs: FormArray, walls: FormArray, frameFloors: FormArray, tracker: AbstractControl) {
@@ -277,18 +284,51 @@ export class ZoneRoofComponent {
   }
 
   skylightInputs() {
-    return this.fb.group({
+    var skylight = this.fb.group({
       buildingId: [this.buildingId],
-      area: [null, [, Validators.min(0)]],
-      uFactor: [null, [, Validators.min(0)]],
-      sHGC: [null, [, Validators.max(1), Validators.min(0)]]
+      area: [null, [, Validators.required, Validators.min(0)]],
+      uFactor: [null, [Validators.min(0), Validators.max(5)]],
+      sHGC: [null, [Validators.max(1), Validators.min(0)]],
+      frameType: [null, []],
+      frameTypeDynamicOptions: this.fb.array([]),
+      glassType: [null, []],
+      glassLayers: [null, []],
+      gasFill: [null, []],
+      exteriorShadingType: [null, []],
+      stormWindow: [null, []],
+      stormWindowGlassType: [null, []]
+    })
+    skylight.get('frameType')?.valueChanges.subscribe((val) => {
+      let arr = skylight.get('frameTypeDynamicOptions') as FormArray;
+      arr.clear();
+      if (val == 'Aluminum' || val == 'Metal') {
+        arr.push(this.thermalBreakInput());
+      }
+    })
+    skylight.get('stormWindow')?.valueChanges.subscribe((val) => {
+      if (!val) {
+        skylight.get('stormWindowGlassType')?.setValue(null)
+      }
+    })
+    return skylight;
+  }
+  thermalBreakInput() {
+    let opt = {
+      label: 'Thermal Break',
+      placeHolder: 'Thermal Break',
+      options: BooleanOptions,
+      name: "thermalBreak",
+      errorMsg: 'Thermal Break is invalid',
+    }
+    return this.fb.group({
+      thermalBreak: [null, Validators.required],
+      options: this.fb.control(opt)
     })
   }
-
   insulationInputs(): FormGroup {
     let insulation = this.fb.group({
       assemblyEffectiveRValue: [null, [Validators.min(0)]],
-      layers: this.fb.array([this.layerInputs()])
+      layers: this.fb.array([])
     })
     return insulation;
   }
@@ -391,6 +431,7 @@ export class ZoneRoofComponent {
     this.errorList.length = 0
     this.atticValidations();
   }
+
   atticValidations() {
     var atticIndex = 0;
     var attics = this.atticsObj;
@@ -401,57 +442,67 @@ export class ZoneRoofComponent {
       atticIndex++;
     }
   }
+  insulationValidation(group: FormGroup, type: string, atticIndex: number, index: number) {
+    if (!group?.get('insulation')?.get("assemblyEffectiveRValue")?.value) {
+      const layers = this.roofInsulationLayersObj(atticIndex, index)
+      for (var layer of layers.controls) {
+        if (!layer.get('nominalRValue')?.value) {
+          this.errorList.push(`Attic ${atticIndex + 1} -> ${type} ${index + 1} Every roof insulation layer needs a NominalRValue or AssemblyEffectiveRValue needs to be defined`)
+          break;
+        }
+      }
+    }
+  }
   wallValidations(atticIndex: number) {
     var wallIndex = 0;
     var walls = this.wallsObj(atticIndex)
     for (var wall of walls.controls) {
-      if (!wall?.get('insulation')?.get("assemblyEffectiveRValue")?.value) {
-        const layers = this.roofInsulationLayersObj(atticIndex, wallIndex)
-        for (var layer of layers.controls) {
-          if (!layer.get('nominalRValue')?.value) {
-            this.errorList.push(`Attic ${atticIndex + 1} -> Wall ${wallIndex + 1} Every roof insulation layer needs a NominalRValue or AssemblyEffectiveRValue needs to be defined`)
-            break;
-          }
-        }
-      }
+      this.insulationValidation(wall as FormGroup, "Wall", atticIndex, wallIndex);
+      wallIndex++;
     }
   }
-
-  frameFloorValidation(atticIndex:number) {
+  frameFloorValidation(atticIndex: number) {
     var frameFloorIndex = 0;
     var frameFloors = this.frameFloorsObj(atticIndex);
-    for(var frameFloor of frameFloors.controls){
-      if (!frameFloor?.get('insulation')?.get("assemblyEffectiveRValue")?.value) {
-        const layers = this.roofInsulationLayersObj(atticIndex, frameFloorIndex)
-        for (var layer of layers.controls) {
-          if (!layer.get('nominalRValue')?.value) {
-            this.errorList.push(`Attic ${atticIndex + 1} -> FrameFloor ${frameFloorIndex + 1} Every roof insulation layer needs a NominalRValue or AssemblyEffectiveRValue needs to be defined`)
-            break;
-          }
-        }
-      }
+    for (var frameFloor of frameFloors.controls) {
+      this.insulationValidation(frameFloor as FormGroup, "Frame Floor", atticIndex, frameFloorIndex);
+      frameFloorIndex++;
     }
   }
-
   roofValidations(atticIndex: number) {
     var roofIndex = 0
     var roofs = this.roofsObj(atticIndex);
+    var skylights: AbstractControl[] = []
     for (var roof of roofs.controls) {
       if (!roof.get('solarAbsorptance')?.value && !roof.get('roofColor')?.value) {
         this.errorList.push(`Attic ${atticIndex + 1}: Invalid or missing RoofColor in Roof-${roofIndex + 1}`)
       }
-      if (!roof?.get('insulation')?.get("assemblyEffectiveRValue")?.value) {
-        const layers = this.roofInsulationLayersObj(atticIndex, roofIndex)
-        for (var layer of layers.controls) {
-          if (!layer.get('nominalRValue')?.value) {
-            this.errorList.push(`Attic ${atticIndex + 1} -> Roof ${roofIndex + 1} Every roof insulation layer needs a NominalRValue or AssemblyEffectiveRValue needs to be defined`)
-            break;
-          }
+      this.insulationValidation(roof as FormGroup, "Roof", atticIndex, roofIndex);
+      for (var skylight of (roof.get('skylights') as FormArray)?.controls) {
+        skylights.push(skylight);
+      }
+    }
+    this.skylightValidation(skylights);
+  }
+  skylightValidation(skylights: AbstractControl[]) {
+    var count = 0, uFactorCount = 0, sHGCCount = 0;
+    for (var skylight of skylights) {
+      if (skylight.get('uFactor')?.value && skylight.get('sHGC')?.value) {
+        count++;
+        if (skylight.get('uFactor')?.value) uFactorCount++;
+        if (skylight.get('sHGC')?.value) sHGCCount++;
+      }
+    }
+    if (count == 0 || uFactorCount != sHGCCount) {
+      for (var skylight of skylights) {
+        if (!skylight.get('frameType')?.value || !skylight.get('glassLayers')?.value
+          || !skylight.get('glassType')?.value || !skylight.get('gasFill')?.value) {
+          this.errorList.push("You need to give either (UFactor & SHGC) or (Frame Type && Glass Layers && GlassType && GasFill)")
+          return;
         }
       }
     }
   }
-
   // for click event functions
   onSubmit() {
     this.onSubmitValidation()
