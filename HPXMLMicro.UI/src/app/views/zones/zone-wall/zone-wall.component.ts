@@ -31,6 +31,7 @@ export class ZoneWallComponent {
   sidingOptions = SidingOptions;
   ExteriorAdjacentToOptions = ExteriorAdjacentToOptions
   interiorAdjacentToOptions = InteriorAdjacentToOptions;
+
   get wallsObj(): FormArray {
     return this.wallForm.get('walls') as FormArray;
   }
@@ -70,7 +71,7 @@ export class ZoneWallComponent {
     this.wallForm = this.fb.group({
       walls: this.fb.array([])
     })
-    this.addNewWall()
+    this.addToFormArray(this.wallsObj,this.wallInputs())
   }
 
   getBuildingId() {
@@ -81,7 +82,7 @@ export class ZoneWallComponent {
 
   //Input Field methods
   wallInputs() {
-    return this.fb.group({
+    var wall = this.fb.group({
       buildingId: [this.buildingId],
       wallName: [null, [Validators.required], nameValidator('wallName')],
       exteriorAdjacentTo: [null, Validators.required],
@@ -95,6 +96,16 @@ export class ZoneWallComponent {
       insulation: this.insulationInputs(),
       windows: this.fb.array([]),
     })
+    wall.get('wallType')?.valueChanges.subscribe((val) => {
+      let arr = wall.get('wallTypeDynamicOptions') as FormArray
+      arr.clear();
+      if (val == 'WoodStud') {
+        this.woodStudInputs().forEach(obj => arr.push(obj));
+      } else if (val == 'DoubleWoodStud') {
+        arr.push(this.doubleWoodStudInputs())
+      }
+    })
+    return wall;
   }
 
   woodStudInputs() {
@@ -268,20 +279,6 @@ export class ZoneWallComponent {
       }
     })
     return window;
-  }
-
-  addNewWall() {
-    let wall = this.wallInputs();
-    wall.get('wallType')?.valueChanges.subscribe((val) => {
-      let arr = wall.get('wallTypeDynamicOptions') as FormArray
-      arr.clear();
-      if (val == 'WoodStud') {
-        this.woodStudInputs().forEach(obj => arr.push(obj));
-      } else if (val == 'DoubleWoodStud') {
-        arr.push(this.doubleWoodStudInputs())
-      }
-    })
-    this.addToFormArray(this.wallsObj, wall)
   }
 
   // for add and remove a dynamic form
